@@ -1,12 +1,6 @@
 <template>
   <v-col>
     <div>
-        <h1>
-            {{username + password}}
-        </h1>
-        <p>
-            {{token}}
-        </p>
         <v-text-field
              v-model="username_screen"
              @change="setUsername({username:username_screen})"

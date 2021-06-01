@@ -34,11 +34,14 @@ export default new Vuex.Store({
   },
   actions: {
     async generateToken({commit}){
-      const token = await jwt.gerarToken({
-        username: this.state.username,
-        password: this.state.password
-      })
-      commit('setToken', token)
+      if(this.state.username != '' &&
+      this.state.password != ''){
+        const token = await jwt.gerarToken({
+          username: this.state.username,
+          password: this.state.password
+        })
+        commit('setToken', token)
+      }
 
     },
     setUsername({commit}, {username}){
