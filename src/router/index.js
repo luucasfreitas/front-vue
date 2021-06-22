@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Base from '../components/HelloWorld.vue'
+import Base from '../views/Base/BaseComponent.vue'
 import Login from '../views/Login.vue'
+import Teste from '../views/Teste.vue'
 
 // import App from '../App.vue'
 
@@ -12,25 +13,24 @@ import Login from '../views/Login.vue'
 Vue.use(VueRouter)
 
   const routes = [
-  {
-    path: '/',
-    name: 'Login',
-    component: Login,
-    children: [
-      {
-        // UserProfile will be rendered inside User's <router-view>
-        // when /user/:id/profile is matched
-        path: 'teste',
-        //name: 'taskslist',
-        component:Base
-      }
-    ]
-    
-  },
-  {
-    path: 'Login',
-    component: Login
-  }
+    {
+      path: '/',
+      component: Login
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: Base,
+      children: [
+        {
+          path: '/',
+          component: Teste
+        }
+      ]
+      
+    },
+
+  
   // {
   //   path: '/about',
   //   name: 'About',

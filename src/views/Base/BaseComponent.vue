@@ -1,10 +1,10 @@
 <template>
-  <v-app>
+  <div>
     <side-bar></side-bar>
     <v-main>
       <router-view></router-view>
     </v-main>
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -16,6 +16,8 @@ export default {
   components: {
     SideBar,
   },
-
+  mounted() {
+      console.log(this.$route.params.login); // 10
+  },
 };
 </script>

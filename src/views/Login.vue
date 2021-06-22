@@ -1,56 +1,77 @@
 <template>
-  <v-col>
-    <div>
-        <v-text-field
-             v-model="username_screen"
-             @change="setUsername({username:username_screen})"
-            :label="'Username'"
-        />
-        <v-text-field
-             v-model="password_screen"
-             type="password"
-             @change="setPassword({password:password_screen})"
-            :label="'Password'"
-        />
-
-       <v-btn
-  color="primary"
-  elevation="3"
-  large
-  medium
-  small
-  x-large
-  x-small
-  @click="handleLogin()"
->
-enviar</v-btn>
-    </div>
-  </v-col>
+  <v-main class="login-screen">
+      <div class="login-screen-title">
+          <h1>
+           {{dashboard_title}}
+          </h1>
+          <p>
+            {{dashboard_subtitle}}
+          </p>
+      </div>
+      <div class="input-card">
+          
+        <input-credentials-card class="input-login-screen">  </input-credentials-card>
+      </div>
+  </v-main>
 </template>
 
 <script>
 
-import { mapState, mapActions } from 'vuex'
+import InputCredentialsCard from '../components/login/InputCredentialsCard.vue';
 export default {
+    components: {
+        'input-credentials-card':InputCredentialsCard
+    },
     data() {
         return {
-            username_screen: '',
-            password_screen: ''
+        dashboard_title: 'UPDRS Dashboard',
+        dashboard_subtitle: 'Painel para vizualização de resultados da UPDRS, integrado ao SIDABI',
         }
-    },
-    computed: {
-        ...mapState(["username", "password", 'token']),
-    },
-    methods: {
-         ...mapActions(['setUsername', 'setPassword', 'generateToken', 'login']),
-
-         async handleLogin(){
-            await this.generateToken();
-            await this.login()
-         }
     },
 };
 </script>
 
-<style>
+<style lang="scss">
+.login-screen {
+    position: relative;
+    margin: auto;
+    padding: auto;
+    background-color: #E8E8E8;
+    justify-items: center;
+    width: 100% !important;
+    height: 100%;
+     
+    & .input-card{
+        display: flex;
+        float: left;
+        padding-top: 6% ;
+        padding-bottom: 1% ;
+        padding-left: 7% ;
+        width: 50% !important;
+        height: 100% !important;
+
+        & .input-login-screen{
+            //width: 100% !important;
+            //height: 100% !important;
+            //border: 12px solid rgb(0, 255, 98) !important;
+        }
+    }
+    & .login-screen-title{
+        float: left;
+        align-self: center;
+        justify-self: center;
+        padding-left: 4%;
+        width: 50% !important;
+        height: 100% !important;
+        //border: 12px solid rgb(255, 0, 149) !important;
+         
+        & h1{
+            padding-top: 40%;
+            //padding-left: 5%;
+
+            color: #004ff8;
+            font-family: "Lato", sans-serif;
+        }
+    }
+}
 </style>

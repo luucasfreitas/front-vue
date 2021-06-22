@@ -40,12 +40,13 @@ export default new Vuex.Store({
           username: this.state.username,
           password: this.state.password
         })
+        localStorage.setItem("token", token)
         commit('setToken', token)
       }
 
     },
     setUsername({commit}, {username}){
-      
+     
       commit('setUsername', username)
 
     },
