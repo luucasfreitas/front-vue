@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Base from '../views/Base/BaseComponent.vue'
 import Login from '../views/Login.vue'
 import Teste from '../views/Teste.vue'
+import Lista from '../views/Lista.vue'
 
 // import App from '../App.vue'
 
@@ -12,25 +13,29 @@ import Teste from '../views/Teste.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
-    {
-      path: '/',
-      component: Login
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: Base,
-      children: [
-        {
-          path: '/',
-          component: Teste
-        }
-      ]
-      
-    },
+const routes = [
+  {
+    path: '/',
+    component: Login
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: Base,
+    children: [
+      {
+        path: '/',
+        component: Login
+      },
+      {
+        path: 'Lista',
+        component: Lista
+      }
+    ]
 
-  
+  },
+
+
   // {
   //   path: '/about',
   //   name: 'About',
