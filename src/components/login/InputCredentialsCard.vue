@@ -64,22 +64,21 @@ export default {
 
     async handleLogin() {
       await this.generateToken();
-      await this.login();
+      await this.login(); // TODO - method name
       await this.doLogin();
     },
     async doLogin() {
       if (this.sessionAuth) {
-        //routeTo
-        alert("foi");
-        this.$router.replace("/home");
+        this.$router.replace("/home/Lista");
       } else {
-        alert("nao foi");
+        //todo - deal with the error case
+        return
       }
     },
   },
 
   created() {
-    //console.log(this.$route.params.login); // 10
+    console.log(this.$route.params.login); // 10
   },
 };
 </script>

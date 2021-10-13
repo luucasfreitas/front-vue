@@ -2,7 +2,7 @@ import axios from 'axios';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import jwt from "../plugins/jwt";
-
+import patients from './patients';
 // const jwt = require("../plugins/jwt")
 Vue.use(Vuex)
 
@@ -45,6 +45,7 @@ export default new Vuex.Store({
       }
 
     },
+   
     setUsername({commit}, {username}){
      
       commit('setUsername', username)
@@ -64,8 +65,10 @@ export default new Vuex.Store({
           url: 'http://localhost:3000/core/authenticate/',
           headers: {'Content-Type': 'application/json', authorization: this.state.token}
         }
-        const response = await axios.request(requestParams)
-        if (response.data){
+        //const response = await axios.request(requestParams)
+        // TODO - remove mock 
+        const response = {status: 200}
+        if (response.status == 200){
           commit('login')
         }
       } catch (error) {
@@ -75,5 +78,7 @@ export default new Vuex.Store({
 
   },
   modules: {
-  }
+    patients
+  },
+
 })

@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Base from '../views/Base/BaseComponent.vue'
-import Login from '../views/Login.vue'
-import Teste from '../views/Teste.vue'
-import Lista from '../views/Lista.vue'
+import Login from '../views/LoginView.vue'
+import Lista from '../views/PatientsListView.vue'
 
 // import App from '../App.vue'
 
