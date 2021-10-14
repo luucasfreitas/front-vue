@@ -69,7 +69,7 @@ export default {
     },
     async doLogin() {
       if (this.sessionAuth) {
-        this.$router.replace("/home/Lista");
+        this.$router.replace("patients");
       } else {
         //todo - deal with the error case
         return

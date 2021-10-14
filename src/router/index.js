@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Base from '../views/Base/BaseComponent.vue'
-import Login from '../views/LoginView.vue'
-import Lista from '../views/PatientsListView.vue'
+import LoginView from '../views/LoginView.vue'
+import PatientsListView from '../views/PatientsListView.vue'
+import ResultsViews from '../views/ResultsViews.vue'
+
 
 // import App from '../App.vue'
 
@@ -15,20 +17,19 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: Login
+    component: LoginView
   },
   {
-    path: '/home',
-    name: 'home',
+    path: '/patients',
     component: Base,
     children: [
       {
         path: '/',
-        component: Login
+        component: PatientsListView
       },
       {
-        path: 'Lista',
-        component: Lista
+        path: 'results',
+        component: ResultsViews
       }
     ]
 
