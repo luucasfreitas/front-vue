@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import jwt from "../plugins/jwt";
 import patients from './patients';
+import config from '../config/api'
 // const jwt = require("../plugins/jwt")
 Vue.use(Vuex)
 
@@ -56,18 +57,19 @@ export default new Vuex.Store({
       commit('setPassword', password)
 
     },
-
     async login({commit}){
       try {
         //const reponse = await axios("http://localhost:3000/core/authenticate/")
         const requestParams  = {
           method: 'POST',
-          url: 'http://localhost:3000/core/authenticate/',
+          //url: `${config.baseUrl}/core/authenticate/`,
+          url: `${config.baseUrl}:${config.port}/core/authenticate/`,
           headers: {'Content-Type': 'application/json', authorization: this.state.token}
         }
-        //const response = await axios.request(requestParams)
+        console.log(requestParams)
+        const response = await axios.request(requestParams)
         // TODO - remove mock 
-        const response = {status: 200}
+        //const response = {status: 200}
         if (response.status == 200){
           commit('login')
         }

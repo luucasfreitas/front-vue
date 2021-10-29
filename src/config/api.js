@@ -1,4 +1,4 @@
 module.exports = {
     baseUrl:'http://localhost',
-    port: 3030
+    port: 3000
 }
