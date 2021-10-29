@@ -1,6 +1,6 @@
 <template>
   <v-card outlined class="card-info-user">
-          <v-text>
+          <v-card-text>
             <div style="">
                 <v-col>
                     <div  style="display: flex;">
@@ -24,7 +24,7 @@
                             </svg>
                         </div>
                         <div class="mt-5 pl-2" >
-                            <subtitle-1 class="subtitle-1"><strong>{{labels.name}}:</strong></subtitle-1>
+                            <caption class="subtitle-1"><strong>{{labels.name}}:</strong></caption>
                             <h5 style="font-weitgh: lighter;">{{patient.name}}</h5>
                         </div>
                         <div class="patient-info" >
@@ -47,7 +47,7 @@
                     </div>
                 </v-col>
             </div>
-          </v-text>
+          </v-card-text>
         </v-card>
 </template>
 
@@ -62,6 +62,7 @@ export default {
                 id: '00001',
                 phone: '(00) 0 0000-0000'
             },
+            // todo - REVISAR TRADUCAO
             labels : {
                 name: "Paciente",
                 gender: "Sexo",
@@ -76,23 +77,15 @@ export default {
 </script>
 
 <style lang="scss">
-.v-application--wrap > div {
-    height: 100%;
-}
-.col {
-    padding-left: 0;
-    margin: 0;
-}
-.v-main__wrap {
-    padding: 69px 140px;
-}
+
 .card-info-user{
     padding: 3%;
     padding-left: 0px !important;
     border-color: #c8c8c8 !important; //TODO - add color variables sass file
     border-radius: 20px !important;
+   // height: 200px !importan;
    & .card-info-user-image {
-       margin-left: -2.5rem !important;
+       margin-left: -3.5rem !important;
    }
    & .patient-info {
        margin: 0%;
@@ -101,5 +94,17 @@ export default {
            padding-bottom: 2.2%;
        }
    }
+
+   & .v-main__wrap {
+    padding: 69px 140px !important;
+   }
+   & .v-application--wrap > div {
+        height: 100%;
+    }
+   & .col {
+        padding-left: 0;
+        margin: 0;
+    }
+
 }
 </style>
