@@ -27,7 +27,7 @@ export default {
           "Authorization": token,  
         },
       };
-      console.log("oi",requestParams)
+      //console.log("oi",requestParams)
      
       //TODO - remove mock 
       const response = {data:[

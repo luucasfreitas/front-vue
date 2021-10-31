@@ -1,8 +1,6 @@
 <template>
   <div id="tela-lista">
     <div class="row">
-      {{ this._token }}
-      {{this._loginId}}
       <v-btn @click="getPatientsList()">
         Botao
       </v-btn>
@@ -33,7 +31,6 @@
           class="elevation-1"
           :search="search"
           style="margin: 0px !important;"
-
         >
           <template v-slot:item.actions="{ patient }">
             <v-icon
@@ -48,7 +45,6 @@
       </v-card-text>
     </v-card>
     </div>
-
 </template>
 
 <script>
@@ -68,7 +64,6 @@ export default {
         },
         { text: "Idade", value: "age", sortable: true },
         { text: "Data de Nascimento", value: "dataNasc" },
-
         { text: 'Actions', value: 'actions', sortable: false },
        // { text: 'Id', value: 'id', sortable: false, enable: false },
        //{ text: "Tipo Sangue", value: "tipo_sangue" },
@@ -111,7 +106,6 @@ export default {
     handleLoadStatistcs(patient){
       this.$router.replace("patients/results");
     },
-
   },
   async created() {
     await this.handlePaitentslist();
@@ -124,7 +118,6 @@ export default {
   width: 100% !important;
   v-card {
     v-card-text {
-
       table.v-table tbody td {
        height: 40px;
        border: none !important;
