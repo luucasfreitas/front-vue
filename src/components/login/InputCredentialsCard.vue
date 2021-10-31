@@ -57,10 +57,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["username", "password", "token", "sessionAuth"]),
+    ...mapState('session',["username", "password", "token", "sessionAuth"]),
   },
   methods: {
-    ...mapActions(["setUsername", "setPassword", "generateToken", "login"]),
+    ...mapActions('session',["setUsername", "setPassword", "generateToken", "login"]),
 
     async handleLogin() {
       await this.generateToken();

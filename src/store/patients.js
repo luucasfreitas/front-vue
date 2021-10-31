@@ -17,29 +17,17 @@ export default {
 
   actions: {
     
-    async generateToken({commit}){
-      if(this.state.username != '' &&
-      this.state.password != ''){
-        const token = await jwt.gerarToken({
-          username: this.state.username,
-          password: this.state.password
-        })
-        localStorage.setItem("token", token)
-        commit('setToken', token)
-      }
-
-    },
-
-    async getPatientsList({commit},token){
-
+    async getPatientsList({commit},{token, loginId}){
+      console.log(loginId, token)
       const requestParams = {
         method: "GET",
-        url: `${apiConfig.baseUrl}:${apiConfig.port}/core/individuos`,
+        url: `${apiConfig.baseUrl}:${apiConfig.port}/core/individuos/${loginId}`,
         headers: {
           "Content-Type": "application/json",
           "Authorization": token,  
         },
       };
+      console.log("oi",requestParams)
      
       //TODO - remove mock 
       const response = {data:[
@@ -64,7 +52,7 @@ export default {
         dataNasc: "22/10/2021",
       },
        ]}
-      //const response = await axios.request(requestParams)
+     // const response = await axios.request(requestParams)
 
       const patientsList = response.data
       commit('setPatiensList', patientsList)
