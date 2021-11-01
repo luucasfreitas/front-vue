@@ -69,7 +69,7 @@ export default {
        // console.log(requestParams)
         //const response = await axios.request(requestParams)
         // TODO - remove mock 
-        const response = {status: 200}
+        const response = {status: 200, data:{result:1}}
         if (response.status == 200){
           console.log('logged ->', response)
           commit('login', response.data.result.id)

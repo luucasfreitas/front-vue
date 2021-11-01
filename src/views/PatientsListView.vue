@@ -1,9 +1,6 @@
 <template>
   <div id="tela-lista">
     <div class="row">
-      <v-btn @click="getPatientsList()">
-        Botao
-      </v-btn>
       <h3>
         Lista de pacientes
       </h3>
