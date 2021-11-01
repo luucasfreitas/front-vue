@@ -57,10 +57,10 @@ export default {
           text: "Nome",
           align: "start",
           sortable: false,
-          value: "nome",
+          value: "patient_name",
         },
         { text: "Idade", value: "age", sortable: true },
-        { text: "Data de Nascimento", value: "dataNasc" },
+        { text: "Data de Nascimento", value: "date_of_birth" },
         { text: 'Actions', value: 'actions', sortable: false },
        // { text: 'Id', value: 'id', sortable: false, enable: false },
        //{ text: "Tipo Sangue", value: "tipo_sangue" },
@@ -70,6 +70,8 @@ export default {
     //    patientsList:[],
     };
   },
+
+  
   computed:{
    // ...mapState({patientsList: state => state.patients.patientsList},),
     ...mapState('patients', ["patientsList"]),

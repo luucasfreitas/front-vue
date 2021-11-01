@@ -33,22 +33,31 @@ export default {
 
 <style lang="scss">
 .login-screen {
-  position: relative;
-  margin: auto;
-  padding: auto;
-  background: linear-gradient(180deg, #3175d3 0%, #5590e0 100%);
+  margin: 0;
+  padding: 0;
+  background-image: url('../assets/background.svg');
+  overflow: hidden !important; /* Hide scrollbars */
   justify-items: center;
   width: 100% !important;
-  height: 100%;
+  height: calc(100% );
+  
 
   & .input-card {
-    display: flex;
-    float: left;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 10%;
-    width: 50% !important;
-    height: 100% !important;
+    // display: flex;
+    // float: left;
+    // padding-top: 1%;
+    // padding-bottom: 1%;
+    // padding-left: 10%;
+    // width: 50% !important;
+    // height: 100% !important;
+    position: absolute;
+    left: 722px;
+    right: 24px;
+    top: 2.67%;
+    bottom: 3.11%;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.29);
+    border-radius: 20px;
 
     & .input-login-screen {
       //width: 100% !important;
@@ -58,21 +67,38 @@ export default {
   }
   & .login-screen-title {
     float: left;
-    align-self: center;
-    justify-self: center;
-    padding-left: 4%;
-    width: 50% !important;
-    height: 100% !important;
+    // align-self: center;
+    //justify-self: center;
+    // padding-left: 4%;
+    //width: 50% !important;
+    // height: 100% !important;
     //border: 12px solid rgb(255, 0, 149) !important;
+    //position: absolute;
+    width: calc(90% - 600px);
+    left: 135px;
+    padding-top: 14%;
+   // bottom: 54.67%;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 34px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
 
     & h1 {
       padding-top: 15%;
-      padding-left: 0%;
+      padding-left: 0;
       padding-bottom: 0%;
-
       color: #fff;
       font-family: "Lato", sans-serif;
       font-size: 40px;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 40px;
+      line-height: 48px;
     }
 
     & p {

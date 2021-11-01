@@ -7,7 +7,6 @@
       <div>
         <v-text-field
           class="password-input-card"
-          dense
           rounded
           solo
           v-model="usernameScreen"
@@ -19,7 +18,6 @@
         <v-text-field
           class="user-input-card"
           rounded
-          dense
           solo
           v-model="passwordScreen"
           type="password"
@@ -85,7 +83,7 @@ export default {
 <style lang='scss'>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Noto+Sans+JP:wght@100&family=Roboto:wght@300&display=swap");
 .input-card-login {
-  padding: 40px;
+ // padding: 40px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -96,15 +94,22 @@ export default {
   justify-content: center;
   justify-items: center;
   border-radius: 20px;
-  -webkit-box-shadow: 0 10px 6px -6px rgb(130, 133, 134);
-  -moz-box-shadow: 0 10px 6px -6px rgb(103, 104, 105);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.29);
+  //height: max-content !important;
+  padding-top: calc(37% - 55px/2 - 79.5px);
   //box-shadow: 0 10px 6px -6px rgb(153, 214, 233);
   //border: 12px solid blue !important;
   & .input-card-login-title {
     & h2 {
       color: #000;
       font-family: "Lato", sans-serif;
+      font-family: Lato;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 38px;
+      /* identical to box height */
+
+      text-align: center;
     }
     & h2:after {
       content: "";
@@ -127,6 +132,7 @@ export default {
     flex-direction: column;
     align-self: center;
     justify-self: center;
+    width: calc(100% - 200px);
     //& div {
     //margin: 0;
     //}

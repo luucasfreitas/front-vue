@@ -13,28 +13,12 @@
     <div class="row">
        <bar-chart />
 
-
     </div>
     <div class="row parts" >
        <!-- <random-chart /> -->
        <div v-for=" part in parts" v-bind:key="part">
         <card-part :title="part"> </card-part>
        </div>
-
-       <!-- <div>
-        <card-part/>
-       </div>
-
-       <div>
-
-       <card-part />
-       </div>
-
-       <div>
-
-       <card-part />
-       </div> -->
-      
     </div>
   </div>
 </template>
@@ -42,7 +26,6 @@
 <script>
 import CardInfoUser from '../components/cards/cardInfoUser.vue'
 import TwoLineChart from '../components/charts/twoLineChart.vue'
-// import RandomChart from '../components/charts/randomChart.vue'
 import BarChart from '../components/charts/barChart.vue'
 import CardPart from '../components/cards/cardPart.vue'
 

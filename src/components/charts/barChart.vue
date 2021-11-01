@@ -23,32 +23,32 @@ export default {
       graph_width: '',
       width: "600",
       height: "100",
-        series: [{
-            data: [2, 3, 4, 1]
-          }],
-          chartOptions: {
-            chart: {
-              type: 'bar',
-              height: 700,
-              border: false,
-            },
-            plotOptions: {
-              bar: {
-                borderRadius: 10,
-                horizontal: true,
-                width:1
-              }
-            },
-            dataLabels: {
-              enabled: false
-            },
-            line:{
-              width:10
-            },
-            xaxis: {
-              categories: ['PARTE 1', 'PARTE 2', 'PARTE 3', 'PARTE 4']
-            }
-          },
+      series: [{
+          data: [2, 3, 4, 1]
+        }],
+      chartOptions: {
+        chart: {
+          type: 'bar',
+          height: 700,
+          border: false,
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 10,
+            horizontal: true,
+            width:1
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        line:{
+          width:10
+        },
+        xaxis: {
+          categories: ['PARTE 1', 'PARTE 2', 'PARTE 3', 'PARTE 4']
+        }
+      },
     };
   },
   methods: {
@@ -60,6 +60,7 @@ export default {
   created(){
     this.window_width = window.innerWidth
     this.graph_width = this.window_width - 236
+
   }
 };
 </script>

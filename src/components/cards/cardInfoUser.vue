@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined class="card-info-user">
+  <v-card outlined class="card-info-user" :height="card_height">
           <v-card-text>
             <div style="">
                 <v-col>
@@ -69,9 +69,13 @@ export default {
                 age: "Idade",
                 id: 'Id',
                 phone: 'Telefone'
-            }
+            },
+            card_height : ''
         }
     },
+    created(){
+        this.card_height = window.innerHeight - 530
+    }
 
 }
 </script>

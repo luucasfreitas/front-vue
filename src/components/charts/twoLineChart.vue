@@ -4,7 +4,7 @@
       <div class="p-2">
         <apexchart
           width="800"
-          height="150"
+          :height="graph_height"
           type="line"
           :options="chartOptions"
           :series="series"
@@ -21,59 +21,59 @@ export default {
       type: "scrollline2d",
       width: "500",
       height: "300",
+      graph_height: '',
       series: [
         {
           name: "Pontuação",
           data: [1, 2, 3, 3, 4, 3, 2, 4, 1], // pontuacao
         },
       ],
-     
       chartOptions: {
         chart: {
-           events: {
-       markerClick: function(event, chartContext, { seriesIndex, dataPointIndex, config}) {
-        // ...
-        console.log(event, chartContext, { seriesIndex, dataPointIndex, config})
-      }
-    },
-          height: 350,
-          type: "line",
-          zoom: {
-            enabled: false,
-          },
-        },
-        dataLabels: {
+          events: {
+          markerClick: function(event, chartContext, { seriesIndex, dataPointIndex, config}) {
+            // ...
+            console.log(event, chartContext, { seriesIndex, dataPointIndex, config})
+            }
+      },
+      height: 350,
+      type: "line",
+      zoom: {
           enabled: false,
-        },
-        stroke: {
+      },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        
+            width: 4,
+            curve: 'smooth'
           
-              width: 4,
-              curve: 'smooth'
-            
+      },
+      title: {
+        text: "Pontuação nas avaliações do ano de 2020",
+        align: "left",
+      },
+      grid: {
+        row: {
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          opacity: 0.5,
         },
-        title: {
-          text: "Pontuação nas avaliações do ano de 2020",
-          align: "left",
-        },
-        grid: {
-          row: {
-            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-            opacity: 0.5,
-          },
-        },
-        xaxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-          ],
-        },
+      },
+      xaxis: {
+        categories: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+        ],
+      },
       },
     };
   },
@@ -82,7 +82,11 @@ export default {
       //this.$refs.fc.chartObj.slicePlotItem(0);
     },
   },
-};
+
+  created(){
+    this.graph_height = window.innerHeight - 580
+  }
+  };
 </script>
 
 
