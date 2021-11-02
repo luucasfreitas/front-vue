@@ -2,7 +2,7 @@
   <div id="tela-lista">
     <div class="row">
       <h3>
-        Lista de pacientes
+        {{_pageTitle}}
       </h3>
     </div>
     <hr />
@@ -22,7 +22,7 @@
       <v-divider class="mr-4  "></v-divider>
       <v-card-text style="margin: 0px !important; padding: 0 !important; ">
         <v-data-table
-          :headers="headers"
+          :headers="_tableHeaders"
           :items="patients"
           :items-per-page="5"
           class="elevation-1"
@@ -47,25 +47,12 @@
 <script>
 
 import axios from 'axios';
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapGetters, mapState} from 'vuex'
 export default {
   data() {
     return {
       search: '',
-      headers: [
-        {
-          text: "Nome",
-          align: "start",
-          sortable: false,
-          value: "patient_name",
-        },
-        { text: "Idade", value: "age", sortable: true },
-        { text: "Data de Nascimento", value: "date_of_birth" },
-        { text: 'Actions', value: 'actions', sortable: false },
-       // { text: 'Id', value: 'id', sortable: false, enable: false },
-       //{ text: "Tipo Sangue", value: "tipo_sangue" },
-
-      ],
+      headers: [],
       patients: []
     //    patientsList:[],
     };
@@ -76,7 +63,13 @@ export default {
    // ...mapState({patientsList: state => state.patients.patientsList},),
     ...mapState('patients', ["patientsList"]),
     ...mapState('session',["token", "loginId"]),
-
+    ...mapGetters('patientsListView', [
+      'getHeadersTablePatients',
+      'getPageTitle'
+    ]),
+    _pageTitle(){
+      return this.getPageTitle
+    },
     _loginId(){
       return this.loginId
     },
@@ -85,6 +78,36 @@ export default {
     },
     _patients(){
       return this.patientsList
+    },
+
+    _tableHeaders(){
+     const { name,
+            age,
+            gender,
+            dateOfBirth,
+            actions } = this.getHeadersTablePatients
+      return [
+        { 
+          text: name,
+          align: "start",
+          sortable: false,
+          value: "patient_name", 
+        },
+        { 
+          text: age,
+          value: "age",
+          sortable: true 
+        },
+        { 
+          text: dateOfBirth,
+          value: "date_of_birth" 
+        },
+        { 
+          text: actions,
+          value: 'actions',
+          sortable: false
+        },
+      ]
     }
   },
   methods: {

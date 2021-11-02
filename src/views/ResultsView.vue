@@ -33,10 +33,10 @@ export default {
     data(){
       return{
         parts : [
-        'Experiências não motoras do dia-a-dia',
-'Experiências motoras do dia-a-dia',
-'Avaliação motora',
-'Complicações motoras'
+          'Experiências não motoras do dia-a-dia',
+          'Experiências motoras do dia-a-dia',
+          'Avaliação motora',
+          'Complicações motoras'
         ]
       }
     },

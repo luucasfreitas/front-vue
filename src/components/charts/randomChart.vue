@@ -35,9 +35,9 @@
           maintainAspectRatio: false,
              onClick: function(event, elementsAtEvent) {
                debugger
-              console.log("event",event, elementsAtEvent, this);
+              //console.log("event",event, elementsAtEvent, this);
               //debugger
-             console.log("element", this.getElementsAtEvent(event))
+             //console.log("element", this.getElementsAtEvent(event))
               let valueX = null, valueY = null;
               for (let scaleName in this.scales) {
                 let scale = this.scales[scaleName];
