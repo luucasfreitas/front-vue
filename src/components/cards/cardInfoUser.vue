@@ -24,21 +24,21 @@
                             </svg>
                         </div>
                         <div class="mt-5 pl-2" >
-                            <caption class="subtitle-1"><strong>{{labels.name}}:</strong></caption>
-                            <h5 style="font-weitgh: lighter;">{{patient.name}}</h5>
+                            <caption class="subtitle-1"><strong>{{_labels.name}}:</strong></caption>
+                            <h5 style="font-weitgh: lighter;">{{_name}}</h5>
                         </div>
                         <div class="patient-info" >
                             <div>
-                                <strong>{{labels.gender}}:</strong> {{patient.gender}}
+                                <strong>{{ _labels.gender}}:</strong> Male
                             </div>
                             <div>
-                                <strong>{{labels.age}}:</strong> {{patient.age}}
+                                <strong>{{ _labels.age}}:</strong> {{_age}}
                             </div>
                             <div>
-                                <strong>{{labels.id}}:</strong> {{ patient.id }}
+                                <strong>{{ _labels.id}}:</strong> {{ _id }}
                             </div>
                             <div>
-                                <strong>{{labels.phone}}:</strong> {{ patient.phone}}
+                                <strong>{{ _labels.phone}}:</strong> (00) 9999-9999
                             </div>
                     
                     
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
     data(){
         return{
@@ -63,14 +64,44 @@ export default {
                 phone: '(00) 0 0000-0000'
             },
             // todo - REVISAR TRADUCAO
-            labels : {
-                name: "Paciente",
-                gender: "Sexo",
-                age: "Idade",
-                id: 'Id',
-                phone: 'Telefone'
-            },
             card_height : ''
+        }
+    },
+    computed:{
+        ...mapState("patients",[
+            "patientSelected",
+        ]),
+        ...mapGetters("resultsView",[
+            "getCardPatientSelected",
+        ]),
+        _labels(){
+            return {
+            ...this.getCardPatientSelected
+            }
+        },
+        _title(){
+            return this.getTitle
+        },
+        _name(){
+            return this.patientSelected.patient_name
+        }
+        ,
+        _gender(){
+            return this.patientSelected.gender
+
+        }
+        ,
+        _age(){
+            return this.patientSelected.age
+
+        }
+        ,
+        _id(){
+            return this.patientSelected.id
+            
+        },
+        _phone(){
+            return this.patientSelected.phone
         }
     },
     created(){

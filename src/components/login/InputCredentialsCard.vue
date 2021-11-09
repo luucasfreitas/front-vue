@@ -11,7 +11,7 @@
           solo
           v-model="usernameScreen"
           @change="setUsername({ username: usernameScreen })"
-          :label="usernameLabel"
+          :label="_usernamePlaceHolder"
         />
       </div>
       <div>
@@ -22,12 +22,12 @@
           v-model="passwordScreen"
           type="password"
           @change="setPassword({ password: passwordScreen })"
-          :label="passwordLabel"
+          :label="_passwordPlaceHolder"
         />
       </div>
     </div>
     <div>
-      <span class="aviso">*Efetuar login com as credenciais do SIDABI</span>
+      <span class="aviso">*{{_infoSidabiMessage}}</span>
     </div>
     <div class="input-card-login-actions pt-2">
       <v-btn
@@ -37,14 +37,14 @@
         rounded
         @click="handleLogin()"
       >
-        Entrar
+        {{_btnLogin}}
       </v-btn>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -56,6 +56,22 @@ export default {
   },
   computed: {
     ...mapState('session',["username", "password", "token", "sessionAuth"]),
+    ...mapGetters('loginView', [ "getInfoSidabiMessage",
+    "getUsernamePlaceHolder",
+    "getPasswordPlaceHolder",
+    "getBtnLogin"]),
+    _infoSidabiMessage(){
+      return this.getInfoSidabiMessage
+    },
+    _usernamePlaceHolder(){
+      return this.getUsernamePlaceHolder
+    },
+     _passwordPlaceHolder(){
+      return this.getPasswordPlaceHolder
+    },
+     _btnLogin(){
+      return this.getBtnLogin
+    }
   },
   methods: {
     ...mapActions('session',["setUsername", "setPassword", "generateToken", "login"]),

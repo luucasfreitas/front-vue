@@ -67,9 +67,9 @@ export default {
           headers: {'Content-Type': 'application/json', authorization: state.token}
         }
        // console.log(requestParams)
-        //const response = await axios.request(requestParams)
+        const response = await axios.request(requestParams)
         // TODO - remove mock 
-        const response = {status: 200, data:{result:1}}
+        //const response = {status: 200, data:{result:1}}
         if (response.status == 200){
           console.log('logged ->', response)
           commit('login', response.data.result.id)

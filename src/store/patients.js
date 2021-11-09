@@ -1,16 +1,27 @@
 import axios from 'axios';
-import jwt from "../plugins/jwt";
 import apiConfig from "../config/api.js";
+import jwt from "../plugins/jwt";
 
 export default {
   namespaced: true,
   state: {
-    patientsList : []
+    patientsList : [],
+    patientSelected : {
+      name: "",
+      gender: "",
+      age: "",
+      id: '',
+      phone: ''
+    }
+   
   },
   
   mutations: {
     
-    setPatiensList(state, patientsList){
+    SET_PATIENT_SELECTED(state, patient){
+      state.patientSelected = patient
+    },
+    SET_PATIENS_LIST(state, patientsList){
       state.patientsList = patientsList
     }
   },
@@ -27,37 +38,18 @@ export default {
           "Authorization": token,  
         },
       };
-      //console.log("oi",requestParams)
      
-      //TODO - remove mock 
-      const response = {data:[
-      {
-        nome: "Maria da Silva",
-        age: 65,
-        dataNasc: "22/10/2021",
-      },
-      {
-        nome: "Maria da Silva",
-        age: 80,
-        dataNasc: "22/10/2021",
-      },
-      {
-        nome: "Maria da Silva",
-        age: 50,
-        dataNasc: "22/10/2021",
-      },
-      {
-        nome: "Maria da Silva",
-        age: 69,
-        dataNasc: "22/10/2021",
-      },
-       ]}
-     // const response = await axios.request(requestParams)
+    
+      const response = await axios.request(requestParams)
 
-      const patientsList = response.data
-      commit('setPatiensList', patientsList)
+      const patientsList = response.data.participants 
+      console.log(patientsList)
+      commit('SET_PATIENS_LIST', patientsList)
      
     },
+    selectPatient({commit}, patient){
+      commit('SET_PATIENT_SELECTED', patient)
+    }
 
   },
   

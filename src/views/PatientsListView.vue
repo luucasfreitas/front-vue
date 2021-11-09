@@ -12,7 +12,7 @@
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Pesquisar"
+          :label="_labelSearch"
           single-line
           small
           hide-details
@@ -28,16 +28,21 @@
           class="elevation-1"
           :search="search"
           style="margin: 0px !important;"
+          :footer-props="_tableFooterProps"
         >
-          <template v-slot:item.actions="{ patient }">
+          <template v-slot:item.actions="{ item }">
             <v-icon
                 small
                 class="mr-2"
-                @click="handleLoadStatistcs(patient)"
+                @click="handleLoadStatistcs(item)"
             >
                 mdi-chart-line
             </v-icon>
           </template>
+
+           <template slot="no-data"> 
+             {{ _labelNoData}}
+           </template>
         </v-data-table>
       </v-card-text>
     </v-card>
@@ -53,20 +58,36 @@ export default {
     return {
       search: '',
       headers: [],
-      patients: []
+      patients: [],
+    
     //    patientsList:[],
     };
   },
 
   
   computed:{
-   // ...mapState({patientsList: state => state.patients.patientsList},),
     ...mapState('patients', ["patientsList"]),
     ...mapState('session',["token", "loginId"]),
     ...mapGetters('patientsListView', [
       'getHeadersTablePatients',
-      'getPageTitle'
+      'getPageTitle',
+      'getTableFooterProps',
+      'getTableLabelSearch',
+      'getTableLabelNoData'
     ]),
+    _tableFooterProps(){
+      const { itensPerPage } = this.getTableFooterProps
+      return {
+            showFirstLastPage: true,
+            'items-per-page-text':itensPerPage
+          }
+    },
+    _labelNoData(){
+      return this.getTableLabelNoData
+    },
+    _labelSearch(){
+      return this.getTableLabelSearch
+    },
     _pageTitle(){
       return this.getPageTitle
     },
@@ -79,7 +100,6 @@ export default {
     _patients(){
       return this.patientsList
     },
-
     _tableHeaders(){
      const { name,
             age,
@@ -114,7 +134,11 @@ export default {
 
 
     ...mapActions('patients', [
-      "getPatientsList"
+      "getPatientsList",
+      "selectPatient"
+    ]),
+    ...mapActions('results', [
+      "getScoreHistory",
     ]),
     async loadPatientsList(){
 
@@ -126,11 +150,13 @@ export default {
       this.patients = this._patients
     },
     handleLoadStatistcs(patient){
+      this.selectPatient(patient)
       this.$router.replace("patients/results");
     },
   },
   async created() {
     await this.handlePaitentslist();
+
   },
 };
 </script>

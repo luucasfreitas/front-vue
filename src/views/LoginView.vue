@@ -2,14 +2,16 @@
   <v-main class="login-screen">
     <div class="login-screen-title">
       <h1>
-        {{ dashboard_title }}
+        {{  _title }}
       </h1>
       <p>
-        {{ dashboard_subtitle }}
+        {{ _subtitle }}
       </p>
     </div>
     <div class="input-card">
-      <input-credentials-card class="input-login-screen">
+      <input-credentials-card 
+        class="input-login-screen"
+        >
       </input-credentials-card>
     </div>
   </v-main>
@@ -17,6 +19,7 @@
 
 <script>
 import InputCredentialsCard from "../components/login/InputCredentialsCard.vue";
+import {mapGetters} from 'vuex'
 export default {
   components: {
     "input-credentials-card": InputCredentialsCard,
@@ -28,6 +31,19 @@ export default {
         "Painel para vizualização de resultados da UPDRS, integrado ao SIDABI",
     };
   },
+  computed:{
+    ...mapGetters("loginView",[
+    "getTitle",
+    "getSubtitle",
+    ]),
+    _title(){
+      return this.getTitle
+    },
+    _subtitle(){
+      return this.getSubtitle
+    },
+ 
+  }
 };
 </script>
 

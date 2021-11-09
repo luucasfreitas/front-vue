@@ -3,8 +3,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import patients from './patients';
 import session from './session';
-import lang from './lang';
-import patientsListView from './view_dictionaries/patientsListView';
+import lang from './language/lang';
+import results from './results';
+import patientsListView from './language/viewsTranslation/patientsListView';
+import loginView from './language/viewsTranslation/loginView';
+import resultsView from './language/viewsTranslation/resultsView';
+
+
 
 
 // const jwt = require("../plugins/jwt")
@@ -16,7 +21,10 @@ export default new Vuex.Store({
     patients,
     session,
     lang,
-    patientsListView
+    loginView,
+    results,
+    patientsListView,
+    resultsView
   },
 
 })

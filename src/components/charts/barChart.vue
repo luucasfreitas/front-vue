@@ -4,8 +4,8 @@
       <div >
         <apexchart
           :width="graph_width"
-          height="120"
-          type="bar"
+          :height="height"
+          :type="type"
           :options="chartOptions"
           :series="series"
         ></apexchart>
@@ -15,18 +15,30 @@
 </template>
 
 <script>
+//TODO - revisar prop altura
 export default {
+  props:{
+    series: {
+      type: Array,
+      required: true
+    },
+    categories:{
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       window_width : '',
-      type: "scrollline2d",
+      type: "bar",
       graph_width: '',
       width: "600",
-      height: "100",
-      series: [{
-          data: [2, 3, 4, 1]
-        }],
-      chartOptions: {
+      height: "120",
+    };
+  },
+  computed: {
+    chartOptions() {
+        return {
         chart: {
           type: 'bar',
           height: 700,
@@ -46,10 +58,10 @@ export default {
           width:10
         },
         xaxis: {
-          categories: ['PARTE 1', 'PARTE 2', 'PARTE 3', 'PARTE 4']
+          categories: this.categories
         }
-      },
-    };
+        }
+    }
   },
   methods: {
     onDataPlotRollover: function (e) {

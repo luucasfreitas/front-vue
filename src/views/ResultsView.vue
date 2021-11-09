@@ -7,16 +7,20 @@
       </div>
       <!-- fim card info user -->
       <div class="col">
-        <two-line-chart />
+        <two-line-chart 
+          :class="showGraphHistory"
+          :categories="twoLineChartProps.categories"
+          :series="twoLineChartProps.series" />
       </div>
     </div>
     <div class="row">
-       <bar-chart />
-
+       <bar-chart 
+        :categories="barChartProps.categories"
+        :series="barChartProps.series"
+       />
     </div>
     <div class="row parts" >
-       <!-- <random-chart /> -->
-       <div v-for=" part in parts" v-bind:key="part">
+       <div v-for=" part in _updrsParts" v-bind:key="part">
         <card-part :title="part"> </card-part>
        </div>
     </div>
@@ -28,17 +32,60 @@ import CardInfoUser from '../components/cards/cardInfoUser.vue'
 import TwoLineChart from '../components/charts/twoLineChart.vue'
 import BarChart from '../components/charts/barChart.vue'
 import CardPart from '../components/cards/cardPart.vue'
+import {mapState, mapActions, mapGetters} from 'vuex'
 
 export default {
     data(){
       return{
-        parts : [
-          'Experiências não motoras do dia-a-dia',
-          'Experiências motoras do dia-a-dia',
-          'Avaliação motora',
-          'Complicações motoras'
-        ]
+        showGraphHistory: "hidden",
+        twoLineChartProps:{
+          series:[
+            {
+              name: "Pontuação",
+              data: [
+                  134,
+                  122,
+                  191,
+                  134,
+                  122,
+                  191,
+              ], // pontuacao
+            },
+          ],
+          categories: [
+        "2021-04-27",
+        "2021-06-09",
+        "2021-07-27",
+        "2021-04-28",
+        "2021-06-10",
+        "2021-07-29"
+            ]
+        },
+        barChartProps:{
+          series:[{
+            data: [2, 3, 4, 1]
+          }],
+          categories:['PARTE 1', 'PARTE 2', 'PARTE 3', 'PARTE 4'],
+        },
+        graphData:[],
+        graphCategories:[]
       }
+    },
+    computed:{
+      ...mapGetters('resultsView', ['getUpdsParts']),
+      ...mapState('results', ['scoreHistoryGraphData']),
+
+      _scoreHistory (){
+        return this.scoreHistoryGraphData
+      },
+      _updrsParts (){
+        return this.getUpdsParts
+      }
+    },
+    methods:{
+       ...mapActions('results', [
+      "getScoreHistory",
+    ]),
     },
     components:{
         CardInfoUser,
@@ -46,7 +93,10 @@ export default {
         // RandomChart,
         BarChart,
         CardPart
-
+    },
+    created(){
+      this.getScoreHistory()
+      this.showGraphHistory = ''
     }
 };
 </script>
