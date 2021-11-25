@@ -3,11 +3,11 @@
     <v-card ref='graphHistory' outlined class="chart-line-container">
       <div class="p-2">
         <apexchart
-          width="800"
+          :width="window_width"
           :height="graph_height"
           type="line"
           :options="_chartOptions"
-          :series="series"
+          :series="_series"
         ></apexchart>
       </div>
     </v-card>
@@ -19,16 +19,16 @@ import {mapState} from 'vuex'
 export default {
   //props:["_categories","_dataGraph"]
   //,
-  props:{
-    series: {
-      type: Array,
-      required: true
-    },
-    categories:{
-      type: Array,
-      required: true
-    }
-  },
+  // props:{
+  //   series: {
+  //     type: Array,
+  //     required: true
+  //   },
+  //   categories:{
+  //     type: Array,
+  //     required: true
+  //   }
+  // },
   data(){
     return {
      
@@ -48,8 +48,9 @@ export default {
   }
   },
   computed:{
+      ...mapState('results', ['scoreHistoryGraphData', 'partsAssessSelected']),
+
       _chartOptions() {
-        const _this = this
         return { 
           chart: {events: {
             markerClick: function(event, chartContext, { seriesIndex, dataPointIndex, config}) {
@@ -57,7 +58,7 @@ export default {
               console.log(event, chartContext, { seriesIndex, dataPointIndex, config})
             }
           }},
-          height: 350,
+          height: 450,
           type: "line",
           zoom: {
               enabled: false,
@@ -82,19 +83,24 @@ export default {
             },
           },
           xaxis: {
-            categories: _this.categories,
+            categories: this.scoreHistoryGraphData.categories,
           },
         }
       },
       _series() { 
-        const _this = this
+
+       // this.twoLineChartProps.series.data = this.scoreHistoryGraphData.data
+        //this.twoLineChartProps.categories = this.scoreHistoryGraphData.categories
+
         return [
           {
             name: "Pontuação",
-            data: this.data, // pontuacao
+            data: this.scoreHistoryGraphData.data, // pontuacao
           },
       ]},
-      
+      _categories(){
+          this.scoreHistoryGraphData.categories
+      }
   },
  
   methods: {
@@ -104,7 +110,7 @@ export default {
   },
 
   created(){
-    this.graph_height = window.innerHeight - 580
+    this.graph_height = window.innerHeight - 500
     // if(this.scoreHistoryGraphData.categories.lenth  == 0){
     //   this.$forceUpdate;
     //   console.log(  "updated")

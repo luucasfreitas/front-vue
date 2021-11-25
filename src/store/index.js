@@ -9,6 +9,7 @@ import patientsListView from './language/viewsTranslation/patientsListView';
 import loginView from './language/viewsTranslation/loginView';
 import resultsView from './language/viewsTranslation/resultsView';
 
+import createPersistedState from "vuex-persistedstate";
 
 
 
@@ -16,6 +17,7 @@ import resultsView from './language/viewsTranslation/resultsView';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
  
   modules: {
     patients,

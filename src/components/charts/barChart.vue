@@ -15,18 +15,19 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 //TODO - revisar prop altura
 export default {
-  props:{
-    series: {
-      type: Array,
-      required: true
-    },
-    categories:{
-      type: Array,
-      required: true
-    }
-  },
+  // props:{
+  //   series: {
+  //     type: Array,
+  //     required: true
+  //   },
+  //   categories:{
+  //     type: Array,
+  //     required: true
+  //   }
+  // },
   data() {
     return {
       window_width : '',
@@ -37,30 +38,41 @@ export default {
     };
   },
   computed: {
+    ...mapState('results', ['scoreHistoryGraphData', 'partsAssessSelected']),
+
     chartOptions() {
         return {
-        chart: {
-          type: 'bar',
-          height: 700,
-          border: false,
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 10,
-            horizontal: true,
-            width:1
+          chart: {
+            type: 'bar',
+            height: 700,
+            border: false,
+          },
+          plotOptions: {
+            bar: {
+              borderRadius: 10,
+              horizontal: true,
+              width:1
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          line:{
+            width:10
+          },
+          xaxis: {
+            categories: this.categories
           }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        line:{
-          width:10
-        },
-        xaxis: {
-          categories: this.categories
         }
-        }
+    },
+    series(){
+      return  [{
+            name: "Pontuação",
+            data: this.partsAssessSelected.data
+          }]
+    },
+    categories(){
+      return ['PARTE 1', 'PARTE 2', 'PARTE 3', 'PARTE 4'] // TODO - traslate
     }
   },
   methods: {

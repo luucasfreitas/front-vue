@@ -17,19 +17,24 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'login',
     component: LoginView
   },
   {
     path: '/patients',
+    name: 'patients',
     component: Base,
     children: [
       {
         path: '/',
-        component: PatientsListView
+        component: PatientsListView,
+        name: 'patients_list'
       },
       {
         path: 'results',
-        component: ResultsView
+        component: ResultsView,
+        name: 'results'
+
       }
     ]
 

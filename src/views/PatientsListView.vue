@@ -149,9 +149,13 @@ export default {
       await this.loadPatientsList();
       this.patients = this._patients
     },
-    handleLoadStatistcs(patient){
-      this.selectPatient(patient)
-      this.$router.replace("patients/results");
+    async handleLoadStatistcs(patient){
+      this.selectPatient(patient);
+      const response = await this.getScoreHistory();
+      //console.log(response)
+      this.$router.push("patients/results");
+      //this.$router.go("results");
+      
     },
   },
   async created() {

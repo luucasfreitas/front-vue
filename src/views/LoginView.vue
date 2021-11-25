@@ -1,5 +1,6 @@
 <template>
   <v-main class="login-screen">
+    <dialog-language></dialog-language>
     <div class="login-screen-title">
       <h1>
         {{  _title }}
@@ -19,10 +20,13 @@
 
 <script>
 import InputCredentialsCard from "../components/login/InputCredentialsCard.vue";
+import DialogLanguage from "../components/dialogs/dialogLanguage.vue";
+
 import {mapGetters} from 'vuex'
 export default {
   components: {
     "input-credentials-card": InputCredentialsCard,
+    DialogLanguage
   },
   data() {
     return {

@@ -7,17 +7,11 @@
       </div>
       <!-- fim card info user -->
       <div class="col">
-        <two-line-chart 
-          :class="showGraphHistory"
-          :categories="twoLineChartProps.categories"
-          :series="twoLineChartProps.series" />
+        <two-line-chart/>
       </div>
     </div>
     <div class="row">
-       <bar-chart 
-        :categories="barChartProps.categories"
-        :series="barChartProps.series"
-       />
+       <bar-chart/>
     </div>
     <div class="row parts" >
        <div v-for=" part in _updrsParts" v-bind:key="part">
@@ -32,6 +26,8 @@ import CardInfoUser from '../components/cards/cardInfoUser.vue'
 import TwoLineChart from '../components/charts/twoLineChart.vue'
 import BarChart from '../components/charts/barChart.vue'
 import CardPart from '../components/cards/cardPart.vue'
+import PageTitle from '../components/lib/PageTitle.vue'
+
 import {mapState, mapActions, mapGetters} from 'vuex'
 
 export default {
@@ -42,28 +38,14 @@ export default {
           series:[
             {
               name: "Pontuação",
-              data: [
-                  134,
-                  122,
-                  191,
-                  134,
-                  122,
-                  191,
-              ], // pontuacao
+              data: [], // pontuacao
             },
           ],
-          categories: [
-        "2021-04-27",
-        "2021-06-09",
-        "2021-07-27",
-        "2021-04-28",
-        "2021-06-10",
-        "2021-07-29"
-            ]
+          categories: []
         },
         barChartProps:{
           series:[{
-            data: [2, 3, 4, 1]
+            data: []
           }],
           categories:['PARTE 1', 'PARTE 2', 'PARTE 3', 'PARTE 4'],
         },
@@ -73,31 +55,44 @@ export default {
     },
     computed:{
       ...mapGetters('resultsView', ['getUpdsParts']),
-      ...mapState('results', ['scoreHistoryGraphData']),
+      ...mapState('results', ['scoreHistoryGraphData', 'partsAssessSelected']),
 
       _scoreHistory (){
         return this.scoreHistoryGraphData
       },
       _updrsParts (){
         return this.getUpdsParts
+      },
+      _partsAssessSelected (){
+        return this.partsAssessSelected
       }
     },
     methods:{
        ...mapActions('results', [
       "getScoreHistory",
-    ]),
+      ]),
+      loadScoreHistoryGraph (){
+        //debugger
+        this.twoLineChartProps.series.data = this.scoreHistoryGraphData.data
+        this.twoLineChartProps.categories = this.scoreHistoryGraphData.categories
+        this.loadPartsGraph()
+
+      },
+      loadPartsGraph(){
+        this.barChartProps.series.data = this.partsAssessSelected.data
+      }
     },
     components:{
         CardInfoUser,
         TwoLineChart,
-        // RandomChart,
         BarChart,
-        CardPart
+        CardPart,
     },
-    created(){
-      this.getScoreHistory()
-      this.showGraphHistory = ''
-    }
+    async created(){
+      //this.loadScoreHistoryGraph()
+      //this.showGraphHistory = ''
+    },
+ 
 };
 </script>
 

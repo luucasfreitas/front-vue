@@ -105,7 +105,7 @@ export default {
         }
     },
     created(){
-        this.card_height = window.innerHeight - 530
+        this.card_height = window.innerHeight - 455
     }
 
 }

@@ -62,7 +62,7 @@
     },
     created(){
        this.$refs.canvas.onclick = function(evt) {
-        alert('sou')
+      
         console.log(this.$data._chart.getElementsAtEvent(evt))
 
       }

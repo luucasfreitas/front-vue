@@ -2,7 +2,7 @@
 export default {
   namespaced: true,
   state: {
-    lang : 'pt-br'
+    lang : 'en-us'
   },
   
   mutations: {

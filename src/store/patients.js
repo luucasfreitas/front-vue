@@ -29,7 +29,7 @@ export default {
   actions: {
     
     async getPatientsList({commit},{token, loginId}){
-      console.log(loginId, token)
+      
       const requestParams = {
         method: "GET",
         url: `${apiConfig.baseUrl}:${apiConfig.port}/core/individuos/${loginId}`,

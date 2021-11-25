@@ -8,20 +8,24 @@ export default {
         categories: [],
         data: []
       },
-      partsAssessSelected : {}
+      partsAssessSelected : {
+        data: []
+      }
 
     },
     
     mutations: {
       
       SET_HISTORY(state, scoreHistory){
-        state.scoreHistory = scoreHistory
+        state.scoreHistoryGraphData = scoreHistory
+      },
+      SET_PARTS_SELECTED(state, data){
+        state.partsAssessSelected.data = data
       }
     },
   
     actions: {
         async getScoreHistory({commit, rootState}){
-            console.log(loginId, token)
             const {token, loginId} = rootState.session
             const { id } = rootState.patients.patientSelected
 
@@ -50,7 +54,9 @@ export default {
                 data: scores}  )
             commit('SET_HISTORY', { categories: dates,
                 data: scores})
-           
+            const dataParts = Object.values(result[0].score.scoreParts)
+            commit('SET_PARTS_SELECTED', dataParts )
+            return result
           },
      
   

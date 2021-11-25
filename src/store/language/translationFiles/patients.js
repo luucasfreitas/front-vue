@@ -8,7 +8,7 @@ const dictionary = {
         dateOfBirth: 'Data de Nascimento',
         actions:'Ações',
     },
-    'eng-us':{
+    'en-us':{
         name:'Name',
         age: 'Age',
         gender: 'Gender',
@@ -19,21 +19,21 @@ const dictionary = {
     },
     PAGE_TITLE:{
     'pt-br': 'Lista de Pacientes',
-    'eng-us': 'Patients List'
+    'en-us': 'Patients List'
     },
     TABLE_LABEL_SEARCH:{
     'pt-br': 'Pesquisar',
-    'eng-us': 'Search'
+    'en-us': 'Search'
     },
     TABLE_LABEL_NODATA:{
     'pt-br': 'Nenhum paciente  encontrado para seu usuário.',
-    'eng-us': 'No patient found for your user'
+    'en-us': 'No patient found for your user'
     },
     TABLE_FOOTER_PROPS:{
     'pt-br': {
         itensPerPage: 'Pacientes por pagina',
     },
-    'eng-us': {
+    'en-us': {
         itensPerPage: 'Patients per page'
     }
     },

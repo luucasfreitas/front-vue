@@ -9,7 +9,7 @@ const dictionary = {
             id: 'Id',
             phone: 'Telefone'
           },
-          "eng-us":{
+          "en-us":{
             name: 'Name',
             gender: 'Gender',
             age: 'Age',
@@ -24,7 +24,7 @@ const dictionary = {
           'Avaliação motora',
           'Complicações motoras'
         ],
-      "eng-us": [
+      "en-us": [
         'Mentation, Behavior, and Mood',
         'Activities of Daily Living (ADL)',
         'Motor Examination',
