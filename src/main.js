@@ -12,7 +12,7 @@ import VueApexCharts from 'vue-apexcharts'
 import VueFusionCharts from 'vue-fusioncharts';
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';  
-
+import donteenv from 'dotenv'
 // register Vue-FusionCharts component
 Vue.use(VueFusionCharts, FusionCharts, Charts)
 // Vue.component('fusioncharts', FCComponent, FusionCharts);
@@ -25,7 +25,7 @@ Vue.component('apexchart', VueApexCharts)
 library.add(faUserSecret)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 //Vue.component('fusioncharts', vueFusionCharts);
-
+console.log(process.env.VUE_APP_TITLE)
 Vue.config.productionTip = false
 new Vue({
   router,
