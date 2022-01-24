@@ -8,23 +8,15 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueApexCharts from 'vue-apexcharts'
+import FlagIcon from 'vue-flag-icon'
 
-import VueFusionCharts from 'vue-fusioncharts';
-import FusionCharts from 'fusioncharts';
-import Charts from 'fusioncharts/fusioncharts.charts';  
-import donteenv from 'dotenv'
-// register Vue-FusionCharts component
-Vue.use(VueFusionCharts, FusionCharts, Charts)
-// Vue.component('fusioncharts', FCComponent, FusionCharts);
 
 Vue.use(VueApexCharts)
+Vue.use(FlagIcon);
 
 Vue.component('apexchart', VueApexCharts)
-//const vueFusionCharts = VueFusionChartsComponent(FusionCharts, Charts, FusionTheme);
-
 library.add(faUserSecret)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-//Vue.component('fusioncharts', vueFusionCharts);
 console.log(process.env.VUE_APP_TITLE)
 Vue.config.productionTip = false
 new Vue({

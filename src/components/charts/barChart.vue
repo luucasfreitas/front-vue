@@ -34,7 +34,7 @@ export default {
       type: "bar",
       graph_width: '',
       width: "600",
-      height: "120",
+      height: "170",
     };
   },
   computed: {
@@ -44,32 +44,64 @@ export default {
         return {
           chart: {
             type: 'bar',
-            height: 700,
+            height: 800,
             border: false,
+
+//stacked: true,          //stackType: '100%'
           },
+          
           plotOptions: {
             bar: {
-              borderRadius: 10,
+              borderRadius: 7,
               horizontal: true,
               width:1
             }
           },
           dataLabels: {
-            enabled: false
+            enabled: true,
+            style: {
+            fontSize: '14px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 'bold',
+        },
           },
           line:{
-            width:10
+            width:11
           },
           xaxis: {
-            categories: this.categories
-          }
+            type: "category",
+            categories: this.categories,
+            position:"bottom",
+            labels: {
+              show:true,
+              horizontalAlign: "left",
+            },
+          },
+          yaxis: {
+            labels : {
+              show: true,
+              style: {
+                  colors: [],
+                  fontSize: '12px',
+                  fontFamily: 'Montserrat, Arial, sans-serif',
+                  fontWeight: 800,
+                  cssClass: 'apexcharts-yaxis-label',
+              },
+            }
+          },
+          title: {
+            text: "Pontuação do paciente 02 Abr 2022 ",
+            align: "left",
+          },
         }
     },
     series(){
-      return  [{
+      return  [
+          {
             name: "Pontuação",
             data: this.partsAssessSelected.data
-          }]
+          }
+          ]
     },
     categories(){
       return ['PARTE 1', 'PARTE 2', 'PARTE 3', 'PARTE 4'] // TODO - traslate
@@ -83,7 +115,7 @@ export default {
 
   created(){
     this.window_width = window.innerWidth
-    this.graph_width = this.window_width - 236
+    this.graph_width = this.window_width - 155
 
   }
 };

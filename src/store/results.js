@@ -27,7 +27,17 @@ export default {
     actions: {
         async getScoreHistory({commit, rootState}){
             const {token, loginId} = rootState.session
+            const {lang} = rootState.lang
             const { id } = rootState.patients.patientSelected
+
+            const formatDate = (date) => {
+              const d = new Date(date);
+              const options = { year: 'numeric', month: 'short', day: 'numeric' };
+              let stringDate = d.toLocaleDateString(lang, options, )
+              stringDate = stringDate.split('de')
+
+              return stringDate.join('')
+            }
 
 
             const requestParams = {
@@ -48,13 +58,18 @@ export default {
 
             result.map(r => {
                 scores.push (r.score.scoreTotal)
-                dates.push (r.date)
+                const date = formatDate(r.date)
+                dates.push (date)
             })
             console.log("result",{ categories: dates,
                 data: scores}  )
             commit('SET_HISTORY', { categories: dates,
                 data: scores})
-            const dataParts = Object.values(result[0].score.scoreParts)
+            const dataParts = []
+            Object.values(result[0].score.scoreParts).map((part) => {
+              dataParts.push(`${part}%`)
+            })
+            console.log(dataParts )
             commit('SET_PARTS_SELECTED', dataParts )
             return result
           },

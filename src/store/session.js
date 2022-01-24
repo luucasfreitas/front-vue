@@ -37,6 +37,7 @@ export default {
     async generateToken({commit, state}){
       if(state.username != '' &&
       state.password != ''){
+        
         const token = await jwt.gerarToken({
           username: state.username,
           password: state.password
@@ -64,7 +65,8 @@ export default {
           method: 'POST',
           //url: `${config.baseUrl}/core/authenticate/`,
           url: `${config.baseUrl}:${config.port}/core/authenticate/`,
-          headers: {'Content-Type': 'application/json', authorization: state.token}
+          headers: {'Content-Type': 'application/json',
+          authorization: state.token}
         }
        // console.log(requestParams)
         const response = await axios.request(requestParams)

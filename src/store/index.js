@@ -8,6 +8,8 @@ import results from './results';
 import patientsListView from './language/viewsTranslation/patientsListView';
 import loginView from './language/viewsTranslation/loginView';
 import resultsView from './language/viewsTranslation/resultsView';
+import historyAssessComponents from './language/componentsTrasnlation/historyAssessComponents';
+
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -26,7 +28,8 @@ export default new Vuex.Store({
     loginView,
     results,
     patientsListView,
-    resultsView
+    resultsView,
+    historyAssessComponents
   },
 
 })

@@ -3,19 +3,22 @@
     <div class="d-flex align-center pr-4"></div>
     <v-icon large @click="goBack()" >mdi-arrow-left-circle-outline</v-icon>
     <div class='pl-4 pt-4' style="width:12%" >
-              <v-select dense class="" placeholder="Language" :items="language">
+              <!-- <v-select dense class="" placeholder="Language" :items="language">
 
-              </v-select>
+              </v-select> -->
+        
+        <flag :squared="'true'" :iso="getLangIso" class="flag-sidebar"/>
     </div>
 
     <v-spacer></v-spacer>
 
     <div class="mr-1">
-      <span class="nome-usuario">Olá, {{ nome_fulano }}</span>
+      <span class="nome-usuario">{{ _username }}</span>
     </div>
   </v-app-bar>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   // components: {
   //   HelloWorld,
@@ -29,6 +32,17 @@ export default {
       ]
     };
   },
+  computed:{
+    ...mapState("lang", ["lang"]),
+    ...mapState("session", ["username"]),
+    getLangIso(){
+      const iso = this.lang.split("-")[1]
+      return iso
+    },
+    _username(){
+      return this.username
+    }
+  },
   methods:{
     goBack() {
        this.$router.go(-1) 
@@ -37,6 +51,11 @@ export default {
 };
 </script>
 <style>
+.flag-sidebar {
+  font-size: 37px;
+    margin-bottom: 14px;
+    border-radius: 17px;
+}
 .nome-usuario {
   float: left;
   padding: 10px;

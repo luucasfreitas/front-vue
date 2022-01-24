@@ -107,12 +107,12 @@ export default {
   align-content: center;
   align-items: center;
   background: #ffffff;
-  max-height: 70%;
+  max-height: 83%;
   justify-content: center;
   justify-items: center;
   border-radius: 20px;
   //height: max-content !important;
-  padding-top: calc(37% - 55px/2 - 79.5px);
+  padding-top: calc(37% - (55px/2) - 15.5px);
   //box-shadow: 0 10px 6px -6px rgb(153, 214, 233);
   //border: 12px solid blue !important;
   & .input-card-login-title {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <side-bar></side-bar>
-    <v-main>
+    <v-main class="pl-2 pr-2">
       <router-view></router-view>
     </v-main>
   </div>

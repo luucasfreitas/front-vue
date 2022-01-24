@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="dashboard">
     <div class="row">
-      <div class="col">
+      <div class="col-5">
         <!-- inicio card info user -->
         <card-info-user />
       </div>
       <!-- fim card info user -->
-      <div class="col">
+      <div class="col-7">
         <two-line-chart/>
       </div>
     </div>
@@ -101,12 +101,11 @@ export default {
 .parts {
   display: flex;
   flex-direction: row;
-  width: 100% !important;
+ 
   justify-content: space-between;
-  padding-left: 1% ;
   padding-top: 2%;
   div{
-    max-width: 22%;
+    max-width: 24%;
     border-radius: 25px !important;
   }
 }

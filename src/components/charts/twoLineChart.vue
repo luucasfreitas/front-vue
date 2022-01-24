@@ -1,13 +1,14 @@
 <template>
   <div >
-    <v-card ref='graphHistory' outlined class="chart-line-container">
-      <div class="p-2">
+    <v-card ref='graphHistory' outlined class="chart-line-container" color="#3175D3" max-width="1000" >
+      <div class="">
         <apexchart
           :width="window_width"
           :height="graph_height"
           type="line"
           :options="_chartOptions"
           :series="_series"
+          class="ml-1"
         ></apexchart>
       </div>
     </v-card>
@@ -15,7 +16,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapGetters, mapState} from 'vuex'
 export default {
   //props:["_categories","_dataGraph"]
   //,
@@ -31,8 +32,6 @@ export default {
   // },
   data(){
     return {
-     
-
      type: "scrollline2d",
       width: "500",
       height: "300",
@@ -49,23 +48,38 @@ export default {
   },
   computed:{
       ...mapState('results', ['scoreHistoryGraphData', 'partsAssessSelected']),
-
+      ...mapGetters('historyAssessComponents', ['gethistoryGraphTitle']),
       _chartOptions() {
         return { 
-          chart: {events: {
-            markerClick: function(event, chartContext, { seriesIndex, dataPointIndex, config}) {
-              // ...
-              console.log(event, chartContext, { seriesIndex, dataPointIndex, config})
-            }
-          }},
           height: 450,
           type: "line",
+          chart: {
+            background: '#3175D3',
+            
+    foreColor: '#fff',
+toolbar: {
+        show: true,},
+            events: {
+              markerClick: function(event, chartContext, { seriesIndex, dataPointIndex, config}) {
+                // ...
+                console.log(event, chartContext, { seriesIndex, dataPointIndex, config})
+              }
+            }
+          },
+          theme: {
+      mode: 'dark',},  
           zoom: {
               enabled: false,
           },
           dataLabels: {
             enabled: false,
           },
+          labels : {
+            style: {
+          colors: "#fff"
+        }
+          },
+          colors: ["#fff"],
           stroke: {
             
                 width: 4,
@@ -73,18 +87,55 @@ export default {
               
           },
           title: {
-            text: "Score/Date",
-            align: "left",
+            text: this.gethistoryGraphTitle,
+            align: "center",
+            style: {
+              color: '#fff'
+            }
           },
           grid: {
+            show: false,
             row: {
-              colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+              colors: ["transparent", "transparent"], // takes an array which will be repeated on columns
               opacity: 0.5,
             },
           },
           xaxis: {
             categories: this.scoreHistoryGraphData.categories,
+            
           },
+          yaxis: {
+            min: 0,
+            max:200,
+            tickAmount: 4
+          },
+          markers: {
+            size: 7,
+            colors: 'white',
+            strokeColors: 'gray',
+            strokeWidth: 3,
+            strokeOpacity: 0.9,
+            strokeDashArray: 0,
+            fillOpacity: 1,
+            discrete: [],
+            shape: "circle",
+            radius: 2,
+            offsetX: 0,
+            offsetY: 0,
+            onClick: undefined,
+            onDblClick: undefined,
+            showNullDataPoints: true,
+            hover: {
+              size: undefined,
+              sizeOffset: 3
+            }
+          },
+          legend : {
+            labels: {
+          colors: '#fff',
+          useSeriesColors: false
+      },
+          }
         }
       },
       _series() { 
@@ -107,10 +158,11 @@ export default {
     onDataPlotRollover: function (e) {
       //this.$refs.fc.chartObj.slicePlotItem(0);
     },
+    
   },
 
   created(){
-    this.graph_height = window.innerHeight - 500
+    this.graph_height = window.innerHeight - 610
     // if(this.scoreHistoryGraphData.categories.lenth  == 0){
     //   this.$forceUpdate;
     //   console.log(  "updated")

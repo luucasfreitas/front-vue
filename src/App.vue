@@ -1,5 +1,6 @@
 <template>
   <v-app id="app">
+      <dialog-language></dialog-language>
       <router-view></router-view>
   </v-app>
 </template>
@@ -7,12 +8,13 @@
 <script>
 // import SideBar from './components/lib/SideBar.vue';
 
+import DialogLanguage from "./components/dialogs/dialogLanguage.vue";
 export default {
   name: 'App',
 
-  // components: {
-  //   SideBar,
-  // },
+  components: {
+    DialogLanguage,
+  },
 
 };
 </script>
@@ -29,7 +31,8 @@ export default {
   //color: #2c3e50;
   //margin-top: 60px;
   .v-main__wrap {
-    padding: 4% 6% 0 6%  !important;
+    padding: 1.5% 3% 0 4%  !important;
+
    }
 }
 </style>
