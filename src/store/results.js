@@ -66,7 +66,7 @@ export default {
                 dates.push (date)
             })
             //console.log("result",{ categories: dates,
-                data: scores}  )
+                //data: scores}  )
             commit('SET_HISTORY', { categories: dates,
                 data: scores})
             const dataParts = []
