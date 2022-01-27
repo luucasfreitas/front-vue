@@ -1,7 +1,9 @@
 <template>
   <div>
     <side-bar></side-bar>
+    <!-- <alert /> -->
     <v-main class="pl-2 pr-2">
+      
       <router-view></router-view>
     </v-main>
   </div>
@@ -17,7 +19,7 @@ export default {
     SideBar,
   },
   mounted() {
-      console.log(this.$route.params.login); // 10
+        this.$route.params.login; // 10
   },
 };
 </script>

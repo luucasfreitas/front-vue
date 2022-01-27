@@ -12,7 +12,7 @@ export default {
     loginId:null,
     sessionAuth: false
   },
-  
+
   mutations: {
     
     setToken(state, newToken){
@@ -35,15 +35,21 @@ export default {
   },
   actions: {
     async generateToken({commit, state}){
-      if(state.username != '' &&
-      state.password != ''){
-        
-        const token = await jwt.gerarToken({
-          username: state.username,
-          password: state.password
-        })
-        localStorage.setItem("token", token)
-        commit('setToken', token)
+      try {
+        if(state.username != '' &&
+        state.password != ''){
+          
+          const token = await jwt.gerarToken({
+            username: state.username,
+            password: state.password
+          })
+          localStorage.setItem("token", token)
+          commit('setToken', token)
+        }
+      } catch (e){
+        const errorMessage = `Erro de autenticação - ${ e.message } `
+        console.error(errorMessage + " | geração de token. ")
+        dispatch("events/genericError",errorMessage, { root: true } )  
       }
 
     },
@@ -58,7 +64,8 @@ export default {
       commit('setPassword', password)
 
     },
-    async login({commit, state}){
+    
+    async login({commit, state, dispatch}){
       try {
         //const reponse = await axios("http://localhost:3000/core/authenticate/")
         const requestParams  = {
@@ -68,16 +75,23 @@ export default {
           headers: {'Content-Type': 'application/json',
           authorization: state.token}
         }
-       // console.log(requestParams)
         const response = await axios.request(requestParams)
         // TODO - remove mock 
         //const response = {status: 200, data:{result:1}}
-        if (response.status == 200){
-          console.log('logged ->', response)
+        if (response && response.status == 200){
+          
+          dispatch("events/alert", 
+          "Login bem sucedido!",
+           { root: true } )
           commit('login', response.data.result.id)
         }
+        
       } catch (error) {
         commit('loginFailed')
+        console.error(error.message)
+        const errorMessage = ` Credenciais invalidas!`
+        dispatch("events/warning",errorMessage, { root: true } )  
+      
       }
     }
 

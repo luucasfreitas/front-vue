@@ -1,7 +1,10 @@
 <template>
   <v-app id="app">
+
+      <alert></alert>
       <dialog-language></dialog-language>
-      <router-view></router-view>
+      <router-view>
+      </router-view>
   </v-app>
 </template>
 
@@ -9,11 +12,14 @@
 // import SideBar from './components/lib/SideBar.vue';
 
 import DialogLanguage from "./components/dialogs/dialogLanguage.vue";
+import Alert from "./components/lib/Alert.vue";
+
 export default {
   name: 'App',
 
   components: {
     DialogLanguage,
+    Alert
   },
 
 };
@@ -31,7 +37,7 @@ export default {
   //color: #2c3e50;
   //margin-top: 60px;
   .v-main__wrap {
-    padding: 1.5% 3% 0 4%  !important;
+    padding: 1% 10% 0 10%  !important;
 
    }
 }

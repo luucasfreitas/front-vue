@@ -10,7 +10,8 @@ export default {
       },
       partsAssessSelected : {
         data: []
-      }
+      },
+      allParts : []
 
     },
     
@@ -21,6 +22,9 @@ export default {
       },
       SET_PARTS_SELECTED(state, data){
         state.partsAssessSelected.data = data
+      },
+      SET_PARTS_ARRAY (state, data ) {
+        state.allParts = data
       }
     },
   
@@ -61,15 +65,21 @@ export default {
                 const date = formatDate(r.date)
                 dates.push (date)
             })
-            console.log("result",{ categories: dates,
+            //console.log("result",{ categories: dates,
                 data: scores}  )
             commit('SET_HISTORY', { categories: dates,
                 data: scores})
             const dataParts = []
             Object.values(result[0].score.scoreParts).map((part) => {
-              dataParts.push(`${part}%`)
+              dataParts.push(part)
             })
-            console.log(dataParts )
+            const allParts = []
+            Object.values(result).map((part) => {
+              allParts.push(part.score.scoreParts)
+            })
+            
+            commit('SET_PARTS_ARRAY', allParts )
+            //console.log(dataParts )
             commit('SET_PARTS_SELECTED', dataParts )
             return result
           },

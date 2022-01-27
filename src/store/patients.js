@@ -1,6 +1,6 @@
 import axios from 'axios';
 import apiConfig from "../config/api.js";
-import jwt from "../plugins/jwt";
+
 
 export default {
   namespaced: true,
@@ -28,23 +28,27 @@ export default {
 
   actions: {
     
-    async getPatientsList({commit},{token, loginId}){
+    async getPatientsList({commit, dispatch},{token, loginId}){
       
-      const requestParams = {
-        method: "GET",
-        url: `${apiConfig.baseUrl}:${apiConfig.port}/core/individuos/${loginId}`,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": token,  
-        },
-      };
-     
-    
-      const response = await axios.request(requestParams)
+      try {
 
-      const patientsList = response.data.participants 
-      console.log(patientsList)
-      commit('SET_PATIENS_LIST', patientsList)
+        const requestParams = {
+          method: "GET",
+          url: `${apiConfig.baseUrl}:${apiConfig.port}/core/individuos/${loginId}`,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": token,  
+          },
+        };
+       
+        const response = await axios.request(requestParams)
+        const patientsList = response.data.participants 
+        
+        commit('SET_PATIENS_LIST', patientsList)
+      } catch (e){
+        const errorMessage = `Erro ao listar pacientes - ${ e.message } `
+        dispatch("events/alert",errorMessage, { root: true } )  
+      }
      
     },
     selectPatient({commit}, patient){

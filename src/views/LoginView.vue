@@ -11,6 +11,8 @@
     <div class="input-card">
       <input-credentials-card 
         class="input-login-screen"
+        :validation_passord="getValidationPasswordMessage"
+        :validation_username="getValidationUsernameMessage"
         >
       </input-credentials-card>
     </div>
@@ -36,6 +38,8 @@ export default {
     ...mapGetters("loginView",[
     "getTitle",
     "getSubtitle",
+    "getValidationUsernameMessage",
+    "getValidationPasswordMessage"
     ]),
     _title(){
       return this.getTitle
@@ -43,6 +47,10 @@ export default {
     _subtitle(){
       return this.getSubtitle
     },
+  },
+
+  renderTracked() {
+      localStorage.clear();
   }
 
   

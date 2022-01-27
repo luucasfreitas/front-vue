@@ -3,6 +3,7 @@
     <v-card outlined class="chart-bar-container">
       <div >
         <apexchart
+        ref="bar_chart"
           :width="graph_width"
           :height="height"
           :type="type"
@@ -16,6 +17,8 @@
 
 <script>
 import {mapState} from 'vuex'
+
+import eventBus from '../../events/EventBus'
 //TODO - revisar prop altura
 export default {
   // props:{
@@ -35,6 +38,7 @@ export default {
       graph_width: '',
       width: "600",
       height: "170",
+      patternTotalScore : [52,52,128,24]
     };
   },
   computed: {
@@ -46,13 +50,12 @@ export default {
             type: 'bar',
             height: 800,
             border: false,
-
-//stacked: true,          //stackType: '100%'
+            stacked: true,
+            stackType: "100%",
           },
-          
           plotOptions: {
             bar: {
-              borderRadius: 7,
+              borderRadius: 9,
               horizontal: true,
               width:1
             }
@@ -73,7 +76,7 @@ export default {
             categories: this.categories,
             position:"bottom",
             labels: {
-              show:true,
+              show:false,
               horizontalAlign: "left",
             },
           },
@@ -93,15 +96,30 @@ export default {
             text: "Pontuação do paciente 02 Abr 2022 ",
             align: "left",
           },
+          colors: ['#3175D3', 'darkgray']
         }
     },
     series(){
-      return  [
+      const pp = this.patternTotalScore
+      const restOfScore = []
+      const calcPercentage = (pontuacao) => {
+        for (let i = 0; i < pp.length; i++) {
+          const differenceBetweenScores = pp[i] - pontuacao[i];
+          restOfScore.push(differenceBetweenScores)
+        }
+        return restOfScore
+      }
+      const returnObj = [
           {
             name: "Pontuação",
             data: this.partsAssessSelected.data
+          },
+          {
+            name: "Não pontuado",
+            data: calcPercentage (this.partsAssessSelected.data)
           }
           ]
+      return  returnObj
     },
     categories(){
       return ['PARTE 1', 'PARTE 2', 'PARTE 3', 'PARTE 4'] // TODO - traslate
@@ -111,11 +129,35 @@ export default {
     onDataPlotRollover: function (e) {
       //this.$refs.fc.chartObj.slicePlotItem(0);
     },
+    handleUpdateSeries: function(pontuacao){
+       const pp = this.patternTotalScore
+              const restOfScore = []
+              const calcPercentage = (pontuacao) => {
+                for (let i = 0; i < pp.length; i++) {
+                  const differenceBetweenScores = pp[i] - pontuacao[i];
+                  restOfScore.push(differenceBetweenScores)
+                }
+                return restOfScore
+              }
+              const returnObj = [
+                  {
+                    name: "Pontuação",
+                    data: pontuacao
+                  },
+                  {
+                    name: "Não pontuado",
+                    data: calcPercentage (pontuacao)
+                  }
+                  ]
+              this.$refs.bar_chart.updateSeries(returnObj)
+    }
   },
 
   created(){
     this.window_width = window.innerWidth
-    this.graph_width = this.window_width - 155
+    this.graph_width = this.window_width - 350
+
+    eventBus.$on('change_parts_chat_options', this.handleUpdateSeries )
 
   }
 };

@@ -35,6 +35,7 @@
         color="#3175D3"
         style="color: white"
         rounded
+  @submit="checkForm"
         @click="handleLogin()"
       >
         {{_btnLogin}}
@@ -46,13 +47,19 @@
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
+
+  props:[
+    "validation_passord",
+    "validation_username"
+],
   data() {
     return {
       usernameScreen: "",
       passwordScreen: "",
       usernameLabel: "Username",
       passwordLabel: "Password",
-    };
+      errors: false
+        };
   },
   computed: {
     ...mapState('session',["username", "password", "token", "sessionAuth"]),
@@ -76,10 +83,17 @@ export default {
   methods: {
     ...mapActions('session',["setUsername", "setPassword", "generateToken", "login"]),
 
+    ...mapActions('events',["alert", "warning"]),
+
     async handleLogin() {
+      this.checkForm();
+      if ( this.errors ) {
+        return
+      }
       await this.generateToken();
       await this.login(); // TODO - method name
       await this.doLogin();
+
     },
     async doLogin() {
       if (this.sessionAuth) {
@@ -90,10 +104,25 @@ export default {
         return
       }
     },
+
+    checkForm:  function () {
+      this.errors = false;
+
+      if (!this.usernameScreen) {
+        this.warning(this.validation_username);
+        this.errors = true
+      }
+
+      if (!this.passwordScreen) {
+        this.warning(this.validation_passord);
+        this.errors = true
+      }
+      
+    },
   },
 
   created() {
-    console.log(this.$route.params.login); // 10
+    this.$route.params.login; // 10
   },
 };
 </script>

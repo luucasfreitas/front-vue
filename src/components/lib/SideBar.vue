@@ -6,8 +6,10 @@
               <!-- <v-select dense class="" placeholder="Language" :items="language">
 
               </v-select> -->
-        
-        <flag :squared="'true'" :iso="getLangIso" class="flag-sidebar"/>
+        <button @click="openDialogLang()">
+          <flag :iso="getLangIso" class="flag-sidebar"/>
+        </button>
+       
     </div>
 
     <v-spacer></v-spacer>
@@ -19,6 +21,8 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import eventBus from '../../events/EventBus'
+
 export default {
   // components: {
   //   HelloWorld,
@@ -46,15 +50,19 @@ export default {
   methods:{
     goBack() {
        this.$router.go(-1) 
+    },
+    openDialogLang () {
+      eventBus.$emit('open-dialog-language') 
     }
   }
 };
 </script>
 <style>
 .flag-sidebar {
-  font-size: 37px;
-    margin-bottom: 14px;
-    border-radius: 17px;
+  font-size: 35px;
+  margin-bottom: 17px;
+  border-radius: 17px;
+  border: 1px solid white;
 }
 .nome-usuario {
   float: left;

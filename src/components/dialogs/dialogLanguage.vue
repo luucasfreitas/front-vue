@@ -19,7 +19,7 @@
                 :value="lang.value" />
             </div>
             <div class="col m0 pl-4">
-              <flag :squared="squared" :iso="lang.icon" class="flag-dialog" />
+              <flag :iso="lang.icon" class="flag-dialog" />
             </div>
           </div>
             
@@ -33,6 +33,8 @@
 
 <script>
   import {mapActions} from 'vuex'
+  import eventBus from '../../events/EventBus'
+
   export default {
     data () {
       return {
@@ -59,6 +61,12 @@
         this.setLang(this.language)
         this.dialog = false
       }
+    },
+
+    beforeCreate() {
+      eventBus.$on('open-dialog-language', () => {
+            this.dialog = true
+        }) 
     }
   }
 </script>
