@@ -83,7 +83,7 @@ export default {
             size: 8,
             sizeOffset: 3,
           },
-        }
+      }
     };
   },
   computed: {
@@ -123,9 +123,6 @@ export default {
           enabled: false,
         },
         labels: {
-          style: {
-            colors: "#fff",
-          },
         },
         colors: ["#95BAED", "green"],
         stroke: {
@@ -138,9 +135,13 @@ export default {
         title: {
           text: this.gethistoryGraphTitle,
           align: "center",
-          style: {
-            color: "#fff",
-          },
+          
+            style: {
+            fontSize: '14px',
+            fontFamily: 'Lato, Arial, sans-serif',
+            fontWeight: 'bold',
+            colors: '#fff'
+        },
         },
         grid: {
           show: false,
@@ -151,11 +152,29 @@ export default {
         },
         xaxis: {
           categories: this.scoreHistoryGraphData.categories,
+          labels: {
+            show: true,
+            style: {
+              fontSize: '13px',
+              fontFamily: 'Lato, Arial, sans-serif',
+              fontWeight: 'bold',
+              colors: '#fff'
+            },
+          }
         },
         yaxis: {
           min: 0,
           max: 200,
           tickAmount: 4,
+          labels: {
+            show: true,
+            style: {
+              fontSize: '13px',
+              fontFamily: 'Lato, Arial, sans-serif',
+              fontWeight: 'bold',
+              colors: '#fff'
+            },
+          }
         },
         markers: this.marked,
         legend: {

@@ -11,7 +11,11 @@
       </div>
     </div>
     <div class="row">
-       <bar-chart/>
+
+      <card-progress-parts>
+        
+      </card-progress-parts>
+       <!-- <bar-chart/> -->
     </div>
     <div class="row parts" >
        <div v-for=" part in _updrsParts" v-bind:key="part">
@@ -23,6 +27,8 @@
 
 <script>
 import CardInfoUser from '../components/cards/cardInfoUser.vue'
+import CardProgressParts from '../components/cards/cardProgressParts.vue'
+
 import TwoLineChart from '../components/charts/twoLineChart.vue'
 import BarChart from '../components/charts/barChart.vue'
 import CardPart from '../components/cards/cardPart.vue'
@@ -87,6 +93,7 @@ export default {
         TwoLineChart,
         BarChart,
         CardPart,
+        CardProgressParts
     },
     async created(){
       //this.loadScoreHistoryGraph()
