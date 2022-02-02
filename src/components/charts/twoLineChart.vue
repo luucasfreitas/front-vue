@@ -217,11 +217,11 @@ export default {
                 partII,
                 partIII,
                 partIV,} = this.allParts[dataPointIndex]
-                
-              eventBus.$emit('change_parts_chat_options', [partI,
+              
+              eventBus.$emit('change_parts_chat_options', {parts:[partI,
                 partII,
                 partIII,
-                partIV,]) 
+                partIV,], date: this.scoreHistoryGraphData.categories[dataPointIndex]}) 
               //console.log("part",this.allParts[dataPointIndex], this.scoreHistoryGraphData)
             },
   },
@@ -238,7 +238,8 @@ export default {
 <style lang="scss">
 .chart-line-container {
   padding: 1%;
-  border-color: #c8c8c8 !important; //TODO - add color variables sass file
+  border: 1px solid #E8E8E8;
+  box-sizing: border-box !important; //TODO - add color variables sass file
   border-radius: 20px !important;
 }
 </style>

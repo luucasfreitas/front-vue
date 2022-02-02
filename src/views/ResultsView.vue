@@ -7,7 +7,7 @@
       </div>
       <!-- fim card info user -->
       <div class="col-7">
-console.log        <two-line-chart />
+       <two-line-chart />
       </div>
     </div>
     <div class="row">

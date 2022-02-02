@@ -7,7 +7,7 @@
                     font-weight: bold;
                     font-family: 'Lato';">
 
-            Pontuação 2 de Abril de 2022
+            {{ date }}
             </p>
         </v-card-title>
         <v-card-text class="card-progress-parts-text">
@@ -47,7 +47,8 @@ export default {
             //partsAssessSelected: [2, 3, 4, 6]
             patternTotalScore : [52,52,128,24],
             data_parts : [
-            ]
+            ],
+            date: ''
         }
         
     },
@@ -59,7 +60,8 @@ export default {
  
     },
     methods: {
-        handleUpdateValues(score) {
+        handleUpdateValues({parts , date}) {
+            const score = parts
             const pp = this.patternTotalScore
             const newScores = []
 
@@ -73,6 +75,7 @@ export default {
                 { label: this.getUpdsPartsNames[1], value: newScores[1] },
                 { label: this.getUpdsPartsNames[2], value: newScores[2] },
                 { label: this.getUpdsPartsNames[3], value: newScores[3] },]
+            this.date = date
         },
         loadDataParts(){
             const score =  this.partsAssessSelected.data

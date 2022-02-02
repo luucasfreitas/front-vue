@@ -1,12 +1,20 @@
 import axios from 'axios';
 import apiConfig from "../config/api.js";
+const formatDate = (date, lang) => {
+  const d = new Date(date);
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  let stringDate = d.toLocaleDateString(lang, options, )
+  stringDate = stringDate.split('de')
 
+  return stringDate.join('')
+}
 export default {
     namespaced: true,
     state: {
       scoreHistoryGraphData : {
         categories: [],
-        data: []
+        data: [],
+        dataLong: []
       },
       partsAssessSelected : {
         data: []
@@ -33,17 +41,6 @@ export default {
             const {token, loginId} = rootState.session
             const {lang} = rootState.lang
             const { id } = rootState.patients.patientSelected
-
-            const formatDate = (date) => {
-              const d = new Date(date);
-              const options = { year: 'numeric', month: 'short', day: 'numeric' };
-              let stringDate = d.toLocaleDateString(lang, options, )
-              stringDate = stringDate.split('de')
-
-              return stringDate.join('')
-            }
-
-
             const requestParams = {
               method: "GET",
               url: `${apiConfig.baseUrl}:${apiConfig.port}/assess/results/${loginId}/patient/${id}`,
@@ -52,30 +49,52 @@ export default {
                 "Authorization": token,  
               },
             };
-           
-          
+            
             const response = await axios.request(requestParams)
-      
             const result = response.data.result
             const scores = []
             const dates = []
 
             result.map(r => {
+                if (!r.score.scoreTotal || 
+                  r.score.scoreTotal == null){
+                    return
+                  }
                 scores.push (r.score.scoreTotal)
-                const date = formatDate(r.date)
+                const date = formatDate(r.date, lang)
                 dates.push (date)
             })
-            //console.log("result",{ categories: dates,
-                //data: scores}  )
-            commit('SET_HISTORY', { categories: dates,
-                data: scores})
-            const dataParts = []
-            Object.values(result[0].score.scoreParts).map((part) => {
-              dataParts.push(part)
-            })
+            commit('SET_HISTORY', { categories: dates, data: scores})
+
+            const handleValues = (result) => {
+              const dataParts = []
+              for (let index = 0; index < result.length; index++) {
+                
+                Object.values(result[index].score.scoreParts).map((part) => {
+            
+                  if (!part){
+                      return
+                    }
+                  dataParts.push(part)
+                })
+                
+                if (dataParts.length > 0){
+                  return dataParts
+                }
+              }
+              
+            }
+            const dataParts = handleValues(result)
             const allParts = []
             Object.values(result).map((part) => {
-              allParts.push(part.score.scoreParts)
+              part = part.score.scoreParts
+              if (!part.partI ||
+                !part.partII ||
+                !part.partIII ||
+                !part.partIV){
+                  return
+                }
+              allParts.push(part)
             })
             
             commit('SET_PARTS_ARRAY', allParts )
