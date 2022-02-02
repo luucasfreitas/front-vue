@@ -2,7 +2,7 @@
 const dictionary = {
    
     HISTORY_ASSESSES_GRAPH_TITLE : {
-        "pt-br": "Historico de avaliações",
+        "pt-br": "Histórico de avaliações",
         "en-us": "Evaluation History"
     }
 }

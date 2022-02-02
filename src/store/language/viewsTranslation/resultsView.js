@@ -2,13 +2,15 @@ import dictionary from "../translationFiles/results"
 
 const { 
   CARD_PATIENT_SELECTED,
-  UPDRS_PARTS
+  UPDRS_PARTS,
+  UPDRS_PARTS_NAMES
   } = dictionary
 export default {
     namespaced: true,
     state: {
       cardPatientSelected : CARD_PATIENT_SELECTED,
-      updrsParts : UPDRS_PARTS
+      updrsParts : UPDRS_PARTS,
+      updrsPartsNames : UPDRS_PARTS_NAMES
     },
     getters: {
       getHeadersTablePatients (state, getters, rootState) {
@@ -44,6 +46,11 @@ export default {
        
         const lang = rootState.lang.lang ? rootState.lang.lang : 'pt-br'
         return state.updrsParts[lang]
+      },
+      getUpdsPartsNames(state, getters, rootState){
+       
+        const lang = rootState.lang.lang ? rootState.lang.lang : 'pt-br'
+        return state.updrsPartsNames[lang]
       },
     }
   }

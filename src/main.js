@@ -17,7 +17,6 @@ Vue.use(FlagIcon);
 Vue.component('apexchart', VueApexCharts)
 library.add(faUserSecret)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-console.log(process.env.VUE_APP_TITLE)
 Vue.config.productionTip = false
 new Vue({
   router,

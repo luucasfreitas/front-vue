@@ -1,46 +1,50 @@
 <template>
-  <div class="input-card-login" rounded>
+  <div class="input-card-login" @keyup.enter="handleLogin"  rounded>
     <div class="input-card-login-title pb-3">
       <h2>Login</h2>
     </div>
-    <div class="input-card-login-inputs">
-      <div>
-        <v-text-field
-          class="password-input-card"
-          rounded
-          solo
-          v-model="usernameScreen"
-          @change="setUsername({ username: usernameScreen })"
-          :label="_usernamePlaceHolder"
-        />
+
+
+      <div class="input-card-login-inputs" >
+        <div>
+          <v-text-field
+            class="password-input-card"
+            rounded
+            solo
+            v-model="usernameScreen"
+
+            @change="setUsername({ username: usernameScreen })"
+            :label="_usernamePlaceHolder"
+          />
+        </div>
+        <div>
+          <v-text-field
+            class="user-input-card"
+            rounded
+            solo
+            v-model="passwordScreen"
+            type="password"
+            @change="setPassword({ password: passwordScreen })"
+            :label="_passwordPlaceHolder"
+          />
+        </div>
       </div>
       <div>
-        <v-text-field
-          class="user-input-card"
-          rounded
-          solo
-          v-model="passwordScreen"
-          type="password"
-          @change="setPassword({ password: passwordScreen })"
-          :label="_passwordPlaceHolder"
-        />
+        <span class="aviso">*{{_infoSidabiMessage}}</span>
       </div>
-    </div>
-    <div>
-      <span class="aviso">*{{_infoSidabiMessage}}</span>
-    </div>
-    <div class="input-card-login-actions pt-2">
-      <v-btn
-        class="btn"
-        color="#3175D3"
-        style="color: white"
-        rounded
-  @submit="checkForm"
-        @click="handleLogin()"
-      >
-        {{_btnLogin}}
-      </v-btn>
-    </div>
+      <div class="input-card-login-actions pt-2">
+        <v-btn
+          class="btn"
+          color="#3175D3"
+          style="color: white"
+          rounded
+          @click="handleLogin()"
+          
+        >
+          {{_btnLogin}}
+        </v-btn>
+      </div>
+
   </div>
 </template>
 
@@ -120,8 +124,8 @@ export default {
       
     },
   },
-
   created() {
+    //this.$router.push({ name: 'patients'})
     this.$route.params.login; // 10
   },
 };

@@ -4,7 +4,6 @@
       ref="graphHistory"
       outlined
       class="chart-line-container"
-      color="#3175D3"
       max-width="1000"
     >
       <div class="">
@@ -51,9 +50,9 @@ export default {
       
       },
       marked: {
-          size: 9,
-          colors: ["white"],
-          strokeColors: ["#95BAED"],
+          size: 7,
+          colors: ["#95BAED"],
+          strokeColors: ["#3175D3"],
           strokeWidth: 4,
           strokeOpacity: 0.9,
           strokeDashArray: 0,
@@ -62,8 +61,8 @@ export default {
               seriesIndex: 0,
               dataPointIndex: 0,
               fillColor: '#6FFC00',
-              strokeColor: "#95BAED",
-              size: 9,
+              strokeColor: "#3175D3",
+              size: 6,
               strokeWidth: 4,
               strokeOpacity: 0.9,
               strokeDashArray: 0,
@@ -94,8 +93,8 @@ export default {
         height: 450,
         type: "line",
         chart: {
-          background: "#3175D3",
-          foreColor: "#fff",
+          //background: "#3175D3",
+          //foreColor: "#fff",
 
           toolbar: {
             show: true,
@@ -113,9 +112,9 @@ export default {
             opacity: 0.2,  
           },
         },
-        theme: {
-          mode: "dark",
-        },
+        // theme: {
+        //   mode: "dark",
+        // },
         zoom: {
           enabled: false,
         },
@@ -124,13 +123,13 @@ export default {
         },
         labels: {
         },
-        colors: ["#95BAED", "green"],
+        colors: ["black", "green"],
         stroke: {
-          width: 6,
+          width: 4,
           show: true,
           curve: 'smooth',
           lineCap: 'butt',
-          colors: undefined,
+          colors: "#3175D3",
         },
         title: {
           text: this.gethistoryGraphTitle,
@@ -140,7 +139,7 @@ export default {
             fontSize: '14px',
             fontFamily: 'Lato, Arial, sans-serif',
             fontWeight: 'bold',
-            colors: '#fff'
+            colors: 'black'
         },
         },
         grid: {
@@ -158,7 +157,7 @@ export default {
               fontSize: '13px',
               fontFamily: 'Lato, Arial, sans-serif',
               fontWeight: 'bold',
-              colors: '#fff'
+              //colors: '#fff'
             },
           }
         },
@@ -169,17 +168,17 @@ export default {
           labels: {
             show: true,
             style: {
-              fontSize: '13px',
+              fontSize: '12px',
               fontFamily: 'Lato, Arial, sans-serif',
               fontWeight: 'bold',
-              colors: '#fff'
+              colors: 'gray'
             },
           }
         },
         markers: this.marked,
         legend: {
           labels: {
-            colors: "#fff",
+            //colors: "#fff",
             useSeriesColors: false,
           },
         },
@@ -190,9 +189,6 @@ export default {
       };
     },
     _series() {
-      // this.twoLineChartProps.series.data = this.scoreHistoryGraphData.data
-      //this.twoLineChartProps.categories = this.scoreHistoryGraphData.categories
-
       return [
         {
           name: "Pontuação",
@@ -214,21 +210,14 @@ export default {
               chartContext,
               { seriesIndex, dataPointIndex, config }
             ) {
-              // ...
-              // console.log("event", event)
-              // console.log( "chatContext", chartContext);
-              // console.log({
-              //   seriesIndex,
-              //   dataPointIndex,
-              //   config,
-              // })
+             
               this.marked.discrete[0].dataPointIndex = dataPointIndex
               this.$refs.chart.updateOptions({markers: this.marked,})
-
               const {partI,
                 partII,
                 partIII,
                 partIV,} = this.allParts[dataPointIndex]
+                
               eventBus.$emit('change_parts_chat_options', [partI,
                 partII,
                 partIII,
@@ -239,26 +228,10 @@ export default {
 
   created() {
     this.graph_height = window.innerHeight - 610;
-    // if(this.scoreHistoryGraphData.categories.lenth  == 0){
-    //   this.$forceUpdate;
-    //   console.log(  "updated")
-    //   setTimeout(()=>{
-    //     if(this.scoreHistoryGraphData.categories.lenth  == 0){
-    //       this.$forceUpdate;
-    //     }
-    //   }, 1000)
-    // }
+  
   },
 };
-// watch: {
-//       _data: function(newVal) {
-//          this.data = newVal
-//       },
-//        _properties: function(newVal) {
-//          this.properties = newVal
-//       }
-//     }
-// };
+
 </script>
 
 

@@ -47,7 +47,7 @@
                   valueY = scale.getValueForPixel(event.offsetY);
                 }
               }
-      console.log(event.offsetX, valueX, null, event.offsetY, valueY);
+      //console.log(event.offsetX, valueX, null, event.offsetY, valueY);
     },
         }
         }
@@ -63,7 +63,7 @@
     created(){
        this.$refs.canvas.onclick = function(evt) {
       
-        console.log(this.$data._chart.getElementsAtEvent(evt))
+        //console.log(this.$data._chart.getElementsAtEvent(evt))
 
       }
     }

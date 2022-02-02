@@ -30,6 +30,20 @@ const dictionary = {
         'Motor Examination',
         'Complications of therapy'
       ]
+    },
+    UPDRS_PARTS_NAMES: {
+      "pt-br": [
+        'Parte I',
+        'Parte II',
+        'Parte III',
+        'Parte IV'
+      ],
+    "en-us": [
+      'Part I',
+        'Part II',
+        'Part III',
+        'Part IV'
+    ]
     }
 }
 

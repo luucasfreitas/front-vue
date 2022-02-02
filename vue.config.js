@@ -3,8 +3,5 @@ module.exports = {
     'vuetify'
   ],
   lintOnSave: false,
-
-  "browserslist": [
-    "defaults"
-  ]
+  
 }
