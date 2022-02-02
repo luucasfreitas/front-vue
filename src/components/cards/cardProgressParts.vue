@@ -1,7 +1,8 @@
 <template>
     <v-card class="card-progress-parts" 
         outlined 
-        :width="graph_width">
+        :width="graph_width"
+        :height="170">
         <v-card-title class="m0 p0 pl-2">
             <p style="  font-size: 15px;
                     font-weight: bold;

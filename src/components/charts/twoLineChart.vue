@@ -5,6 +5,7 @@
       outlined
       class="chart-line-container"
       max-width="1000"
+      :height="190"
     >
       <div class="">
         <apexchart
