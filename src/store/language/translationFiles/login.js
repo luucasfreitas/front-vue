@@ -24,6 +24,16 @@ const dictionary = {
     
     'pt-br': 'Entrar',
     'en-us': 'Sign in'
+    },
+    VALIDATION_PASSWORD:{
+    
+        'pt-br': 'É necessário informar uma senha',
+        'en-us': 'Password is required'
+    },
+    VALIDATION_USERNAME:{
+    
+        'pt-br': 'É necessário informar um nome de usuário',
+        'en-us': 'Username is required'
     }
 }
 

@@ -1,70 +1,86 @@
 <template>
-  <v-row justify="center">
     <v-dialog
       v-model="dialog"
       scrollable
-      max-width="300px"
+      max-width="265px"
     >
-      <!-- <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Open Dialog
-        </v-btn>
-      </template> -->
-      <v-card>
-        <v-divider></v-divider>
+      <v-card class="dialog-card">
         <v-card-text style="height: auto;">
           <v-radio-group
-            v-model="dialogm1"
+            v-model="language"
             column 
-            v-for=" lang in languages" v-bind:key="lang.value"
+            v-for="lang in languages" v-bind:key="lang.value"
+            @change="choose_language(lang)"
           >
-            <v-radio
-              :label="lang.description"
-              :value="lang.value"
-            ></v-radio>
+          <div class="row">
+            <div class="col pr-3">
+              <v-radio
+                :label="lang.description"
+                :value="lang.value" />
+            </div>
+            <div class="col m0 pl-4">
+              <flag :iso="lang.icon" class="flag-dialog" />
+            </div>
+          </div>
+            
             
           </v-radio-group>
         </v-card-text>
-        <v-divider></v-divider>
-         <v-card-actions>
-          <!-- <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Close
-          </v-btn> -->
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
       </v-card>
+
     </v-dialog>
-  </v-row>
 </template>
 
-
 <script>
+  import {mapActions} from 'vuex'
+  import eventBus from '../../events/EventBus'
+
   export default {
     data () {
       return {
-        dialogm1: '',
+        squared: true,
+        language: '',
         dialog: true,
         languages: [
-            {value:'pt-br', description:  "Português"},
-            {value:'en-us', description:  "Inglês"},
-
+          {
+            value:'pt-br',
+            description:  'Português',
+            icon:'br'
+          },
+          {
+            value:'en-us',
+            description:  "Inglês",
+            icon: 'us'
+          },
         ]
       }
     },
+    methods:{
+      ...mapActions("lang", ["setLang"]),
+      choose_language(){
+        this.setLang(this.language)
+        this.dialog = false
+      }
+    },
+
+    beforeCreate() {
+      eventBus.$on('open-dialog-language', () => {
+            this.dialog = true
+        }) 
+    }
   }
 </script>
+
+<style lang="scss">
+ 
+  .flag-dialog {
+    font-size: 37px;
+    margin-bottom: 14px;
+    border-radius: 17px;
+  }
+  .dialog-card {
+    padding-top: 24px;
+  }
+
+  
+</style>

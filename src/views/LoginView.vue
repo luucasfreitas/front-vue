@@ -1,6 +1,5 @@
 <template>
   <v-main class="login-screen">
-    <dialog-language></dialog-language>
     <div class="login-screen-title">
       <h1>
         {{  _title }}
@@ -12,6 +11,8 @@
     <div class="input-card">
       <input-credentials-card 
         class="input-login-screen"
+        :validation_passord="getValidationPasswordMessage"
+        :validation_username="getValidationUsernameMessage"
         >
       </input-credentials-card>
     </div>
@@ -20,13 +21,11 @@
 
 <script>
 import InputCredentialsCard from "../components/login/InputCredentialsCard.vue";
-import DialogLanguage from "../components/dialogs/dialogLanguage.vue";
 
 import {mapGetters} from 'vuex'
 export default {
   components: {
     "input-credentials-card": InputCredentialsCard,
-    DialogLanguage
   },
   data() {
     return {
@@ -39,6 +38,8 @@ export default {
     ...mapGetters("loginView",[
     "getTitle",
     "getSubtitle",
+    "getValidationUsernameMessage",
+    "getValidationPasswordMessage"
     ]),
     _title(){
       return this.getTitle
@@ -46,8 +47,13 @@ export default {
     _subtitle(){
       return this.getSubtitle
     },
- 
+  },
+
+  renderTracked() {
+      localStorage.clear();
   }
+
+  
 };
 </script>
 
@@ -61,20 +67,16 @@ export default {
   width: 100% !important;
   height: calc(100% );
   
-
+  & .v-main__wrap {
+    display: flex;
+    justify-content: space-between;
+  }
   & .input-card {
-    // display: flex;
-    // float: left;
-    // padding-top: 1%;
-    // padding-bottom: 1%;
-    // padding-left: 10%;
-    // width: 50% !important;
-    // height: 100% !important;
-    position: absolute;
-    left: 722px;
-    right: 24px;
-    top: 2.67%;
-    bottom: 3.11%;
+    width: 400px;
+    margin-left: auto;
+    height: 70%;
+    margin-top: 100px;
+
     background: #FFFFFF;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.29);
     border-radius: 20px;
@@ -86,7 +88,6 @@ export default {
     }
   }
   & .login-screen-title {
-    float: left;
     // align-self: center;
     //justify-self: center;
     // padding-left: 4%;
@@ -95,7 +96,6 @@ export default {
     //border: 12px solid rgb(255, 0, 149) !important;
     //position: absolute;
     width: calc(90% - 600px);
-    left: 135px;
     padding-top: 14%;
    // bottom: 54.67%;
     font-family: Lato;

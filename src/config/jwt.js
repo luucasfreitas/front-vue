@@ -1,3 +1,3 @@
 module.exports = {
-    secret:'teste@123!'
+    secret:process.env.VUE_APP_JWT_SECRET
 }

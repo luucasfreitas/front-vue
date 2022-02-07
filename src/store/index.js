@@ -5,9 +5,13 @@ import patients from './patients';
 import session from './session';
 import lang from './language/lang';
 import results from './results';
+import events from './events';
+
 import patientsListView from './language/viewsTranslation/patientsListView';
 import loginView from './language/viewsTranslation/loginView';
 import resultsView from './language/viewsTranslation/resultsView';
+import historyAssessComponents from './language/componentsTrasnlation/historyAssessComponents';
+
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -25,8 +29,10 @@ export default new Vuex.Store({
     lang,
     loginView,
     results,
+    events,
     patientsListView,
-    resultsView
+    resultsView,
+    historyAssessComponents
   },
 
 })

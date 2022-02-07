@@ -1,13 +1,12 @@
 <template>
   <div id="tela-lista">
     <div class="row">
-      <h3>
+      <h3 class="pt-4">
         {{_pageTitle}}
       </h3>
     </div>
     <hr />
-    <br />
-    <v-card class="mt-6 row m0">
+    <v-card class="mt-2 row m0">
       <v-card-title>
         <v-text-field
           v-model="search"
@@ -43,6 +42,7 @@
            <template slot="no-data"> 
              {{ _labelNoData}}
            </template>
+
         </v-data-table>
       </v-card-text>
     </v-card>
@@ -168,12 +168,17 @@ export default {
 <style lang="scss">
 #tela-lista {
   width: 100% !important;
-  v-card {
-    v-card-text {
-      table.v-table tbody td {
-       height: 40px;
-       border: none !important;
+  .v-card {
+    
+    .v-card__text {
+      border: none;
+      .v-data-table {
+       .v-data-table__wrapper{
+          height: 400px;
+        }
+       
    }
+   
      .theme--light.v-table tbody tr:not(:last-child) {
         border-bottom: none !important;
     }
@@ -184,6 +189,7 @@ export default {
 .elevation-1 {
   margin-left: 4%;
   margin-right: 4%;
+  
 }
 h1 {
   padding: 4%;

@@ -1,4 +1,7 @@
+const {VUE_APP_API_BASE_URL,
+    VUE_APP_API_PORT} = process.env
+
 module.exports = {
-    baseUrl:'http://18.117.27.1',
-    port: 3000
+    baseUrl: VUE_APP_API_BASE_URL,
+    port: VUE_APP_API_PORT
 }

@@ -14,10 +14,16 @@ export default {
 
   actions: {
     
-    setLang({commit},{lang}){
+    setLang({commit},lang){
       commit('SET_LANG', lang)
     },
 
   },
+
+  getters: {
+    getLang (state) {
+      return state.lang
+    },
+  }
   
 }

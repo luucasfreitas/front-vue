@@ -6,7 +6,9 @@ const {
   INFO_SIDABI_MESSAGE,
   USER_NAME_PLACEHOLDER,
   PASSWORD_PLACEHOLDER,
-  BUTTON_LOGIN_TEXT
+  BUTTON_LOGIN_TEXT,
+  VALIDATION_PASSWORD,
+  VALIDATION_USERNAME
 } = dictionary
 
 export default {
@@ -17,7 +19,9 @@ export default {
         infoSidabiMessage:INFO_SIDABI_MESSAGE,
         usernamePlaceHolder:USER_NAME_PLACEHOLDER,
         passwordPlaceHolder:PASSWORD_PLACEHOLDER,
-        btnLogin:BUTTON_LOGIN_TEXT
+        btnLogin:BUTTON_LOGIN_TEXT,
+        passwordValidation: VALIDATION_PASSWORD,
+        usernameValidation: VALIDATION_USERNAME 
     },
    
     getters: {
@@ -49,6 +53,16 @@ export default {
        
         const lang = rootState.lang.lang ? rootState.lang.lang : 'pt-br'
         return state.btnLogin[lang]
+      },
+      getValidationUsernameMessage(state, getters, rootState){
+       
+        const lang = rootState.lang.lang ? rootState.lang.lang : 'pt-br'
+        return state.passwordValidation[lang]
+      },
+      getValidationPasswordMessage(state, getters, rootState){
+       
+        const lang = rootState.lang.lang ? rootState.lang.lang : 'pt-br'
+        return state.usernameValidation[lang]
       },
     }
   }

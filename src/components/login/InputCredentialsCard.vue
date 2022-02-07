@@ -1,58 +1,69 @@
 <template>
-  <div class="input-card-login" rounded>
+  <div class="input-card-login" @keyup.enter="handleLogin"  rounded>
     <div class="input-card-login-title pb-3">
       <h2>Login</h2>
     </div>
-    <div class="input-card-login-inputs">
-      <div>
-        <v-text-field
-          class="password-input-card"
-          rounded
-          solo
-          v-model="usernameScreen"
-          @change="setUsername({ username: usernameScreen })"
-          :label="_usernamePlaceHolder"
-        />
+
+
+      <div class="input-card-login-inputs" >
+        <div>
+          <v-text-field
+            class="password-input-card"
+            rounded
+            solo
+            v-model="usernameScreen"
+
+            @change="setUsername({ username: usernameScreen })"
+            :label="_usernamePlaceHolder"
+          />
+        </div>
+        <div>
+          <v-text-field
+            class="user-input-card"
+            rounded
+            solo
+            v-model="passwordScreen"
+            type="password"
+            @change="setPassword({ password: passwordScreen })"
+            :label="_passwordPlaceHolder"
+          />
+        </div>
       </div>
       <div>
-        <v-text-field
-          class="user-input-card"
-          rounded
-          solo
-          v-model="passwordScreen"
-          type="password"
-          @change="setPassword({ password: passwordScreen })"
-          :label="_passwordPlaceHolder"
-        />
+        <span class="aviso">*{{_infoSidabiMessage}}</span>
       </div>
-    </div>
-    <div>
-      <span class="aviso">*{{_infoSidabiMessage}}</span>
-    </div>
-    <div class="input-card-login-actions pt-2">
-      <v-btn
-        class="btn"
-        color="#3175D3"
-        style="color: white"
-        rounded
-        @click="handleLogin()"
-      >
-        {{_btnLogin}}
-      </v-btn>
-    </div>
+      <div class="input-card-login-actions pt-2">
+        <v-btn
+          class="btn"
+          color="#3175D3"
+          style="color: white"
+          rounded
+          @click="handleLogin()"
+          
+        >
+          {{_btnLogin}}
+        </v-btn>
+      </div>
+
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
+
+  props:[
+    "validation_passord",
+    "validation_username"
+],
   data() {
     return {
       usernameScreen: "",
       passwordScreen: "",
       usernameLabel: "Username",
       passwordLabel: "Password",
-    };
+      errors: false
+        };
   },
   computed: {
     ...mapState('session',["username", "password", "token", "sessionAuth"]),
@@ -76,10 +87,17 @@ export default {
   methods: {
     ...mapActions('session',["setUsername", "setPassword", "generateToken", "login"]),
 
+    ...mapActions('events',["alert", "warning"]),
+
     async handleLogin() {
+      this.checkForm();
+      if ( this.errors ) {
+        return
+      }
       await this.generateToken();
       await this.login(); // TODO - method name
       await this.doLogin();
+
     },
     async doLogin() {
       if (this.sessionAuth) {
@@ -90,10 +108,25 @@ export default {
         return
       }
     },
-  },
 
+    checkForm:  function () {
+      this.errors = false;
+
+      if (!this.usernameScreen) {
+        this.warning(this.validation_username);
+        this.errors = true
+      }
+
+      if (!this.passwordScreen) {
+        this.warning(this.validation_passord);
+        this.errors = true
+      }
+      
+    },
+  },
   created() {
-    console.log(this.$route.params.login); // 10
+    //this.$router.push({ name: 'patients'})
+    this.$route.params.login; // 10
   },
 };
 </script>
@@ -107,12 +140,12 @@ export default {
   align-content: center;
   align-items: center;
   background: #ffffff;
-  max-height: 70%;
+  max-height: 83%;
   justify-content: center;
   justify-items: center;
   border-radius: 20px;
   //height: max-content !important;
-  padding-top: calc(37% - 55px/2 - 79.5px);
+  padding-top: calc(37% - (55px/2) - 15.5px);
   //box-shadow: 0 10px 6px -6px rgb(153, 214, 233);
   //border: 12px solid blue !important;
   & .input-card-login-title {
