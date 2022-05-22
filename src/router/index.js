@@ -28,7 +28,17 @@ const routes = [
       {
         path: '/',
         component: PatientsListView,
-        name: 'patients_list'
+        name: 'card_selection'
+      },
+      {
+        path: 'updrs_patients',
+        component: PatientsListView,
+        name: 'patients_list_updrs'
+      },
+      {
+        path: 'sensor_patients',
+        component: PatientsListView,
+        name: 'patients_list_sensor'
       },
       {
         path: 'results',
