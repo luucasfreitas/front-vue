@@ -6,20 +6,24 @@
         <p class="text-h4 text-center font-weight-bold">Escolha sua perspectiva</p>
       </v-col>
     </v-row>
-    <v-row no-gutters justify="center">
+    <v-row justify="center">
       <v-col
-       v-for="card in cardsData"
-        :key="card"
+       v-for="(card, index) in cardsData"
+        :key="index"
         cols="12"
-        sm="4"
+        md="6" 
+        lg="6" 
+        xl="6"
       >
         <v-card
+          min-height="294"
+          min-width="210"
           hover
           class="pa-10 mx-16 my-12 rounded-lg"
           style="background: linear-gradient(rgba(49, 117, 211, 1), rgba(85, 144, 224, 1))"
           @click="handleCardClick()"
         >
-          <v-img contain height="190" :src="getImgUrl(card.img)"></v-img>
+          <v-img contain :src="getImgUrl(card.img)" :height="imgHeight" v-resize="calculateHeight"></v-img>
           <v-card-title  class="justify-center pt-10 font-weight-bold white--text text-h5">
             {{card.title}}
           </v-card-title>
@@ -31,13 +35,10 @@
 
 <script>
 
-import {mapActions, mapGetters, mapState} from 'vuex'
+import {mapState} from 'vuex'
 export default {
   data() {
     return {
-      search: '',
-      headers: [],
-      patients: [],
       cardsData: [
         {
           title: "UPDRS",
@@ -48,114 +49,45 @@ export default {
           img: "sensor_card",
         }
       ],
-    //    patientsList:[],
+      pageHeight: null,
     };
   },
 
   
   computed:{
-    ...mapState('patients', ["patientsList"]),
     ...mapState('session',["token", "loginId"]),
-    ...mapGetters('patientsListView', [
-      'getHeadersTablePatients',
-      'getPageTitle',
-      'getTableFooterProps',
-      'getTableLabelSearch',
-      'getTableLabelNoData'
-    ]),
-    _tableFooterProps(){
-      const { itensPerPage } = this.getTableFooterProps
-      return {
-            showFirstLastPage: true,
-            'items-per-page-text':itensPerPage
-          }
-    },
-    _labelNoData(){
-      return this.getTableLabelNoData
-    },
-    _labelSearch(){
-      return this.getTableLabelSearch
-    },
-    _pageTitle(){
-      return this.getPageTitle
-    },
     _loginId(){
       return this.loginId
     },
     _token(){
       return this.token
     },
-    _patients(){
-      return this.patientsList
+    imgHeight: function() {
+      var offset = 320;
+      return this.pageHeight - offset;
     },
-    _tableHeaders(){
-     const { name,
-            age,
-            gender,
-            dateOfBirth,
-            actions } = this.getHeadersTablePatients
-      return [
-        { 
-          text: name,
-          align: "start",
-          sortable: false,
-          value: "patient_name", 
-        },
-        { 
-          text: age,
-          value: "age",
-          sortable: true 
-        },
-        { 
-          text: dateOfBirth,
-          value: "date_of_birth" 
-        },
-        { 
-          text: actions,
-          value: 'actions',
-          sortable: false
-        },
-      ]
+    mounted: function() {
+      return this.calculateHeight();
     },
   },
   methods: {
-
-
-    ...mapActions('patients', [
-      "getPatientsList",
-      "selectPatient"
-    ]),
-    ...mapActions('results', [
-      "getScoreHistory",
-    ]),
-    async loadPatientsList(){
-
-      await this.getPatientsList({token:this._token, loginId:this._loginId})
-    },
-    async handlePaitentslist () {
-
-      await this.loadPatientsList();
-      this.patients = this._patients
-    },
-    async handleLoadStatistcs(patient){
-      this.selectPatient(patient);
-      const response = await this.getScoreHistory();
-      //console.log(response)
-      this.$router.push("patients/results");
-      //this.$router.go("results");
-      
-    },
-    handleCardClick() {
+    handleCardClick: function() {
       this.$router.push("patients/updrs_patients");
     },
-    getImgUrl(img) {
+    getImgUrl: function(img) {
       var images = require.context('../assets/', false, /\.svg$/)
       return images('./' + img + ".svg")
     },
-  },
-  async created() {
-    await this.handlePaitentslist();
+    calculateHeight: function() {
+      var body = document.body;
+      var html = document.documentElement;
 
+      this.pageHeight = Math.max(
+        body.offsetHeight * 0.75,
+        html.clientHeight * 0.75,
+        html.offsetHeight * 0.75
+      );
+    },
   },
 };
 </script>
