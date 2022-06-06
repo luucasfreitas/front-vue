@@ -2,6 +2,11 @@ FROM node:lts-alpine
 
 WORKDIR /app
 
+ENV VUE_APP_API_BASE_URL=http://localhost
+ENV VUE_APP_API_PORT=5000
+
+ENV VUE_APP_JWT_SECRET=58AFD8134FB1788329CE68B8AFE85
+
 COPY package*.json ./
 
 RUN npm install

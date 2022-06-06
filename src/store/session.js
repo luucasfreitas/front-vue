@@ -1,4 +1,3 @@
-import axios from 'axios';
 import jwt from "../plugins/jwt";
 import config from '../config/api'
 
@@ -34,7 +33,7 @@ export default {
     },
   },
   actions: {
-    async generateToken({commit, state}){
+    async generateToken({commit, state, dispatch}){
       try {
         if(state.username != '' &&
         state.password != ''){
@@ -67,23 +66,20 @@ export default {
     
     async login({commit, state, dispatch}){
       try {
-        //const reponse = await axios("http://localhost:3000/core/authenticate/")
+        const url = `${config.baseUrl}:${config.port}/core/authenticate/`;
         const requestParams  = {
           method: 'POST',
-          //url: `${config.baseUrl}/core/authenticate/`,
-          url: `${config.baseUrl}:${config.port}/core/authenticate/`,
           headers: {'Content-Type': 'application/json',
           authorization: state.token}
         }
-        const response = await axios.request(requestParams)
-        // TODO - remove mock 
-        //const response = {status: 200, data:{result:1}}
+        const response = await fetch(url, requestParams)
+        const data = await response.json()
         if (response && response.status == 200){
           
           dispatch("events/alert", 
           "Login bem sucedido!",
            { root: true } )
-          commit('login', response.data.result.id)
+          commit('login', data.id)
         }
         
       } catch (error) {
