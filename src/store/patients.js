@@ -31,20 +31,19 @@ export default {
     async getPatientsList({commit, dispatch},{token, loginId}){
       
       try {
-
+        const url = `${apiConfig.baseUrl}:${apiConfig.port}/core/individuos/${loginId}`
         const requestParams = {
           method: "GET",
-          url: `${apiConfig.baseUrl}:${apiConfig.port}/core/individuos/${loginId}`,
           headers: {
             "Content-Type": "application/json",
             "Authorization": token,  
           },
         };
        
-        const response = await axios.request(requestParams)
-        const patientsList = response.data.participants 
+        const response = await fetch(url, requestParams)
+        const data = await response.json()
         
-        commit('SET_PATIENS_LIST', patientsList)
+        commit('SET_PATIENS_LIST', data.participants)
       } catch (e){
         const errorMessage = `Erro ao listar pacientes - ${ e.message } `
         dispatch("events/alert",errorMessage, { root: true } )  

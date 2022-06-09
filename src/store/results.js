@@ -41,17 +41,18 @@ export default {
             const {token, loginId} = rootState.session
             const {lang} = rootState.lang
             const { id } = rootState.patients.patientSelected
+            const url = `${apiConfig.baseUrl}:${apiConfig.port}/assess/results/${loginId}/patient/${id}`
             const requestParams = {
-              method: "GET",
-              url: `${apiConfig.baseUrl}:${apiConfig.port}/assess/results/${loginId}/patient/${id}`,
+              method: "GET", 
               headers: {
                 "Content-Type": "application/json",
                 "Authorization": token,  
               },
             };
             
-            const response = await axios.request(requestParams)
-            const result = response.data.result
+            const response = await fetch(url, requestParams)
+            const data = await response.json()
+            const result = data.result
             const scores = []
             const dates = []
 
