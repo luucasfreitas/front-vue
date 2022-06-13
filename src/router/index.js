@@ -5,6 +5,7 @@ import CardSelectionView from '../views/CardSelectionView.vue'
 import LoginView from '../views/LoginView.vue'
 import PatientsListView from '../views/PatientsListView.vue'
 import ResultsView from '../views/ResultsView.vue'
+import SensorView from '../views/SensorView.vue'
 
 
 // import App from '../App.vue'
@@ -45,6 +46,11 @@ const routes = [
         path: 'results',
         component: ResultsView,
         name: 'results'
+      },
+      {
+        path: 'sensor',
+        component: SensorView,
+        name: 'sensor'
       }
     ]
 
