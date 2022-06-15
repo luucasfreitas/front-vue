@@ -13,9 +13,9 @@
       <div class='list-container'>
         <v-data-table class='table' :height="table_height" :items='fileList' overflow-y-auto hide-default-footer
           :headers="headers" :search="search">
-          <template v-slot:item.actions>
-            <v-icon small class="mr-2">
-              mdi-delete
+          <template v-slot:item.actions="{ item }">
+            <v-icon color="blue" small class="mr-2" @click='handleFileClick(item)'>
+              mdi-eye
             </v-icon>
           </template>
 
@@ -33,11 +33,11 @@ export default {
       text: 'Nome',
       align: "start",
       sortable: false,
-      value: "name",
+      value: "nome_arquivo",
     },
     {
       text: 'Data',
-      value: "date",
+      value: "dt_sessao",
       sortable: true
     },
     {
@@ -54,9 +54,9 @@ export default {
     this.table_height = this.card_height - this.$refs.cardTitle.clientHeight;
   },
   computed: {
-    ...mapState('sensor', ["fileList", "fileSelected"]),
-    ...mapState('session', ["token", "loginId"]),
-    ...mapState('patients', ["patientSelected"]),
+    ...mapState("sensor", ["fileList", "fileSelected, tremor"]),
+    ...mapState("session", ["token", "loginId"]),
+    ...mapState("patients", ["patientSelected"]),
 
     _fileList() {
       return this.fileList;
@@ -78,7 +78,8 @@ export default {
 
     ...mapActions('sensor', [
       "getFileList",
-      "selectFile"
+      "selectFile",
+      "loadHistogramData"
     ]),
     async loadFileList() {
 
@@ -89,9 +90,9 @@ export default {
       await this.loadFileList();
       this.files = this._fileList
     },
-    async handleLoadStatistcs(file) {
-      this.selectFile(file);
-      await this.getScoreHistory();
+    async handleFileClick(file) {
+      this.selectFile(file)
+      await this.loadHistogramData({ token: this._token, filename: file.nome_arquivo })
     },
   },
   async created() {
