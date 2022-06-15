@@ -7,7 +7,7 @@
       </div>
       <!-- fim card info user -->
       <div class="col-7">
-       <two-line-chart />
+        <two-line-chart />
       </div>
     </div>
     <div class="row">
@@ -105,6 +105,7 @@ export default {
 
   justify-content: space-between;
   padding-top: 2%;
+
   div {
     max-width: 24%;
     border-radius: 25px !important;

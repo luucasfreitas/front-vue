@@ -11,8 +11,8 @@
         </v-btn>
       </v-card-title>
       <div class='list-container'>
-        <v-data-table class='table' :height="table_height" overflow-y-auto hide-default-footer :headers="headers"
-          :search="search" :items="items">
+        <v-data-table class='table' :height="table_height" :items='fileList' overflow-y-auto hide-default-footer
+          :headers="headers" :search="search">
           <template v-slot:item.actions>
             <v-icon small class="mr-2">
               mdi-delete
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   data: () => ({
     headers: [{
@@ -45,40 +46,58 @@ export default {
       value: 'actions'
     }
     ],
-    items: [{
-      name: 'arquivo1',
-      date: '21/12/2021',
-    },
-    {
-      name: 'arquivo2',
-      date: '08/10/2021',
-    },
-    {
-      name: 'arquivo3',
-      date: '15/02/2022',
-    },
-    {
-      name: 'arquivo4',
-      date: '15/02/2022',
-    },
-    {
-      name: 'arquivo5',
-      date: '20/02/2022',
-    },
-    {
-      name: 'arquivo6',
-      date: '27/02/2022',
-    },
-    ],
+    files: [],
     card_height: '',
     table_height: '',
   }),
-  created() {
-    this.card_height = window.innerHeight - 580;
-  },
   mounted() {
     this.table_height = this.card_height - this.$refs.cardTitle.clientHeight;
-  }
+  },
+  computed: {
+    ...mapState('sensor', ["fileList", "fileSelected"]),
+    ...mapState('session', ["token", "loginId"]),
+    ...mapState('patients', ["patientSelected"]),
+
+    _fileList() {
+      return this.fileList;
+    },
+    _fileSelected() {
+      return this.fileSelected;
+    },
+    _loginId() {
+      return this.loginId
+    },
+    _token() {
+      return this.token
+    },
+    _id() {
+      return this.patientSelected.id
+    }
+  },
+  methods: {
+
+    ...mapActions('sensor', [
+      "getFileList",
+      "selectFile"
+    ]),
+    async loadFileList() {
+
+      await this.getFileList({ token: this._token, loginId: this._loginId, id: this._id })
+    },
+    async handleFileList() {
+
+      await this.loadFileList();
+      this.files = this._fileList
+    },
+    async handleLoadStatistcs(file) {
+      this.selectFile(file);
+      await this.getScoreHistory();
+    },
+  },
+  async created() {
+    this.card_height = window.innerHeight - 580;
+    await this.handleFileList();
+  },
 }
 </script>
 <style>

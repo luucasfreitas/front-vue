@@ -134,7 +134,7 @@ export default {
       this.selectPatient(patient);
       const response = await this.getScoreHistory();
       //console.log(response)
-      this.$router.push("/patients/results");
+      this.$router.push("/patients/sensor");
       //this.$router.go("results");
 
     },
