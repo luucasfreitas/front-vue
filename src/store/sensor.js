@@ -13,7 +13,18 @@ export default {
       T2: 0,
       T3: 0,
       T4: 0,
-      T5: 0
+      T5: 0,
+      min_value: 0,
+      max_value: 0
+    },
+    isChartDataLoading: false,
+    isFileListDataLoading: false,
+    tremorLevelData: {
+      outliers: [],
+      outlierReference: '',
+      normalReference: '',
+      isOutlierChart: false,
+      colors: [],
     }
   },
 
@@ -27,7 +38,16 @@ export default {
     },
     SET_TREMOR(state, tremor) {
       state.tremor = tremor
-    }
+    },
+    SET_CHART_LOADING(state, isChartDataLoading) {
+      state.isChartDataLoading = isChartDataLoading
+    },
+    SET_FILE_LIST_LOADING(state, isFileListDataLoading) {
+      state.isFileListDataLoading = isFileListDataLoading
+    },
+    SET_TREMOR_LEVEL_DATA(state, tremorLevelData) {
+      state.tremorLevelData = tremorLevelData
+    },
   },
 
   actions: {
@@ -57,6 +77,15 @@ export default {
     selectFile({ commit }, file) {
       commit('SET_FILE_SELECTED', file)
     },
+    setChartLoading({ commit }, isLoading) {
+      commit('SET_CHART_LOADING', isLoading)
+    },
+    setFileListLoading({ commit }, isLoading) {
+      commit('SET_FILE_LIST_LOADING', isLoading)
+    },
+    setTremorLevelData({ commit }, tremorData) {
+      commit('SET_TREMOR_LEVEL_DATA', tremorData)
+    },
     async loadHistogramData({ commit, dispatch }, { token, filename }) {
       try {
         const url = `${apiConfig.baseUrl}:${apiConfig.port}/sensor/?filename=${filename}`
@@ -76,8 +105,6 @@ export default {
         const errorMessage = `Erro ao carregar arquivo - ${e.message} `
         dispatch("events/alert", errorMessage, { root: true })
       }
-    }
-
+    },
   },
-
 }

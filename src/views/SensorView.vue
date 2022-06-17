@@ -5,17 +5,20 @@
         <card-info-user />
       </div>
       <div class="col-7">
-        <card-sensor-file-list />
+        <card-sensor-file-list :fileList='files' :cardHeight='cardHeight' :headers='headers'
+          :isLoading='_isFileListLoading' />
       </div>
     </div>
     <div class="row">
       <div class="col-9">
-        <card-sensor-column-chart />
+        <card-sensor-column-chart
+          :chartOptions='_tremorLevelData.isOutlierChart ? _chartOptionsWithOutlier : _chartOptionsWithoutOutlier'
+          :chartSeries='_series' :cardHeight='cardHeight' />
       </div>
       <div class="col-3"
         style='display: flex;flex-direction: column ;justify-content: space-between;align-items: center'>
-        <card-sensor-metric />
-        <card-sensor-metric />
+        <card-sensor-metric metric='Máximo' :value='_tremor.max_value' />
+        <card-sensor-metric metric='Mínimo' :value='_tremor.min_value' />
       </div>
     </div>
   </div>
@@ -26,13 +29,274 @@ import CardInfoUser from "../components/cards/cardInfoUser.vue";
 import CardSensorFileList from "../components/cards/cardSensorFileList.vue"
 import CardSensorColumnChart from "../components/cards/cardSensorColumnChart.vue"
 import CardSensorMetric from "../components/cards/cardSensorMetric.vue"
+import { mapState, mapActions } from 'vuex'
 
 export default {
+  data: () => ({
+    //Column chart data
+    titleFontFamily: 'Lato, sans-serif',
+    titleFontWeight: 700,
+    outlierColor: '#ce8a3c',
+    normalColor: '#3175d3',
+    //cards Height
+    cardHeight: '',
+    // Props card-sensor-file-list
+    files: [],
+    headers: [{
+      text: 'Nome',
+      align: "start",
+      sortable: false,
+      filterable: true,
+      value: "nome_arquivo",
+    },
+    {
+      text: 'Data',
+      value: "dt_sessao",
+      sortable: true,
+      filterable: false
+    },
+    {
+      text: 'Ações',
+      align: 'center',
+      value: 'actions',
+      filterable: false,
+      sortable: false
+    }
+    ],
+  }),
   components: {
     CardInfoUser,
     CardSensorFileList,
     CardSensorColumnChart,
     CardSensorMetric
+  },
+  computed: {
+    ...mapState("sensor", ["fileList", "fileSelected", "tremor", "isFileListDataLoading", "tremorLevelData"]),
+    ...mapState("session", ["token", "loginId"]),
+    ...mapState("patients", ["patientSelected"]),
+
+    _fileList() {
+      return this.fileList;
+    },
+    _fileSelected() {
+      return this.fileSelected;
+    },
+    _tremor() {
+      return this.tremor
+    },
+    _tremorLevelData() {
+      return this.tremorLevelData
+    },
+    _loginId() {
+      return this.loginId
+    },
+    _token() {
+      return this.token
+    },
+    _id() {
+      return this.patientSelected.id
+    },
+    _isFileListLoading() {
+      return this.isFileListDataLoading
+    },
+
+    //Props card-sensor-column-chart
+    _chartOptionsWithOutlier() {
+      return {
+        chart: {
+          type: 'bar',
+        },
+        title: {
+          text: this._fileSelected.nome_arquivo,
+          align: "left",
+        },
+        xaxis: {
+          categories: ['T1', 'T2', 'T3', 'T4', 'T5'],
+          labels: {
+            show: false,
+            rotate: -45,
+            rotateAlways: true,
+            style: {
+              fontFamily: "Lato",
+              fontWeight: 700
+            }
+          },
+          title: {
+            text: 'Níveis de tremor',
+            offsetY: -25,
+            style: {
+              fontSize: '14px',
+              fontFamily: "Lato",
+              fontWeight: 700
+            }
+          }
+        },
+        yaxis: [
+          {
+            seriesName: this._tremorLevelData.outlierReference,
+            title: {
+              text: "Tempo (segundos)"
+            },
+            axisTicks: {
+              show: true,
+              color: this.outlierColor
+            },
+            axisBorder: {
+              show: true,
+              color: this.outlierColor
+            },
+          },
+          {
+            seriesName: 'Tremor nível 3',
+            show: false
+          },
+          {
+            seriesName: 'Tremor nível 4',
+            show: false
+          },
+          {
+            seriesName: 'Tremor nível 5',
+            show: false
+          },
+          {
+            seriesName: this._tremorLevelData.normalReference,
+            opposite: true,
+            axisTicks: {
+              show: true,
+              color: this.normalColor
+            },
+            axisBorder: {
+              show: true,
+              color: this.normalColor
+            },
+          }
+        ], tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + " segundos"
+            }
+          }
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: "90%"
+          }
+        },
+        colors: this._tremorLevelData.colors,
+        dataLabels: {
+          enabled: false
+        }
+      }
+    },
+    _chartOptionsWithoutOutlier() {
+      return {
+        chart: {
+          type: 'bar',
+        },
+        title: {
+          text: this._fileSelected.nome_arquivo,
+          align: "left",
+        },
+        xaxis: {
+          categories: ['T1', 'T2', 'T3', 'T4', 'T5'],
+          labels: {
+            show: false,
+            rotate: -45,
+            rotateAlways: true,
+            style: {
+              fontFamily: "Lato",
+              fontWeight: 700
+            }
+          },
+          title: {
+            text: 'Nível de tremor',
+            offsetY: -25,
+            style: {
+              fontSize: '14px',
+              fontFamily: "Lato",
+              fontWeight: 700
+            }
+          }
+        },
+        yaxis:
+        {
+          title: {
+            text: "Tempo (segundos)"
+          },
+          axisTicks: {
+            show: true,
+          },
+          axisBorder: {
+            show: true,
+          },
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + " segundos"
+            }
+          }
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: "90%"
+          }
+        },
+        colors: this.barColors,
+        dataLabels: {
+          enabled: false
+        }
+      }
+    },
+    _series() {
+      return [
+        {
+          name: "Tremor nível 1",
+          data: [this._tremor.T1]
+        },
+        {
+          name: "Tremor nível 2",
+          data: [this._tremor.T2]
+        },
+        {
+          name: "Tremor nível 3",
+          data: [this._tremor.T3]
+        },
+        {
+          name: "Tremor nível 4",
+          data: [this._tremor.T4]
+        },
+        {
+          name: "Tremor nível 5",
+          data: [this._tremor.T5]
+        },
+      ];
+    },
+  },
+  methods: {
+
+    ...mapActions('sensor', [
+      "getFileList",
+      "setFileListLoading",
+      "setChartLoading",
+    ]),
+    // Methods card-sensor-file-list
+    async loadFileList() {
+
+      await this.getFileList({ token: this._token, loginId: this._loginId, id: this._id })
+    },
+    async handleFileList() {
+
+      this.setFileListLoading(true)
+      await this.loadFileList();
+      this.files = this._fileList
+      this.setFileListLoading(false)
+    },
+  },
+  async created() {
+    this.setChartLoading(false)
+    this.cardHeight = window.innerHeight - 580;
+    await this.handleFileList();
   },
 };
 </script>

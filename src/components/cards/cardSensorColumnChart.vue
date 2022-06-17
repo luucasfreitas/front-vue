@@ -1,113 +1,38 @@
 <template>
-  <v-card class="card" :height='card_height' outlined>
-    <div class='card-container'>
-      <v-card-text class='chart-container'>
-        <apexchart :height='card_height - 20' :options="_chartOptions" :series="_series">
-        </apexchart>
-      </v-card-text>
-      <div class='list-container'>
-      </div>
-    </div>
+  <v-card class="card" v-if='_isLoading' :height='cardHeight' outlined>
+    <v-container class='fill-height'>
+      <v-row class=" fill-height" align-content="center" justify="center">
+        <v-col class="text-subtitle-1 text-center" cols="12">
+          Carregando os dados
+        </v-col>
+        <v-col cols="6">
+          <v-progress-linear color="blue" indeterminate rounded height="6"></v-progress-linear>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
+  <v-card class="card" v-else-if='(!_isLoading)' :height='cardHeight' outlined>
+    <v-card-text>
+      <apexchart :height='cardHeight - 20' :options="chartOptions" :series="chartSeries">
+      </apexchart>
+    </v-card-text>
   </v-card>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 export default {
-  data: () => ({
-    card_height: ''
-  }),
+  props: {
+    chartOptions: Object,
+    chartSeries: Array,
+    cardHeight: Number
+  },
   computed: {
-    ...mapState("sensor", ["tremor"]),
-
-    _tremor() {
-      return this.tremor
-    },
-    _chartOptions() {
-      return {
-        chart: {
-          type: 'bar',
-        },
-        xaxis: {
-          categories: ['T1', 'T2', 'T3', 'T4', 'T5'],
-          labels: {
-            show: true,
-            rotate: -45,
-            rotateAlways: true,
-            style: {
-              fontFamily: "Lato",
-              fontWeight: 700
-            }
-          },
-          title: {
-            text: 'Níveis de tremor',
-            offsetY: -25,
-            style: {
-              fontSize: '14px',
-              fontFamily: "Lato",
-              fontWeight: 700
-            }
-          }
-        },
-        yaxis: {
-          labels: {
-            show: true,
-            style: {
-              fontFamily: "Lato",
-              fontWeight: 700
-            }
-          },
-          title: {
-            text: 'Tempo (segundos)',
-            style: {
-              fontSize: '14px',
-              fontFamily: "Lato",
-              fontWeight: 700
-            }
-          }
-        },
-        tooltip: {
-          y: {
-            formatter: function (val) {
-              return val + " segundos"
-            }
-          }
-        },
-      }
-    },
-    _series() {
-      return [
-        {
-          name: "Tempo",
-          data: [
-            {
-              x: 'Tremor nível 1',
-              y: this._tremor.T1
-            },
-            {
-              x: 'Tremor nível 2',
-              y: this._tremor.T2
-            },
-            {
-              x: 'Tremor nível 3',
-              y: this._tremor.T3
-            },
-            {
-              x: 'Tremor nível 4',
-              y: this._tremor.T4
-            },
-            {
-              x: 'Tremor nível 5',
-              y: this._tremor.T5
-            },
-          ]
-        },
-      ];
-    },
-  },
-  created() {
-    this.card_height = window.innerHeight - 580;
-  },
+    ...mapState("sensor", ["isChartDataLoading"]),
+    _isLoading() {
+      return this.isChartDataLoading
+    }
+  }
 }
 </script>
 <style>
