@@ -40,7 +40,7 @@ export default {
       search: '',
       headers: [],
       patients: [],
-
+      isUPDRSPatients: false
       //    patientsList:[],
     };
   },
@@ -115,15 +115,19 @@ export default {
 
 
     ...mapActions('patients', [
-      "getPatientsList",
+      "getUPDRSPatientsList",
+      "getSensorPatientsList",
       "selectPatient"
     ]),
     ...mapActions('results', [
       "getScoreHistory",
     ]),
     async loadPatientsList() {
-
-      await this.getPatientsList({ token: this._token, loginId: this._loginId })
+      if (this.isUPDRSPatients) {
+        await this.getUPDRSPatientsList({ token: this._token, loginId: this._loginId })
+      } else {
+        await this.getSensorPatientsList({ token: this._token, loginId: this._loginId })
+      }
     },
     async handlePaitentslist() {
 
@@ -132,16 +136,21 @@ export default {
     },
     async handleLoadStatistcs(patient) {
       this.selectPatient(patient);
-      const response = await this.getScoreHistory();
-      //console.log(response)
-      this.$router.push("/patients/sensor");
-      //this.$router.go("results");
-
+      if (this.isUPDRSPatients) {
+        await this.getScoreHistory();
+        this.$router.push("/patients/updrs");
+      } else {
+        this.$router.push("/patients/sensor")
+      }
     },
   },
   async created() {
+    if (this.$router.currentRoute.name == "updrs_patients") {
+      this.isUPDRSPatients = true
+    } else {
+      this.isUPDRSPatients = false
+    }
     await this.handlePaitentslist();
-
   },
 };
 </script>

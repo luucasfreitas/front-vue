@@ -6,12 +6,12 @@ import LoginView from '../views/LoginView.vue'
 import PatientsListView from '../views/PatientsListView.vue'
 import ResultsView from '../views/ResultsView.vue'
 import SensorView from '../views/SensorView.vue'
-
-
+import store from "../store";
 // import App from '../App.vue'
 
 
 //import Home from '../views/Home.vue'
+
 
 
 Vue.use(VueRouter)
@@ -20,39 +20,46 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    component: LoginView
+    component: LoginView,
+    meta: { guest: true }
   },
   {
     path: '/patients',
     name: 'patients',
     component: Base,
+    meta: { requiresAuth: true },
     children: [
       {
         path: '/',
         component: CardSelectionView,
-        name: 'card_selection'
+        name: 'card_selection',
+        meta: { requiresAuth: true },
       },
       {
         path: 'updrs_patients',
         component: PatientsListView,
-        name: 'patients_list_updrs'
+        name: 'updrs_patients',
+        meta: { requiresAuth: true },
       },
       {
         path: 'sensor_patients',
         component: PatientsListView,
-        name: 'patients_list_sensor'
+        name: 'sensor_patients',
+        meta: { requiresAuth: true },
       },
       {
-        path: 'results',
+        path: 'updrs',
         component: ResultsView,
-        name: 'results'
+        name: 'updrsResult',
+        meta: { requiresAuth: true },
       },
       {
         path: 'sensor',
         component: SensorView,
-        name: 'sensor'
+        name: 'sensor',
+        meta: { requiresAuth: true },
       }
-    ]
+    ],
 
   },
 
@@ -72,6 +79,30 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.getters["session/isAuthenticated"]) {
+      next();
+      return;
+    }
+    next("/");
+  } else {
+    next();
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.guest)) {
+    if (store.getters["session/isAuthenticated"]) {
+      next("/patients");
+      return;
+    }
+    next();
+  } else {
+    next();
+  }
+});
 
 export default router
 
