@@ -21,6 +21,7 @@ export default {
     isFileListDataLoading: false,
     tremorLevelData: {
       outliers: [],
+      yaxis: [],
       outlierReference: '',
       normalReference: '',
       isOutlierChart: false,

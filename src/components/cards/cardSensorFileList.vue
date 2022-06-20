@@ -46,9 +46,12 @@ export default {
     tableHeight: '',
     outlierColor: '#ce8a3c',
     normalColor: '#3175d3',
+    chartLabels: ["Tremor nível 1", "Tremor nível 2", "Tremor nível 3", "Tremor nível 4", "Tremor nível 5"]
   }),
-  mounted() {
-    this.tableHeight = this.cardHeight - this.$refs.cardTitle.clientHeight;
+  updated() {
+    if (!this._isChartLoading) {
+      this.tableHeight = this.cardHeight - this.$refs.cardTitle.clientHeight;
+    }
   },
   computed: {
     ...mapState("session", ["token"]),
@@ -79,12 +82,13 @@ export default {
     getKeyByValue(object, value) {
       return Object.keys(object).find(key => object[key] === value);
     },
-    calculateOutliers(tremor) {
+    setFileData(tremor) {
       let tremorCopy = {
         ...tremor
       }
       let result = {
         outliers: [],
+        yaxis: [],
         outlierReference: '',
         normalReference: '',
         isOutlierChart: false,
@@ -106,6 +110,24 @@ export default {
           result.colors = this.setColors(result.outliers)
           break
         }
+        result.yaxis.push({
+          seriesName: result.outlierReference,
+          title: { text: "Tempo(segundos)" },
+          axisTicks: { show: true, color: this.outlierColor },
+          axisBorder: { show: true, color: this.outlierColor },
+        })
+        result.yaxis.push({
+          seriesName: this._tremorLevelData.normalReference,
+          opposite: true,
+          axisTicks: { show: true, color: this.normalColor },
+          axisBorder: { show: true, color: this.normalColor },
+          showAlways: true
+        })
+        this.chartLabels.forEach(label => {
+          if (label != result.outlierReference && label != result.normalReference) {
+            result.yaxis.push({ seriesName: label, show: false })
+          }
+        });
       }
       return result
     },
@@ -146,7 +168,7 @@ export default {
       this.selectFile(file)
       this.setChartLoading(true)
       await this.loadHistogramData({ token: this._token, filename: file.nome_arquivo })
-      this.setTremorLevelData(this.calculateOutliers(this._tremor))
+      this.setTremorLevelData(this.setFileData(this._tremor))
       this.outlierName = this.setSeriesName(this._tremorLevelData.outlierReference)
       this.normalName = this.setSeriesName(this._tremorLevelData.minimumReference)
       this.setChartLoading(false)

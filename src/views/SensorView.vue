@@ -131,46 +131,8 @@ export default {
             }
           }
         },
-        yaxis: [
-          {
-            seriesName: this._tremorLevelData.outlierReference,
-            title: {
-              text: "Tempo (segundos)"
-            },
-            axisTicks: {
-              show: true,
-              color: this.outlierColor
-            },
-            axisBorder: {
-              show: true,
-              color: this.outlierColor
-            },
-          },
-          {
-            seriesName: 'Tremor nível 3',
-            show: false
-          },
-          {
-            seriesName: 'Tremor nível 4',
-            show: false
-          },
-          {
-            seriesName: 'Tremor nível 5',
-            show: false
-          },
-          {
-            seriesName: this._tremorLevelData.normalReference,
-            opposite: true,
-            axisTicks: {
-              show: true,
-              color: this.normalColor
-            },
-            axisBorder: {
-              show: true,
-              color: this.normalColor
-            },
-          }
-        ], tooltip: {
+        yaxis: this._tremorLevelData.yaxis,
+        tooltip: {
           y: {
             formatter: function (val) {
               return val + " segundos"
@@ -292,9 +254,10 @@ export default {
       this.files = this._fileList
       this.setFileListLoading(false)
     },
+    setyaxisOptions() {
+    }
   },
   async created() {
-    this.setChartLoading(false)
     this.cardHeight = window.innerHeight - 580;
     await this.handleFileList();
   },
