@@ -96,7 +96,7 @@ export default {
       }
       delete tremorCopy["min_value"]
       delete tremorCopy["max_value"]
-      result.outlierReference = this.setSeriesName(this.getKeyByValue(tremor, Math.max(...Object.values(tremorCopy))))
+      result.outlierReference = this.setSeriesName(this.getKeyByValue(tremorCopy, Math.max(...Object.values(tremorCopy))))
       for (let i = 0; i < 5; i++) {
         const min = Math.min(...Object.values(tremorCopy))
         const max = Math.max(...Object.values(tremorCopy))
@@ -106,29 +106,30 @@ export default {
           result.outliers.push(maxKey)
           delete tremorCopy[maxKey]
         } else {
-          result.normalReference = this.setSeriesName(this.getKeyByValue(tremor, Math.max(...Object.values(tremorCopy))))
+          result.normalReference = this.setSeriesName(this.getKeyByValue(tremorCopy, Math.max(...Object.values(tremorCopy))))
           result.colors = this.setColors(result.outliers)
           break
         }
-        result.yaxis.push({
-          seriesName: result.outlierReference,
-          title: { text: "Tempo(segundos)" },
-          axisTicks: { show: true, color: this.outlierColor },
-          axisBorder: { show: true, color: this.outlierColor },
-        })
-        result.yaxis.push({
-          seriesName: this._tremorLevelData.normalReference,
-          opposite: true,
-          axisTicks: { show: true, color: this.normalColor },
-          axisBorder: { show: true, color: this.normalColor },
-          showAlways: true
-        })
-        this.chartLabels.forEach(label => {
-          if (label != result.outlierReference && label != result.normalReference) {
-            result.yaxis.push({ seriesName: label, show: false })
-          }
-        });
       }
+      result.yaxis.push({
+        seriesName: result.outlierReference,
+        title: { text: "Tempo(segundos)" },
+        axisTicks: { show: true, color: this.outlierColor },
+        axisBorder: { show: true, color: this.outlierColor },
+        decimalsInFloat: 2,
+      })
+      result.yaxis.push({
+        seriesName: result.normalReference,
+        opposite: true,
+        axisTicks: { show: true, color: this.normalColor },
+        axisBorder: { show: true, color: this.normalColor },
+        decimalsInFloat: 2,
+      })
+      this.chartLabels.forEach(label => {
+        if (label != result.outlierReference && label != result.normalReference) {
+          result.yaxis.push({ seriesName: result.normalReference, show: false })
+        }
+      });
       return result
     },
     setSeriesName(reference) {
@@ -169,6 +170,7 @@ export default {
       this.setChartLoading(true)
       await this.loadHistogramData({ token: this._token, filename: file.nome_arquivo })
       this.setTremorLevelData(this.setFileData(this._tremor))
+      console.log(this._tremorLevelData)
       this.outlierName = this.setSeriesName(this._tremorLevelData.outlierReference)
       this.normalName = this.setSeriesName(this._tremorLevelData.minimumReference)
       this.setChartLoading(false)
