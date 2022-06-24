@@ -3,6 +3,7 @@
 
       <alert></alert>
       <dialog-language></dialog-language>
+      <dialog-logout></dialog-logout>
       <router-view>
       </router-view>
   </v-app>
@@ -12,6 +13,8 @@
 // import SideBar from './components/lib/SideBar.vue';
 
 import DialogLanguage from "./components/dialogs/dialogLanguage.vue";
+import DialogLogout from "./components/dialogs/dialogLogout.vue";
+
 import Alert from "./components/lib/Alert.vue";
 
 export default {
@@ -19,6 +22,7 @@ export default {
 
   components: {
     DialogLanguage,
+    DialogLogout,
     Alert
   },
 

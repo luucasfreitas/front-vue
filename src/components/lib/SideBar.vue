@@ -14,8 +14,9 @@
 
     <v-spacer></v-spacer>
 
-    <div class="mr-1">
+    <div class="mr-1 d-flex align-center">
       <span class="nome-usuario">{{ _username }}</span>
+      <v-icon large @click="openDialogLogout()">mdi-logout</v-icon>      
     </div>
   </v-app-bar>
 </template>
@@ -53,7 +54,10 @@ export default {
     },
     openDialogLang () {
       eventBus.$emit('open-dialog-language') 
-    }
+    },
+    openDialogLogout () {
+      eventBus.$emit('open-dialog-logout') 
+    },
   }
 };
 </script>
