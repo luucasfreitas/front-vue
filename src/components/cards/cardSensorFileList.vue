@@ -163,12 +163,12 @@ export default {
       return colors
     },
     async handleFileClick(file) {
-      if (file.nome_arquivo == this._fileSelected.nome_arquivo) {
+      if (file.nome == this._fileSelected.nome) {
         return
       }
       this.selectFile(file)
       this.setChartLoading(true)
-      await this.loadHistogramData({ token: this._token, filename: file.nome_arquivo })
+      await this.loadHistogramData({ token: this._token, filename: file.nome })
       this.setTremorLevelData(this.setFileData(this._tremor))
       console.log(this._tremorLevelData)
       this.outlierName = this.setSeriesName(this._tremorLevelData.outlierReference)

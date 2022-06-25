@@ -5,8 +5,10 @@ export default {
   state: {
     fileList: [],
     fileSelected: {
-      nome_arquivo: '',
-      dt_sessao: ''
+      nome: '',
+      data: '',
+      grupo_estudo: '',
+      equipamento: '',
     },
     tremor: {
       T1: 0,

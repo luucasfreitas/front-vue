@@ -47,11 +47,11 @@ export default {
       align: "start",
       sortable: false,
       filterable: true,
-      value: "nome_arquivo",
+      value: "grupo_estudo",
     },
     {
       text: 'Data',
-      value: "dt_sessao",
+      value: "data",
       sortable: true,
       filterable: false
     },
@@ -107,9 +107,19 @@ export default {
           type: 'bar',
         },
         title: {
-          text: this._fileSelected.nome_arquivo,
+          text: this._fileSelected.grupo_estudo,
           align: "left",
         },
+        subtitle: {
+            text: this._fileSelected.data,
+            align: "left",
+            style: {
+              fontSize:  '12px',
+              fontWeight:  'normal',
+              fontFamily:  "Lato",
+              color:  '#9699a2'
+            },
+          },
         xaxis: {
           categories: ['T1', 'T2', 'T3', 'T4', 'T5'],
           labels: {
@@ -156,8 +166,18 @@ export default {
           type: 'bar',
         },
         title: {
-          text: this._fileSelected.nome_arquivo,
+          text: this._fileSelected.grupo_estudo,
           align: "left",
+        },
+        subtitle: {
+          text: this._fileSelected.data,
+          align: "left",
+          style: {
+            fontSize:  '12px',
+            fontWeight:  'normal',
+            fontFamily:  "Lato",
+            color:  '#9699a2'
+          },
         },
         xaxis: {
           categories: ['T1', 'T2', 'T3', 'T4', 'T5'],
