@@ -17,7 +17,8 @@ export default {
       T4: 0,
       T5: 0,
       min_value: 0,
-      max_value: 0
+      max_value: 0,
+      metrics: {},
     },
     isChartDataLoading: false,
     isFileListDataLoading: false,

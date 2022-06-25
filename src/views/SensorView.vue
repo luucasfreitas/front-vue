@@ -10,15 +10,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-9">
+      <div class="col-8">
         <card-sensor-column-chart
           :chartOptions='_tremorLevelData.isOutlierChart ? _chartOptionsWithOutlier : _chartOptionsWithoutOutlier'
           :chartSeries='_series' :cardHeight='cardHeight' />
       </div>
-      <div class="col-3"
-        style='display: flex;flex-direction: column ;justify-content: space-between;align-items: center'>
-        <card-sensor-metric metric='Máximo' :value='_tremor.max_value' />
-        <card-sensor-metric metric='Mínimo' :value='_tremor.min_value' />
+      <div class="col-4">
+        <card-sensor-metric-table :cardHeight='cardHeight' :fileSelected="_tremor" />
       </div>
     </div>
   </div>
@@ -28,7 +26,7 @@
 import CardInfoUser from "../components/cards/cardInfoUser.vue";
 import CardSensorFileList from "../components/cards/cardSensorFileList.vue"
 import CardSensorColumnChart from "../components/cards/cardSensorColumnChart.vue"
-import CardSensorMetric from "../components/cards/cardSensorMetric.vue"
+import CardSensorMetricTable from "../components/cards/cardSensorMetricTable.vue";
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -68,7 +66,7 @@ export default {
     CardInfoUser,
     CardSensorFileList,
     CardSensorColumnChart,
-    CardSensorMetric
+    CardSensorMetricTable
   },
   computed: {
     ...mapState("sensor", ["fileList", "fileSelected", "tremor", "isFileListDataLoading", "tremorLevelData"]),
@@ -279,6 +277,7 @@ export default {
   },
   async created() {
     this.cardHeight = window.innerHeight - 580;
+    console.log(this._tremor.metrics)
     await this.handleFileList();
   },
 };
