@@ -259,6 +259,8 @@ export default {
       "getFileList",
       "setFileListLoading",
       "setChartLoading",
+      "setTremor",
+      "setTremorLevelData"
     ]),
     // Methods card-sensor-file-list
     async loadFileList() {
@@ -272,12 +274,11 @@ export default {
       this.files = this._fileList
       this.setFileListLoading(false)
     },
-    setyaxisOptions() {
-    }
   },
   async created() {
+    this.setTremor({})
+    this.setTremorLevelData({})
     this.cardHeight = window.innerHeight - 580;
-    console.log(this._tremor.metrics)
     await this.handleFileList();
   },
 };

@@ -16,8 +16,6 @@ export default {
       T3: 0,
       T4: 0,
       T5: 0,
-      min_value: 0,
-      max_value: 0,
       metrics: {},
     },
     isChartDataLoading: false,
@@ -86,6 +84,9 @@ export default {
     },
     setFileListLoading({ commit }, isLoading) {
       commit('SET_FILE_LIST_LOADING', isLoading)
+    },
+    setTremor({commit}, tremor) {
+      commit('SET_TREMOR', tremor)
     },
     setTremorLevelData({ commit }, tremorData) {
       commit('SET_TREMOR_LEVEL_DATA', tremorData)

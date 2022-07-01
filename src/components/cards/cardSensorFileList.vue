@@ -16,7 +16,7 @@
       <v-card-title ref="cardTitle">
         Lista de arquivos
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="Pesquisar" single-line hide-details></v-text-field>
       </v-card-title>
       <div class='list-container'>
         <v-data-table class='table' :items="fileList" :height="tableHeight" overflow-y-auto hide-default-footer
@@ -94,8 +94,7 @@ export default {
         isOutlierChart: false,
         colors: []
       }
-      delete tremorCopy["min_value"]
-      delete tremorCopy["max_value"]
+      delete tremorCopy["metrics"]
       result.outlierReference = this.setSeriesName(this.getKeyByValue(tremorCopy, Math.max(...Object.values(tremorCopy))))
       for (let i = 0; i < 5; i++) {
         const min = Math.min(...Object.values(tremorCopy))
@@ -151,8 +150,6 @@ export default {
         ...this._tremor
       }
       let colors = []
-      delete tremorCopy['min_value']
-      delete tremorCopy['max_value']
       Object.keys(tremorCopy).forEach(key => {
         if (outliers.includes(key)) {
           colors.push(this.outlierColor)

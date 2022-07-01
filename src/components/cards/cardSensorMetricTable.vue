@@ -12,7 +12,7 @@
     </v-container>
   </v-card>
 
-  <v-card :height="cardHeight" v-else-if="!_isLoading" overflow-y-auto class="card-metric" outlined>
+  <v-card :height="cardHeight" v-else-if="!_isLoading && !isEmpty" overflow-y-auto class="card-metric" outlined>
     <div class='card-metric-container'>
       <v-card-title ref="cardTitle">
         Estatísticas descritivas
@@ -44,6 +44,15 @@
       </v-card-text>
     </div>
   </v-card>
+    <v-card class="card" v-else-if='isEmpty' :height='cardHeight' outlined>
+    <v-container class='fill-height'>
+      <v-row class=" fill-height" align-content="center" justify="center">
+        <v-col class="text-subtitle-1 text-center" cols="12">
+          Selecione um arquivo para visualizar este painel
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
 </template>
 <script>
   import {mapState} from "vuex"
@@ -51,18 +60,37 @@
 export default {
   data() {
     return {
-      tableHeight: 0
+      tableHeight: 0,
+      isEmpty: false
     }
   },
   computed: {
-    ...mapState("sensor", ["isChartDataLoading"]),
+    ...mapState("sensor", ["isChartDataLoading", "tremor", "tremorLevelData"]),
     _isLoading() {
       return this.isChartDataLoading
+    },
+    _tremor() {
+        return this.tremor
+    },
+    _tremorLevelData() {
+      return this.tremorLevelData
+    },
+  },
+  methods: {
+    isTremorEmpty() {
+      return JSON.stringify(this._tremor) === '{}';
+    },
+    isTremorDataEmpty() {
+      return JSON.stringify(this._tremorLevelData) === '{}';
     }
   },
   props: {fileSelected: Object, cardHeight: Number},
   created() {
-    this.tableHeight = this.cardHeight * 0.85
+    this.isEmpty = this.isTremorDataEmpty()
+    this.tableHeight = this.cardHeight * 0.75
+  },
+  updated() {
+    this.isEmpty = this.isTremorDataEmpty()
   },
 }
 </script>
