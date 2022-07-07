@@ -40,7 +40,7 @@
       return {
         squared: true,
         language: '',
-        dialog: true,
+        dialog: false,
         languages: [
           {
             value:'pt-br',

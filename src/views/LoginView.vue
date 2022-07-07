@@ -18,7 +18,7 @@
 
 <script>
 import InputCredentialsCard from "../components/login/InputCredentialsCard.vue";
-
+import eventBus from '../events/EventBus'
 import { mapGetters } from 'vuex'
 export default {
   components: {
@@ -44,6 +44,9 @@ export default {
     _subtitle() {
       return this.getSubtitle
     },
+  },
+  created() {
+    eventBus.$emit('open-dialog-language') 
   },
 
   renderTracked() {

@@ -277,6 +277,7 @@ export default {
   },
   async created() {
     this.setTremor({})
+    this.fileSelected({})
     this.setTremorLevelData({})
     this.cardHeight = window.innerHeight - 580;
     await this.handleFileList();
