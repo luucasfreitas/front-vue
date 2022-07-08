@@ -3,7 +3,7 @@
   <v-container>
     <v-row class="mb-4">
       <v-col>
-        <p class="text-h4 text-center font-weight-bold">Escolha sua perspectiva</p>
+        <p class="text-h4 text-center font-weight-bold">{{_title}}</p>
       </v-col>
     </v-row>
     <v-row justify="center">
@@ -23,7 +23,7 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -45,6 +45,11 @@ export default {
 
   computed: {
     ...mapState('session', ["token", "loginId"]),
+    ...mapGetters("cardSelectionView", ["getTitle"]),
+    _title() {
+      return this.getTitle
+    },
+
     _loginId() {
       return this.loginId
     },

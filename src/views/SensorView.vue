@@ -5,7 +5,7 @@
         <card-info-user />
       </div>
       <div class="col-7">
-        <card-sensor-file-list :fileList='files' :cardHeight='cardHeight' :headers='headers'
+        <card-sensor-file-list :fileList='files' :cardHeight='cardHeight' :headers='_tableHeaders'
           :isLoading='_isFileListLoading' />
       </div>
     </div>
@@ -27,7 +27,7 @@ import CardInfoUser from "../components/cards/cardInfoUser.vue";
 import CardSensorFileList from "../components/cards/cardSensorFileList.vue"
 import CardSensorColumnChart from "../components/cards/cardSensorColumnChart.vue"
 import CardSensorMetricTable from "../components/cards/cardSensorMetricTable.vue";
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   data: () => ({
@@ -37,30 +37,9 @@ export default {
     outlierColor: '#ce8a3c',
     normalColor: '#3175d3',
     //cards Height
-    cardHeight: '',
+    cardHeight: 0,
     // Props card-sensor-file-list
     files: [],
-    headers: [{
-      text: 'Nome',
-      align: "start",
-      sortable: false,
-      filterable: true,
-      value: "grupo_estudo",
-    },
-    {
-      text: 'Data',
-      value: "data",
-      sortable: true,
-      filterable: false
-    },
-    {
-      text: 'Ações',
-      align: 'center',
-      value: 'actions',
-      filterable: false,
-      sortable: false
-    }
-    ],
   }),
   components: {
     CardInfoUser,
@@ -72,7 +51,65 @@ export default {
     ...mapState("sensor", ["fileList", "fileSelected", "tremor", "isFileListDataLoading", "tremorLevelData"]),
     ...mapState("session", ["token", "loginId"]),
     ...mapState("patients", ["patientSelected"]),
+    ...mapGetters("sensorView", ["getCardFileList", "getCardColumnChart", "getGeneric"]),
 
+    _tableHeaders() {
+      const {name, date, actions} = this.getCardFileList
+      return [
+        {
+          text: name,
+          align: "start",
+          sortable: false,
+          filterable: true,
+          value: "grupo_estudo",
+        },
+        {
+          text: date,
+          value: "data",
+          sortable: true,
+          filterable: false
+        },
+        {
+          text: actions,
+          align: 'center',
+          value: 'actions',
+          filterable: false,
+          sortable: false
+        }
+      ]
+    },
+    _T1() {
+        const {T1} = this.getCardColumnChart
+        return T1
+    },
+    _T2() {
+        const {T2} = this.getCardColumnChart
+        return T2
+    },
+    _T3() {
+        const {T3} = this.getCardColumnChart
+        return T3
+    },
+    _T4() {
+        const {T4} = this.getCardColumnChart
+        return T4
+    },
+    _T5() {
+        const {T5} = this.getCardColumnChart
+        return T5
+    },
+    _time() {
+      const {timeTooltip} = this.getGeneric
+      return timeTooltip
+    },
+    _xaxisLabel() {
+      const {xaxis} = this.getCardColumnChart
+      return xaxis
+    },
+    _yaxisLabel() {
+      const {yaxis} = this.getCardColumnChart
+      return yaxis
+    },
     _fileList() {
       return this.fileList;
     },
@@ -130,7 +167,7 @@ export default {
             }
           },
           title: {
-            text: 'Níveis de tremor',
+            text: this._xaxisLabel,
             offsetY: -25,
             style: {
               fontSize: '14px',
@@ -143,7 +180,7 @@ export default {
         tooltip: {
           y: {
             formatter: function (val) {
-              return val + " segundos"
+              return val 
             }
           }
         },
@@ -189,7 +226,7 @@ export default {
             }
           },
           title: {
-            text: 'Nível de tremor',
+            text: this._xaxisLabel,
             offsetY: -25,
             style: {
               fontSize: '14px',
@@ -201,7 +238,7 @@ export default {
         yaxis:
         {
           title: {
-            text: "Tempo (segundos)"
+            text: this._yaxisLabel
           },
           axisTicks: {
             show: true,
@@ -213,7 +250,7 @@ export default {
         tooltip: {
           y: {
             formatter: function (val) {
-              return val + " segundos"
+              return val 
             }
           }
         },
@@ -231,23 +268,23 @@ export default {
     _series() {
       return [
         {
-          name: "Tremor nível 1",
+          name: this._T1,
           data: [this._tremor.T1]
         },
         {
-          name: "Tremor nível 2",
+          name: this._T2,
           data: [this._tremor.T2]
         },
         {
-          name: "Tremor nível 3",
+          name: this._T3,
           data: [this._tremor.T3]
         },
         {
-          name: "Tremor nível 4",
+          name: this._T4,
           data: [this._tremor.T4]
         },
         {
-          name: "Tremor nível 5",
+          name: this._T5,
           data: [this._tremor.T5]
         },
       ];
@@ -260,7 +297,8 @@ export default {
       "setFileListLoading",
       "setChartLoading",
       "setTremor",
-      "setTremorLevelData"
+      "setTremorLevelData",
+      "selectFile"
     ]),
     // Methods card-sensor-file-list
     async loadFileList() {
@@ -276,10 +314,10 @@ export default {
     },
   },
   async created() {
-    this.setTremor({})
-    this.fileSelected({})
-    this.setTremorLevelData({})
     this.cardHeight = window.innerHeight - 580;
+    this.setTremor({})
+    this.selectFile({})
+    this.setTremorLevelData({})
     await this.handleFileList();
   },
 };

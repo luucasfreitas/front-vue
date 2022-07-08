@@ -59,6 +59,7 @@
       ...mapActions("lang", ["setLang"]),
       choose_language(){
         this.setLang(this.language)
+        eventBus.$emit('language-change')
         this.dialog = false
       }
     },

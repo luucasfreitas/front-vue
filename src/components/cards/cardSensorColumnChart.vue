@@ -3,7 +3,7 @@
     <v-container class='fill-height'>
       <v-row class=" fill-height" align-content="center" justify="center">
         <v-col class="text-subtitle-1 text-center" cols="12">
-          Carregando os dados
+          {{_loading}}
         </v-col>
         <v-col cols="6">
           <v-progress-linear color="blue" indeterminate rounded height="6"></v-progress-linear>
@@ -21,7 +21,7 @@
     <v-container class='fill-height'>
       <v-row class=" fill-height" align-content="center" justify="center">
         <v-col class="text-subtitle-1 text-center" cols="12">
-          Selecione um arquivo para visualizar este painel
+          {{_empty}}
         </v-col>
       </v-row>
     </v-container>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -43,6 +43,15 @@ export default {
   },
   computed: {
     ...mapState("sensor", ["isChartDataLoading", "tremor", "tremorLevelData"]),
+    ...mapGetters("sensorView", ["getGeneric"]),
+    _loading() {
+      const {loading} = this.getGeneric
+      return loading
+    },
+    _empty() {
+      const {empty} = this.getGeneric
+      return empty
+    },
     _isLoading() {
       return this.isChartDataLoading
     },

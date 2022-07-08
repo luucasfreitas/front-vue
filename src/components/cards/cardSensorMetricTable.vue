@@ -3,7 +3,7 @@
     <v-container class='fill-height'>
       <v-row class=" fill-height" align-content="center" justify="center">
         <v-col class="text-subtitle-1 text-center" cols="12">
-          Carregando os dados
+          {{_loading}}
         </v-col>
         <v-col cols="6">
           <v-progress-linear color="blue" indeterminate rounded height="6"></v-progress-linear>
@@ -15,7 +15,7 @@
   <v-card :height="cardHeight" v-else-if="!_isLoading && !isEmpty" overflow-y-auto class="card-metric" outlined>
     <div class='card-metric-container'>
       <v-card-title ref="cardTitle">
-        Estatísticas descritivas
+        {{_title}}
       </v-card-title>
       <v-card-text>
         <v-simple-table :height="tableHeight">
@@ -23,10 +23,10 @@
                 <thead>
                   <tr>
                     <th class="text-left">
-                      Métrica
+                      {{_metric}}
                     </th>
                     <th class="text-left">
-                      Valor
+                      {{_value}}
                     </th>
                   </tr>
                 </thead>
@@ -48,14 +48,14 @@
     <v-container class='fill-height'>
       <v-row class=" fill-height" align-content="center" justify="center">
         <v-col class="text-subtitle-1 text-center" cols="12">
-          Selecione um arquivo para visualizar este painel
+          {{_empty}}
         </v-col>
       </v-row>
     </v-container>
   </v-card>
 </template>
 <script>
-  import {mapState} from "vuex"
+  import {mapGetters, mapState} from "vuex"
 
 export default {
   data() {
@@ -66,6 +66,27 @@ export default {
   },
   computed: {
     ...mapState("sensor", ["isChartDataLoading", "tremor", "tremorLevelData"]),
+    ...mapGetters("sensorView", ["getCardMetricTable", "getGeneric"]),
+    _title() {
+      const {title} = this.getCardMetricTable
+      return title
+    },
+    _loading() {
+      const {loading} = this.getGeneric
+      return loading
+    },
+    _empty() {
+        const {empty} = this.getGeneric
+        return empty
+    },
+    _metric() {
+      const {metric} = this.getCardMetricTable
+      return metric
+    },
+    _value() {
+      const {value} = this.getCardMetricTable
+      return value
+    },
     _isLoading() {
       return this.isChartDataLoading
     },

@@ -3,7 +3,7 @@
     <v-container class='fill-height'>
       <v-row class=" fill-height" align-content="center" justify="center">
         <v-col class="text-subtitle-1 text-center" cols="12">
-          Carregando os dados
+          {{_loading}}
         </v-col>
         <v-col cols="6">
           <v-progress-linear color="blue" indeterminate rounded height="6"></v-progress-linear>
@@ -14,9 +14,9 @@
   <v-card v-else class="card" :height='cardHeight' outlined>
     <div class='card-container'>
       <v-card-title ref="cardTitle">
-        Lista de arquivos
+        {{_title}}
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Pesquisar" single-line hide-details></v-text-field>
+        <v-text-field v-model="search" append-icon="mdi-magnify" :label="_search" single-line hide-details></v-text-field>
       </v-card-title>
       <div class='list-container'>
         <v-data-table class='table' :items="fileList" :height="tableHeight" overflow-y-auto hide-default-footer
@@ -38,7 +38,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
+import eventBus from '../../events/EventBus'
+
 export default {
   props: { fileList: Array, cardHeight: Number, headers: Array, isLoading: Boolean },
   data: () => ({
@@ -56,6 +58,43 @@ export default {
   computed: {
     ...mapState("session", ["token"]),
     ...mapState("sensor", ["isChartDataLoading", "fileSelected", "tremor", "tremorLevelData"]),
+    ...mapGetters("sensorView", ["getCardFileList", "getGeneric", "getCardColumnChart"]),
+    _title() {
+      const {title} = this.getCardFileList
+      return title
+    },
+    _search() {
+        const {search} = this.getCardFileList
+        return search
+    },
+    _loading() {
+      const {loading} = this.getGeneric
+      return loading
+    },
+    _yaxisLabel() {
+      const {yaxis} = this.getCardColumnChart
+      return yaxis
+    },
+    _T1() {
+      const {T1} = this.getCardColumnChart
+      return T1
+    },
+    _T2() {
+      const {T2} = this.getCardColumnChart
+      return T2
+    },
+    _T3() {
+      const {T3} = this.getCardColumnChart
+      return T3
+    },
+    _T4() {
+      const {T4} = this.getCardColumnChart
+      return T4
+    },
+    _T5() {
+      const {T5} = this.getCardColumnChart
+      return T5
+    },
     _token() {
       return this.token
     },
@@ -112,7 +151,7 @@ export default {
       }
       result.yaxis.push({
         seriesName: result.outlierReference,
-        title: { text: "Tempo(segundos)" },
+        title: { text: this._yaxisLabel },
         axisTicks: { show: true, color: this.outlierColor },
         axisBorder: { show: true, color: this.outlierColor },
         decimalsInFloat: 2,
@@ -134,15 +173,15 @@ export default {
     setSeriesName(reference) {
       switch (reference) {
         case 'T1':
-          return 'Tremor nível 1'
+          return this._T1
         case 'T2':
-          return 'Tremor nível 2'
+          return this._T2
         case 'T3':
-          return 'Tremor nível 3'
+          return this._T3
         case 'T4':
-          return 'Tremor nível 4'
+          return this._T4
         case 'T5':
-          return 'Tremor nível 5'
+          return this._T5
       }
     },
     setColors(outliers) {
@@ -167,11 +206,23 @@ export default {
       this.setChartLoading(true)
       await this.loadHistogramData({ token: this._token, filename: file.nome })
       this.setTremorLevelData(this.setFileData(this._tremor))
-      console.log(this._tremorLevelData)
       this.outlierName = this.setSeriesName(this._tremorLevelData.outlierReference)
       this.normalName = this.setSeriesName(this._tremorLevelData.minimumReference)
       this.setChartLoading(false)
     },
+    whenCreate() {
+        this.setChartLoading(false)
+    }
+  },
+  mounted() {
+    eventBus.$on('language-change', () => {
+        this.setTremorLevelData(this.setFileData(this._tremor))
+        this.outlierName = this.setSeriesName(this._tremorLevelData.outlierReference)
+        this.normalName = this.setSeriesName(this._tremorLevelData.minimumReference)
+      }) 
+  },
+  created() {
+    this.whenCreate()
   },
 }
 </script>
