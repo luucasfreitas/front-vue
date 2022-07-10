@@ -41,16 +41,27 @@ const dictionary = {
         title: "Estatísticas descritivas",
         metric: "Métrica",
         value: "Valor",
+        firstQuarter: "25%",
+        secondQuarter: "50%",
+        thirdQuarter: "75%",
         count: "contagem",
+        max: "max",
         mean: "média",
+        min: "min",
         std: "desvio padrão"
+
       },
       "en-us": {
         title: "Descriptive statistics",
         metric: "Metric",
         value: "Value",
+        firstQuarter: "25%",
+        secondQuarter: "50%",
+        thirdQuarter: "75%",
         count: "count",
+        max: "max",
         mean: "mean",
+        min: "min",
         std: "std"
       }
   },

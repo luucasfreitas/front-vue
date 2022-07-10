@@ -20,31 +20,32 @@
       <v-card-text>
         <v-simple-table :height="tableHeight">
           <template v-slot:default>
-                <thead>
-                  <tr>
-                    <th class="text-left">
-                      {{_metric}}
-                    </th>
-                    <th class="text-left">
-                      {{_value}}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(metric, key) in fileSelected.metrics"
-                    :key="metric.name"
-                  >
-                    <td>{{ key }}</td>
-                    <td>{{ metric }}</td>
-                  </tr>
-                </tbody>
-              </template>
+            <thead>
+              <tr>
+                <th class="text-left">
+                  {{_metric}}
+                </th>
+                <th class="text-left">
+                  {{_value}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(metric, key, index) in fileSelected.metrics"
+                :key="metric.name"
+              >
+                <td>{{ _keys[index] }}</td>
+                <td>{{ metric }}</td>
+              </tr>
+            </tbody>
+          </template>
         </v-simple-table>      
       </v-card-text>
     </div>
   </v-card>
-    <v-card class="card" v-else-if='isEmpty' :height='cardHeight' outlined>
+
+  <v-card class="card" v-else-if='isEmpty' :height='cardHeight' outlined>
     <v-container class='fill-height'>
       <v-row class=" fill-height" align-content="center" justify="center">
         <v-col class="text-subtitle-1 text-center" cols="12">
@@ -87,6 +88,12 @@ export default {
       const {value} = this.getCardMetricTable
       return value
     },
+    _keys() {
+      const {firstQuarter, secondQuarter, thirdQuarter, max, min, mean, count ,std} = this.getCardMetricTable
+      let keys = []
+      keys.push(firstQuarter, secondQuarter, thirdQuarter, max, min, mean, count, std)
+      return keys
+    },
     _isLoading() {
       return this.isChartDataLoading
     },
@@ -98,16 +105,13 @@ export default {
     },
   },
   methods: {
-    isTremorEmpty() {
-      return JSON.stringify(this._tremor) === '{}';
-    },
     isTremorDataEmpty() {
-      return JSON.stringify(this._tremorLevelData) === '{}';
+      return Object.keys(this._tremor).length === 0
     }
   },
   props: {fileSelected: Object, cardHeight: Number},
   created() {
-    this.isEmpty = this.isTremorDataEmpty()
+    this.isEmpty = true
     this.tableHeight = this.cardHeight * 0.75
   },
   updated() {
