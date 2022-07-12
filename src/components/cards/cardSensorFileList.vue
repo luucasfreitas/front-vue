@@ -48,7 +48,6 @@ export default {
     tableHeight: '',
     outlierColor: '#ce8a3c',
     normalColor: '#3175d3',
-    chartLabels: ["Tremor nível 1", "Tremor nível 2", "Tremor nível 3", "Tremor nível 4", "Tremor nível 5"]
   }),
   updated() {
     if (!this._isChartLoading) {
@@ -87,6 +86,10 @@ export default {
       const {T3} = this.getCardColumnChart
       return T3
     },
+    _chartLabels() {
+      const {T1, T2, T3, T4, T5} = this.getCardColumnChart
+      return [T1, T2, T3, T4, T5] 
+    },
     _T4() {
       const {T4} = this.getCardColumnChart
       return T4
@@ -107,8 +110,7 @@ export default {
     _tremor() {
       return this.tremor
     },
-    _tremorLevelData() {
-      return this.tremorLevelData
+    _tremorLevelData() { return this.tremorLevelData
     },
   },
   methods: {
@@ -149,23 +151,45 @@ export default {
           break
         }
       }
-      result.yaxis.push({
-        seriesName: result.outlierReference,
-        title: { text: this._yaxisLabel },
-        axisTicks: { show: true, color: this.outlierColor },
-        axisBorder: { show: true, color: this.outlierColor },
-        decimalsInFloat: 2,
+      result.outliers.forEach((outlier, index) => {
+          result.outliers[index] = this.setSeriesName(outlier)
       })
-      result.yaxis.push({
-        seriesName: result.normalReference,
-        opposite: true,
-        axisTicks: { show: true, color: this.normalColor },
-        axisBorder: { show: true, color: this.normalColor },
-        decimalsInFloat: 2,
+      result.outliers.forEach((outlier, index) => {
+        if(outlier = result.outlierReference) {
+          result.outliers.splice(index, 1)
+        }
       })
-      this.chartLabels.forEach(label => {
-        if (label != result.outlierReference && label != result.normalReference) {
-          result.yaxis.push({ seriesName: result.normalReference, show: false })
+      this._chartLabels.forEach(label => {
+        if(label == result.outlierReference) {
+          result.yaxis.push({
+            seriesName: result.outlierReference,
+            title: { text: this._yaxisLabel },
+            axisTicks: { show: true, color: this.outlierColor },
+            axisBorder: { show: true, color: this.outlierColor },
+            decimalsInFloat: 2,
+          })
+        }else if(label == result.normalReference) {
+              result.yaxis.push({
+              seriesName: result.normalReference,
+              opposite: true,
+              axisTicks: { show: true, color: this.normalColor },
+              axisBorder: { show: true, color: this.normalColor },
+              decimalsInFloat: 2,
+          })
+        }else {
+          if(result.outliers.length) {
+              result.outliers.forEach((outlier, index) => {
+                if(label == outlier) {
+                  result.yaxis.push({seriesName: result.outlierReference, show: false})
+                  result.outliers.splice(index, 1)
+                  return
+                }else {
+                  result.yaxis.push({seriesName: result.normalReference, show: false})
+                }
+              })
+          }else {
+            result.yaxis.push({seriesName: result.normalReference, show: false})
+          }
         }
       });
       return result

@@ -8,7 +8,7 @@ services:
     networks:
       - dashboard-network
     environment:
-      VUE_APP_API_BASE_URL: http://localhost
+      VUE_APP_API_BASE_URL: http://127.0.0.1
       VUE_APP_API_PORT: 5000
       VUE_APP_JWT_SECRET: 58AFD8134FB1788329CE68B8AFE85
   dashboard-api:
@@ -36,6 +36,7 @@ services:
     volumes:
       - dashboard-volume:/var/www/html/sidabi/biodata/files/sessao_arquivos
 networks:
-  dashboard-network: {}
+  dashboard-network:
+    driver: bridge
 volumes:
   dashboard-volume:

@@ -156,7 +156,7 @@ export default {
             },
           },
         xaxis: {
-          categories: ['T1', 'T2', 'T3', 'T4', 'T5'],
+          categories: [this._time, 'T2', 'T3', 'T4', 'T5'],
           labels: {
             show: false,
             rotate: -45,
@@ -215,7 +215,7 @@ export default {
           },
         },
         xaxis: {
-          categories: ['T1', 'T2', 'T3', 'T4', 'T5'],
+          categories: [this._time, 'T2', 'T3', 'T4', 'T5'],
           labels: {
             show: false,
             rotate: -45,
