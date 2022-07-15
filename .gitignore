@@ -3,3 +3,4 @@ package-lock.json
 .env-prod
 .env
 package-lock.json
+.dockerignore
