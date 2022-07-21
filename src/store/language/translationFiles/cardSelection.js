@@ -1,8 +1,8 @@
 const dictionary = {
-    TITLE:{
-        'pt-br': 'Escolha sua perspectiva',
-        'en-us': 'Choose your view'
-    },
-}
+  TITLE: {
+    "pt-br": "Escolha sua perspectiva",
+    "en-us": "Choose your view"
+  }
+};
 
-export default  dictionary
+export default dictionary;

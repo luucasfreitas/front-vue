@@ -9,8 +9,11 @@
       </p>
     </div>
     <div class="input-card">
-      <input-credentials-card class="input-login-screen" :validation_passord="getValidationPasswordMessage"
-        :validation_username="getValidationUsernameMessage">
+      <input-credentials-card
+        class="input-login-screen"
+        :validation_passord="getValidationPasswordMessage"
+        :validation_username="getValidationUsernameMessage"
+      >
       </input-credentials-card>
     </div>
   </v-main>
@@ -18,17 +21,17 @@
 
 <script>
 import InputCredentialsCard from "../components/login/InputCredentialsCard.vue";
-import eventBus from '../events/EventBus'
-import { mapGetters } from 'vuex'
+import eventBus from "../events/EventBus";
+import { mapGetters } from "vuex";
 export default {
   components: {
-    "input-credentials-card": InputCredentialsCard,
+    "input-credentials-card": InputCredentialsCard
   },
   data() {
     return {
       dashboard_title: "UPDRS Dashboard",
       dashboard_subtitle:
-        "Painel para vizualização de resultados da UPDRS, integrado ao SIDABI",
+        "Painel para vizualização de resultados da UPDRS, integrado ao SIDABI"
     };
   },
   computed: {
@@ -39,21 +42,19 @@ export default {
       "getValidationPasswordMessage"
     ]),
     _title() {
-      return this.getTitle
+      return this.getTitle;
     },
     _subtitle() {
-      return this.getSubtitle
-    },
+      return this.getSubtitle;
+    }
   },
   created() {
-    eventBus.$emit('open-dialog-language') 
+    eventBus.$emit("open-dialog-language");
   },
 
   renderTracked() {
     localStorage.clear();
   }
-
-
 };
 </script>
 
@@ -61,7 +62,7 @@ export default {
 .login-screen {
   margin: 0;
   padding: 0;
-  background-image: url('../assets/background.svg');
+  background-image: url("../assets/background.svg");
   overflow: hidden !important;
   /* Hide scrollbars */
   justify-items: center;
@@ -79,7 +80,7 @@ export default {
     height: 70%;
     margin-top: 100px;
 
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.29);
     border-radius: 20px;
 
@@ -108,8 +109,7 @@ export default {
     line-height: 34px;
     /* identical to box height */
 
-
-    color: #FFFFFF;
+    color: #ffffff;
 
     & h1 {
       padding-top: 15%;

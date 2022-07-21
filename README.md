@@ -1,4 +1,4 @@
-# dashboard-updrs
+# Parkinson Dashboard
 
 ## Project setup
 ```

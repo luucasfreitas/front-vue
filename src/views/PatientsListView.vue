@@ -8,13 +8,27 @@
     <hr />
     <v-card class="mt-2 row m0">
       <v-card-title>
-        <v-text-field v-model="search" append-icon="mdi-magnify" :label="_labelSearch" single-line small hide-details
-          class="search-text-field"></v-text-field>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          :label="_labelSearch"
+          single-line
+          small
+          hide-details
+          class="search-text-field"
+        ></v-text-field>
       </v-card-title>
       <v-divider class="mr-4  "></v-divider>
       <v-card-text style="margin: 0px !important; padding: 0 !important; ">
-        <v-data-table :headers="_tableHeaders" :items="patients" :items-per-page="5" class="elevation-1"
-          :search="search" style="margin: 0px !important;" :footer-props="_tableFooterProps">
+        <v-data-table
+          :headers="_tableHeaders"
+          :items="patients"
+          :items-per-page="5"
+          class="elevation-1"
+          :search="search"
+          style="margin: 0px !important;"
+          :footer-props="_tableFooterProps"
+        >
           <template v-slot:item.actions="{ item }">
             <v-icon small class="mr-2" @click="handleLoadStatistcs(item)">
               mdi-chart-line
@@ -24,7 +38,6 @@
           <template slot="no-data">
             {{ _labelNoData }}
           </template>
-
         </v-data-table>
       </v-card-text>
     </v-card>
@@ -32,12 +45,11 @@
 </template>
 
 <script>
-
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
-      search: '',
+      search: "",
       headers: [],
       patients: [],
       isUPDRSPatients: false
@@ -45,54 +57,55 @@ export default {
     };
   },
 
-
   computed: {
-    ...mapState('patients', ["patientsList"]),
-    ...mapState('session', ["token", "loginId"]),
-    ...mapGetters('patientsListView', [
-      'getHeadersTablePatients',
-      'getPageTitle',
-      'getTableFooterProps',
-      'getTableLabelSearch',
-      'getTableLabelNoData'
+    ...mapState("patients", ["patientsList"]),
+    ...mapState("session", ["token", "loginId"]),
+    ...mapGetters("patientsListView", [
+      "getHeadersTablePatients",
+      "getPageTitle",
+      "getTableFooterProps",
+      "getTableLabelSearch",
+      "getTableLabelNoData"
     ]),
     _tableFooterProps() {
-      const { itensPerPage } = this.getTableFooterProps
+      const { itensPerPage } = this.getTableFooterProps;
       return {
         showFirstLastPage: true,
-        'items-per-page-text': itensPerPage
-      }
+        "items-per-page-text": itensPerPage
+      };
     },
     _labelNoData() {
-      return this.getTableLabelNoData
+      return this.getTableLabelNoData;
     },
     _labelSearch() {
-      return this.getTableLabelSearch
+      return this.getTableLabelSearch;
     },
     _pageTitle() {
-      return this.getPageTitle
+      return this.getPageTitle;
     },
     _loginId() {
-      return this.loginId
+      return this.loginId;
     },
     _token() {
-      return this.token
+      return this.token;
     },
     _patients() {
-      return this.patientsList
+      return this.patientsList;
     },
     _tableHeaders() {
-      const { name,
+      const {
+        name,
         age,
         gender,
         dateOfBirth,
-        actions } = this.getHeadersTablePatients
+        actions
+      } = this.getHeadersTablePatients;
       return [
         {
           text: name,
           align: "start",
           sortable: false,
-          value: "patient_name",
+          value: "patient_name"
         },
         {
           text: age,
@@ -105,34 +118,35 @@ export default {
         },
         {
           text: actions,
-          value: 'actions',
+          value: "actions",
           sortable: false
-        },
-      ]
+        }
+      ];
     }
   },
   methods: {
-
-
-    ...mapActions('patients', [
+    ...mapActions("patients", [
       "getUPDRSPatientsList",
       "getSensorPatientsList",
       "selectPatient"
     ]),
-    ...mapActions('results', [
-      "getScoreHistory",
-    ]),
+    ...mapActions("results", ["getScoreHistory"]),
     async loadPatientsList() {
       if (this.isUPDRSPatients) {
-        await this.getUPDRSPatientsList({ token: this._token, loginId: this._loginId })
+        await this.getUPDRSPatientsList({
+          token: this._token,
+          loginId: this._loginId
+        });
       } else {
-        await this.getSensorPatientsList({ token: this._token, loginId: this._loginId })
+        await this.getSensorPatientsList({
+          token: this._token,
+          loginId: this._loginId
+        });
       }
     },
     async handlePaitentslist() {
-
       await this.loadPatientsList();
-      this.patients = this._patients
+      this.patients = this._patients;
     },
     async handleLoadStatistcs(patient) {
       this.selectPatient(patient);
@@ -140,18 +154,18 @@ export default {
         await this.getScoreHistory();
         this.$router.push("/patients/updrs");
       } else {
-        this.$router.push("/patients/sensor")
+        this.$router.push("/patients/sensor");
       }
-    },
+    }
   },
   async created() {
     if (this.$router.currentRoute.name == "updrs_patients") {
-      this.isUPDRSPatients = true
+      this.isUPDRSPatients = true;
     } else {
-      this.isUPDRSPatients = false
+      this.isUPDRSPatients = false;
     }
     await this.handlePaitentslist();
-  },
+  }
 };
 </script>
 
@@ -160,7 +174,6 @@ export default {
   width: 100% !important;
 
   .v-card {
-
     .v-card__text {
       border: none;
 
@@ -168,21 +181,18 @@ export default {
         .v-data-table__wrapper {
           height: 400px;
         }
-
       }
 
       .theme--light.v-table tbody tr:not(:last-child) {
         border-bottom: none !important;
       }
     }
-
   }
 }
 
 .elevation-1 {
   margin-left: 4%;
   margin-right: 4%;
-
 }
 
 h1 {

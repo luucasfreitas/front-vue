@@ -29,7 +29,6 @@ import CardProgressParts from "../components/cards/cardProgressParts.vue";
 import TwoLineChart from "../components/charts/twoLineChart.vue";
 import BarChart from "../components/charts/barChart.vue";
 import CardPart from "../components/cards/cardPart.vue";
-import PageTitle from "../components/lib/PageTitle.vue";
 
 import { mapState, mapActions, mapGetters } from "vuex";
 
@@ -41,21 +40,21 @@ export default {
         series: [
           {
             name: "Pontuação",
-            data: [], // pontuacao
-          },
+            data: [] // pontuacao
+          }
         ],
-        categories: [],
+        categories: []
       },
       barChartProps: {
         series: [
           {
-            data: [],
-          },
+            data: []
+          }
         ],
-        categories: ["PARTE 1", "PARTE 2", "PARTE 3", "PARTE 4"],
+        categories: ["PARTE 1", "PARTE 2", "PARTE 3", "PARTE 4"]
       },
       graphData: [],
-      graphCategories: [],
+      graphCategories: []
     };
   },
   computed: {
@@ -70,7 +69,7 @@ export default {
     },
     _partsAssessSelected() {
       return this.partsAssessSelected;
-    },
+    }
   },
   methods: {
     ...mapActions("results", ["getScoreHistory"]),
@@ -82,19 +81,19 @@ export default {
     },
     loadPartsGraph() {
       this.barChartProps.series.data = this.partsAssessSelected.data;
-    },
+    }
   },
   components: {
     CardInfoUser,
     TwoLineChart,
     BarChart,
     CardPart,
-    CardProgressParts,
+    CardProgressParts
   },
   async created() {
     //this.loadScoreHistoryGraph()
     //this.showGraphHistory = ''
-  },
+  }
 };
 </script>
 

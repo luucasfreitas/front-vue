@@ -1,21 +1,32 @@
 <template>
-  <v-card class="card" v-if='_isLoading' :height='cardHeight' outlined>
-    <v-container class='fill-height'>
+  <v-card class="card" v-if="_isLoading" :height="cardHeight" outlined>
+    <v-container class="fill-height">
       <v-row class=" fill-height" align-content="center" justify="center">
         <v-col class="text-subtitle-1 text-center" cols="12">
-          {{_loading}}
+          {{ _loading }}
         </v-col>
         <v-col cols="6">
-          <v-progress-linear color="blue" indeterminate rounded height="6"></v-progress-linear>
+          <v-progress-linear
+            color="blue"
+            indeterminate
+            rounded
+            height="6"
+          ></v-progress-linear>
         </v-col>
       </v-row>
     </v-container>
   </v-card>
 
-  <v-card :height="cardHeight" v-else-if="!_isLoading && !isEmpty" overflow-y-auto class="card-metric" outlined>
-    <div class='card-metric-container'>
+  <v-card
+    :height="cardHeight"
+    v-else-if="!_isLoading && !isEmpty"
+    overflow-y-auto
+    class="card-metric"
+    outlined
+  >
+    <div class="card-metric-container">
       <v-card-title ref="cardTitle">
-        {{_title}}
+        {{ _title }}
       </v-card-title>
       <v-card-text>
         <v-simple-table :height="tableHeight">
@@ -23,10 +34,10 @@
             <thead>
               <tr>
                 <th class="text-left">
-                  {{_metric}}
+                  {{ _metric }}
                 </th>
                 <th class="text-left">
-                  {{_value}}
+                  {{ _value }}
                 </th>
               </tr>
             </thead>
@@ -40,90 +51,108 @@
               </tr>
             </tbody>
           </template>
-        </v-simple-table>      
+        </v-simple-table>
       </v-card-text>
     </div>
   </v-card>
 
-  <v-card class="card" v-else-if='isEmpty' :height='cardHeight' outlined>
-    <v-container class='fill-height'>
+  <v-card class="card" v-else-if="isEmpty" :height="cardHeight" outlined>
+    <v-container class="fill-height">
       <v-row class=" fill-height" align-content="center" justify="center">
         <v-col class="text-subtitle-1 text-center" cols="12">
-          {{_empty}}
+          {{ _empty }}
         </v-col>
       </v-row>
     </v-container>
   </v-card>
 </template>
 <script>
-  import {mapGetters, mapState} from "vuex"
+import { mapGetters, mapState } from "vuex";
 
 export default {
   data() {
     return {
       tableHeight: 0,
       isEmpty: false
-    }
+    };
   },
   computed: {
     ...mapState("sensor", ["isChartDataLoading", "tremor", "tremorLevelData"]),
     ...mapGetters("sensorView", ["getCardMetricTable", "getGeneric"]),
     _title() {
-      const {title} = this.getCardMetricTable
-      return title
+      const { title } = this.getCardMetricTable;
+      return title;
     },
     _loading() {
-      const {loading} = this.getGeneric
-      return loading
+      const { loading } = this.getGeneric;
+      return loading;
     },
     _empty() {
-        const {empty} = this.getGeneric
-        return empty
+      const { empty } = this.getGeneric;
+      return empty;
     },
     _metric() {
-      const {metric} = this.getCardMetricTable
-      return metric
+      const { metric } = this.getCardMetricTable;
+      return metric;
     },
     _value() {
-      const {value} = this.getCardMetricTable
-      return value
+      const { value } = this.getCardMetricTable;
+      return value;
     },
     _keys() {
-      const {firstQuarter, secondQuarter, thirdQuarter, max, min, mean, count ,std} = this.getCardMetricTable
-      let keys = []
-      keys.push(firstQuarter, secondQuarter, thirdQuarter, max, min, mean, count, std)
-      return keys
+      const {
+        firstQuarter,
+        secondQuarter,
+        thirdQuarter,
+        max,
+        min,
+        mean,
+        count,
+        std
+      } = this.getCardMetricTable;
+      let keys = [];
+      keys.push(
+        firstQuarter,
+        secondQuarter,
+        thirdQuarter,
+        max,
+        min,
+        mean,
+        count,
+        std
+      );
+      return keys;
     },
     _isLoading() {
-      return this.isChartDataLoading
+      return this.isChartDataLoading;
     },
     _tremor() {
-        return this.tremor
+      return this.tremor;
     },
     _tremorLevelData() {
-      return this.tremorLevelData
-    },
+      return this.tremorLevelData;
+    }
   },
   methods: {
     isTremorDataEmpty() {
-      return Object.keys(this._tremor).length === 0
+      return Object.keys(this._tremor).length === 0;
     }
   },
-  props: {fileSelected: Object, cardHeight: Number},
+  props: { fileSelected: Object, cardHeight: Number },
   created() {
-    this.isEmpty = true
-    this.tableHeight = this.cardHeight * 0.75
+    this.isEmpty = true;
+    this.tableHeight = this.cardHeight * 0.75;
   },
   updated() {
-    this.isEmpty = this.isTremorDataEmpty()
-  },
-}
+    this.isEmpty = this.isTremorDataEmpty();
+  }
+};
 </script>
 <style>
 .card-metric {
   width: auto;
   overflow: hidden;
-  border: 1px solid #E8E8E8 !important;
+  border: 1px solid #e8e8e8 !important;
   border-radius: 20px !important;
   align-items: center;
 }
@@ -134,7 +163,7 @@ export default {
 
 .card-title {
   font-size: 36px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
   color: white;
   text-align: center;
@@ -144,7 +173,7 @@ export default {
   font-size: 24px;
   text-align: center;
   font-weight: bold;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   color: white;
 }
 </style>

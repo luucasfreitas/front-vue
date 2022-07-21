@@ -1,68 +1,63 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Base from '../views/Base/BaseComponent.vue'
-import CardSelectionView from '../views/CardSelectionView.vue'
-import LoginView from '../views/LoginView.vue'
-import PatientsListView from '../views/PatientsListView.vue'
-import ResultsView from '../views/ResultsView.vue'
-import SensorView from '../views/SensorView.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Base from "../views/Base/BaseComponent.vue";
+import CardSelectionView from "../views/CardSelectionView.vue";
+import LoginView from "../views/LoginView.vue";
+import PatientsListView from "../views/PatientsListView.vue";
+import ResultsView from "../views/ResultsView.vue";
+import SensorView from "../views/SensorView.vue";
 import store from "../store";
 // import App from '../App.vue'
 
-
 //import Home from '../views/Home.vue'
 
-
-
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'login',
+    path: "/",
+    name: "login",
     component: LoginView,
     meta: { guest: true }
   },
   {
-    path: '/patients',
-    name: 'patients',
+    path: "/patients",
+    name: "patients",
     component: Base,
     meta: { requiresAuth: true },
     children: [
       {
-        path: '/',
+        path: "/",
         component: CardSelectionView,
-        name: 'card_selection',
-        meta: { requiresAuth: true },
+        name: "card_selection",
+        meta: { requiresAuth: true }
       },
       {
-        path: 'updrs_patients',
+        path: "updrs_patients",
         component: PatientsListView,
-        name: 'updrs_patients',
-        meta: { requiresAuth: true },
+        name: "updrs_patients",
+        meta: { requiresAuth: true }
       },
       {
-        path: 'sensor_patients',
+        path: "sensor_patients",
         component: PatientsListView,
-        name: 'sensor_patients',
-        meta: { requiresAuth: true },
+        name: "sensor_patients",
+        meta: { requiresAuth: true }
       },
       {
-        path: 'updrs',
+        path: "updrs",
         component: ResultsView,
-        name: 'updrsResult',
-        meta: { requiresAuth: true },
+        name: "updrsResult",
+        meta: { requiresAuth: true }
       },
       {
-        path: 'sensor',
+        path: "sensor",
         component: SensorView,
-        name: 'sensor',
-        meta: { requiresAuth: true },
+        name: "sensor",
+        meta: { requiresAuth: true }
       }
-    ],
-
-  },
-
+    ]
+  }
 
   // {
   //   path: '/about',
@@ -72,16 +67,16 @@ const routes = [
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   // }
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes
-})
+});
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters["session/isAuthenticated"]) {
       next();
       return;
@@ -93,7 +88,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.guest)) {
+  if (to.matched.some(record => record.meta.guest)) {
     if (store.getters["session/isAuthenticated"]) {
       next("/patients");
       return;
@@ -104,5 +99,4 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-export default router
-
+export default router;
