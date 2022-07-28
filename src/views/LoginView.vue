@@ -63,6 +63,9 @@ export default {
   margin: 0;
   padding: 0;
   background-image: url("../assets/background.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   overflow: hidden !important;
   /* Hide scrollbars */
   justify-items: center;

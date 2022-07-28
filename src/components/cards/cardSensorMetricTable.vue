@@ -104,10 +104,10 @@ export default {
         firstQuarter,
         secondQuarter,
         thirdQuarter,
-        max,
-        min,
-        mean,
         count,
+        max,
+        mean,
+        min,
         std
       } = this.getCardMetricTable;
       let keys = [];
@@ -115,10 +115,10 @@ export default {
         firstQuarter,
         secondQuarter,
         thirdQuarter,
-        max,
-        min,
-        mean,
         count,
+        max,
+        mean,
+        min,
         std
       );
       return keys;
