@@ -4,13 +4,9 @@ services:
     depends_on:
       - dashboard-api
     ports:
-      - "8080:8080"
+      - "8080:80"
     networks:
       - dashboard-network
-    environment:
-      VUE_APP_API_BASE_URL: http://127.0.0.1
-      VUE_APP_API_PORT: 5000
-      VUE_APP_JWT_SECRET: 58AFD8134FB1788329CE68B8AFE85
   dashboard-api:
     image: sensor-dashboard/sensor-dashboard-api:latest
     depends_on:
@@ -21,15 +17,13 @@ services:
       - dashboard-network
     volumes:
       - dashboard-volume:/var/files:ro
-    environment: 
-      DATABASE_URL: postgresql+psycopg2://lucas:qR4e6Y10FkNeOnU6JAit@sidabi-instance-1.csraqxx4fdwz.us-east-1.rds.amazonaws.com/sidabi
-      SECRET_KEY: 58AFD8134FB1788329CE68B8AFE85
-      FLASK_APP: main.py
-      FLASK_ENV: development
-      FILE_LOCATION: /var/files/
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://lucas:qR4e6Y10FkNeOnU6JAit@sidabi-instance-1.csraqxx4fdwz.us-east-1.rds.amazonaws.com/sidabi
+      - SECRET_KEY=58AFD8134FB1788329CE68B8AFE85
+      - FILE_LOCATION=/var/files/
   sidabi:
     image: sensor-dashboard/sidabi:latest
-    ports: 
+    ports:
       - "8082:8082"
     networks:
       - dashboard-network
