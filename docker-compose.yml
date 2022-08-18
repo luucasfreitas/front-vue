@@ -18,8 +18,8 @@ services:
     volumes:
       - dashboard-volume:/var/files:ro
     environment:
-      - DATABASE_URL=postgresql+psycopg2://lucas:qR4e6Y10FkNeOnU6JAit@sidabi-instance-1.csraqxx4fdwz.us-east-1.rds.amazonaws.com/sidabi
-      - SECRET_KEY=58AFD8134FB1788329CE68B8AFE85
+      - DATABASE_URL=<YOUR_DB_URL>
+      - SECRET_KEY=<YOUR_SECRET_KEY>
       - FILE_LOCATION=/var/files/
   sidabi:
     image: sensor-dashboard/sidabi:latest
