@@ -3,23 +3,22 @@
     <side-bar></side-bar>
     <!-- <alert /> -->
     <v-main class="pl-2 pr-2">
-      
       <router-view></router-view>
     </v-main>
   </div>
 </template>
 
 <script>
-import SideBar from '@/components/lib/SideBar.vue';
+import SideBar from "@/components/lib/SideBar.vue";
 
 export default {
-  name: 'Base',
+  name: "Base",
 
   components: {
-    SideBar,
+    SideBar
   },
   mounted() {
-        this.$route.params.login; // 10
-  },
+    this.$route.params.login; // 10
+  }
 };
 </script>

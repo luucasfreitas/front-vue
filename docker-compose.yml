@@ -1,0 +1,36 @@
+services:
+  dashboard:
+    image: sensor-dashboard/sensor-dashboard-app:latest
+    depends_on:
+      - dashboard-api
+    ports:
+      - "8080:80"
+    networks:
+      - dashboard-network
+  dashboard-api:
+    image: sensor-dashboard/sensor-dashboard-api:latest
+    depends_on:
+      - sidabi
+    ports:
+      - "5000:5000"
+    networks:
+      - dashboard-network
+    volumes:
+      - dashboard-volume:/var/files:ro
+    environment:
+      - DATABASE_URL=<YOUR_DB_URL>
+      - SECRET_KEY=<YOUR_SECRET_KEY>
+      - FILE_LOCATION=/var/files/
+  sidabi:
+    image: sensor-dashboard/sidabi:latest
+    ports:
+      - "8082:8082"
+    networks:
+      - dashboard-network
+    volumes:
+      - dashboard-volume:/var/www/html/sidabi/biodata/files/sessao_arquivos
+networks:
+  dashboard-network:
+    driver: bridge
+volumes:
+  dashboard-volume:

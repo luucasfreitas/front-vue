@@ -2,18 +2,18 @@
   <v-main class="login-screen">
     <div class="login-screen-title">
       <h1>
-        {{  _title }}
+        {{ _title }}
       </h1>
       <p>
         {{ _subtitle }}
       </p>
     </div>
     <div class="input-card">
-      <input-credentials-card 
+      <input-credentials-card
         class="input-login-screen"
         :validation_passord="getValidationPasswordMessage"
         :validation_username="getValidationUsernameMessage"
-        >
+      >
       </input-credentials-card>
     </div>
   </v-main>
@@ -21,39 +21,40 @@
 
 <script>
 import InputCredentialsCard from "../components/login/InputCredentialsCard.vue";
-
-import {mapGetters} from 'vuex'
+import eventBus from "../events/EventBus";
+import { mapGetters } from "vuex";
 export default {
   components: {
-    "input-credentials-card": InputCredentialsCard,
+    "input-credentials-card": InputCredentialsCard
   },
   data() {
     return {
       dashboard_title: "UPDRS Dashboard",
       dashboard_subtitle:
-        "Painel para vizualização de resultados da UPDRS, integrado ao SIDABI",
+        "Painel para vizualização de resultados da UPDRS, integrado ao SIDABI"
     };
   },
-  computed:{
-    ...mapGetters("loginView",[
-    "getTitle",
-    "getSubtitle",
-    "getValidationUsernameMessage",
-    "getValidationPasswordMessage"
+  computed: {
+    ...mapGetters("loginView", [
+      "getTitle",
+      "getSubtitle",
+      "getValidationUsernameMessage",
+      "getValidationPasswordMessage"
     ]),
-    _title(){
-      return this.getTitle
+    _title() {
+      return this.getTitle;
     },
-    _subtitle(){
-      return this.getSubtitle
-    },
+    _subtitle() {
+      return this.getSubtitle;
+    }
+  },
+  created() {
+    eventBus.$emit("open-dialog-language");
   },
 
   renderTracked() {
-      localStorage.clear();
+    localStorage.clear();
   }
-
-  
 };
 </script>
 
@@ -61,23 +62,28 @@ export default {
 .login-screen {
   margin: 0;
   padding: 0;
-  background-image: url('../assets/background.svg');
-  overflow: hidden !important; /* Hide scrollbars */
+  background-image: url("../assets/background.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden !important;
+  /* Hide scrollbars */
   justify-items: center;
   width: 100% !important;
-  height: calc(100% );
-  
+  height: calc(100%);
+
   & .v-main__wrap {
     display: flex;
     justify-content: space-between;
   }
+
   & .input-card {
     width: 400px;
     margin-left: auto;
     height: 70%;
     margin-top: 100px;
 
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.29);
     border-radius: 20px;
 
@@ -87,6 +93,7 @@ export default {
       //border: 12px solid rgb(0, 255, 98) !important;
     }
   }
+
   & .login-screen-title {
     // align-self: center;
     //justify-self: center;
@@ -97,7 +104,7 @@ export default {
     //position: absolute;
     width: calc(90% - 600px);
     padding-top: 14%;
-   // bottom: 54.67%;
+    // bottom: 54.67%;
     font-family: Lato;
     font-style: normal;
     font-weight: bold;
@@ -105,8 +112,7 @@ export default {
     line-height: 34px;
     /* identical to box height */
 
-
-    color: #FFFFFF;
+    color: #ffffff;
 
     & h1 {
       padding-top: 15%;
