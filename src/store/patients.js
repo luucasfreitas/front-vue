@@ -63,6 +63,27 @@ export default {
         dispatch("events/alert", errorMessage, { root: true });
       }
     },
+    async getScalePatientsList({ commit, dispatch }, { token, loginId }) {
+      try {
+        const url = `${apiConfig.baseUrl}:${apiConfig.port}/core/individuos/scale/${loginId}`;
+        console.log(url);
+        const requestParams = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token
+          }
+        };
+
+        const response = await fetch(url, requestParams);
+        const data = await response.json();
+
+        commit("SET_PATIENTS_LIST", data.participants);
+      } catch (e) {
+        const errorMessage = `Erro ao listar pacientes - ${e.message} `;
+        dispatch("events/alert", errorMessage, { root: true });
+      }
+    },
     selectPatient({ commit }, patient) {
       commit("SET_PATIENT_SELECTED", patient);
     }

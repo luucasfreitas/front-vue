@@ -18,8 +18,8 @@ services:
     volumes:
       - dashboard-volume:/var/files:ro
     environment:
-      - DATABASE_URL=<YOUR_DB_URL>
-      - SECRET_KEY=<YOUR_SECRET_KEY>
+      - DATABASE_URL=postgres://postgres:123456@127.0.0.1:5432/sidabi
+      - SECRET_KEY=admin
       - FILE_LOCATION=/var/files/
   sidabi:
     image: sensor-dashboard/sidabi:latest

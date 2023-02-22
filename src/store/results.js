@@ -39,6 +39,7 @@ export default {
       const { lang } = rootState.lang;
       const { id } = rootState.patients.patientSelected;
       const url = `${apiConfig.baseUrl}:${apiConfig.port}/assess/results/${loginId}/patient/${id}`;
+      console.log(url);
       const requestParams = {
         method: "GET",
         headers: {

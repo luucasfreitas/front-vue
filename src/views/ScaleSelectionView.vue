@@ -47,15 +47,27 @@ export default {
     return {
       cardsData: [
         {
-          title: "UPDRS",
-          img: "updrs_card"
+          title: "AES",
+          img: "scale_card"
         },
         {
-          title: "Sensor",
-          img: "sensor_card"
+          title: "MBSS",
+          img: "scale_card"
         },
         {
-          title: "Scale",
+          title: "SAM",
+          img: "scale_card"
+        },
+        {
+          title: "MCA",
+          img: "scale_card"
+        },
+        {
+          title: "SFSS",
+          img: "scale_card"
+        },
+        {
+          title: "STAI",
           img: "scale_card"
         }
       ],
@@ -66,7 +78,7 @@ export default {
 
   computed: {
     ...mapState("session", ["token", "loginId"]),
-    ...mapGetters("cardSelectionView", ["getTitle"]),
+    ...mapGetters("scaleSelectionView", ["getTitle"]),
     _title() {
       return this.getTitle;
     },
@@ -87,13 +99,21 @@ export default {
   },
   methods: {
     handleCardClick: function(card) {
-      if (card.title == "UPDRS") {
-        this.$router.push("patients/updrs_patients");
-      } else if (card.title == "Sensor") {
-        this.$router.push("patients/sensor_patients");
+      if (card.title == "AES") {
+        console.log(card.title);
+        this.$router.push("scale_patients/aes");
+      } else if (card.title == "MBSS") {
+        this.$router.push("scale_patients/mbss");
+      } else if (card.title == "SAM") {
+        this.$router.push("scale_patients/sam");
+      } else if (card.title == "MCA") {
+        this.$router.push("scale_patients/mca");
+      } else if (card.title == "SFSS") {
+        this.$router.push("scale_patients/sfss");
       } else {
-        this.$router.push("patients/scale_patients");
+        this.$router.push("scale_patients/stai");
       }
+      
     },
     getImgUrl: function(img) {
       var images = require.context("../assets/", false, /\.svg$/);

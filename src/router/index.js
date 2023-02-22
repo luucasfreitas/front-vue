@@ -2,9 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Base from "../views/Base/BaseComponent.vue";
 import CardSelectionView from "../views/CardSelectionView.vue";
+import ScaleSelectionView from "../views/ScaleSelectionView.vue";
 import LoginView from "../views/LoginView.vue";
 import PatientsListView from "../views/PatientsListView.vue";
+import PatientsListViewScale from "../views/PatientListViewScale.vue";
 import ResultsView from "../views/ResultsView.vue";
+import ScaleView from "../views/ScaleView.vue";
 import SensorView from "../views/SensorView.vue";
 import store from "../store";
 // import App from '../App.vue'
@@ -45,6 +48,49 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
+        path: "scale_patients",
+        component: ScaleSelectionView,
+        name: "scale_patients",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale_patients/aes",
+        component: PatientsListView,
+        name: "aes",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale_patients/mbss",
+        component: PatientsListView,
+        name: "mbss",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale_patients/sam",
+        component: PatientsListView,
+        name: "sam",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale_patients/mca",
+        component: PatientsListView,
+        name: "mca",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale_patients/sfss",
+        component: PatientsListView,
+        name: "sfss",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale_patients/stai",
+        component: PatientsListView,
+        name: "stai",
+        meta: { requiresAuth: true }
+      },
+
+      {
         path: "updrs",
         component: ResultsView,
         name: "updrsResult",
@@ -54,6 +100,12 @@ const routes = [
         path: "sensor",
         component: SensorView,
         name: "sensor",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale",
+        component: ScaleView,
+        name: "scale",
         meta: { requiresAuth: true }
       }
     ]
