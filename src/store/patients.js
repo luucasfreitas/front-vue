@@ -4,6 +4,9 @@ export default {
   namespaced: true,
   state: {
     patientsList: [],
+    scaleSelected: {
+      id: "",
+    },
     patientSelected: {
       name: "",
       gender: "",
@@ -19,7 +22,10 @@ export default {
     },
     SET_PATIENTS_LIST(state, patientsList) {
       state.patientsList = patientsList;
-    }
+    },
+    SET_SCALE_SELECTED(state, scale){
+      state.scaleSelected = scale
+    },
   },
 
   actions: {
@@ -84,8 +90,9 @@ export default {
         dispatch("events/alert", errorMessage, { root: true });
       }
     },
-    selectPatient({ commit }, patient) {
+    selectPatient({ commit }, patient, scale) {
       commit("SET_PATIENT_SELECTED", patient);
+      commit("SET_SCALE_SELECTED", scale);
     }
   }
 };

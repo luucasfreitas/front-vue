@@ -11,6 +11,14 @@ import ScaleView from "../views/ScaleView.vue";
 import SensorView from "../views/SensorView.vue";
 import store from "../store";
 // import App from '../App.vue'
+import ScaleViewSam from "../views/ScaleViewSam.vue";
+import ScaleViewMca from "../views/ScaleViewMca.vue";
+import ScaleViewAes from "../views/ScaleViewAes.vue";
+import ScaleViewMbss from "../views/ScaleViewMbss.vue";
+import ScaleViewSfss from "../views/ScaleViewSfss.vue";
+import ScaleViewStai from "../views/ScaleViewStai.vue";
+
+
 
 //import Home from '../views/Home.vue'
 
@@ -106,6 +114,42 @@ const routes = [
         path: "scale",
         component: ScaleView,
         name: "scale",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale/mca",
+        component: ScaleViewMca,
+        name: "scaleMca",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale/sam",
+        component: ScaleViewSam,
+        name: "scaleSam",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale/aes",
+        component: ScaleViewAes,
+        name: "scaleAes",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale/mbss",
+        component: ScaleViewMbss,
+        name: "scaleMbss",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale/Sfss",
+        component: ScaleViewSfss,
+        name: "scaleSfss",
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "scale/stai",
+        component: ScaleViewStai,
+        name: "scaleStai",
         meta: { requiresAuth: true }
       }
     ]

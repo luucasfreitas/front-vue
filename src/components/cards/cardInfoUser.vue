@@ -72,6 +72,15 @@ export default {
   computed: {
     ...mapState("patients", ["patientSelected"]),
     ...mapGetters("resultsView", ["getCardPatientSelected"]),
+    ...mapGetters("scaleView", ["getCardPatientSelected"]),
+    ...mapGetters("scaleViewSam", ["getCardPatientSelected"]),
+    ...mapGetters("scaleViewMca", ["getCardPatientSelected"]),
+    ...mapGetters("scaleViewMbss", ["getCardPatientSelected"]),
+    ...mapGetters("scaleViewSfss", ["getCardPatientSelected"]),
+    ...mapGetters("scaleViewStai", ["getCardPatientSelected"]),
+
+
+
     _labels() {
       return {
         ...this.getCardPatientSelected

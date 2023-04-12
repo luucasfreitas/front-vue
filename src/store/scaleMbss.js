@@ -35,7 +35,7 @@ export default {
   },
 
   actions: {
-    async getScoreScale({ commit, rootState }, scaleId, nameScale) {
+    async getScoreScaleMbss({ commit, rootState }, scaleId, nameScale) {
 
 
       // switch (nameScale) {
@@ -69,6 +69,7 @@ export default {
       const { id } = rootState.patients.patientSelected;
       // const {scaleId} = rootState.patients.partsScaleSelected;
       const url = `${apiConfig.baseUrl}:${apiConfig.port}/scales/${loginId}/${scaleId}/${id}/undefined`;
+      // console.log(url);
       const requestParams = {
         method: "GET",
         headers: {
@@ -79,8 +80,8 @@ export default {
 
       const response = await fetch(url, requestParams);
       const data = await response.json();
-      console.log('scale');
-      console.log(data);
+      // console.log('mbss');
+      // console.log(data);
       return data;
       // console.log(data.result[0]);
       // const result = data.result;

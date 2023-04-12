@@ -1,5 +1,5 @@
 <template>
-    <v-card class="card-progress-scale" 
+    <v-card class="card-progress-scale-mbss" 
         outlined 
         :width="graph_width"
         :height="170">
@@ -56,11 +56,14 @@ export default {
     computed:{
 
         
-    ...mapGetters("scaleView", ["getScaleParts", "getScalePartsNames"]),
+    ...mapGetters("scaleViewMbss", ["getScaleParts", "getScalePartsNames"]),
 
     ...mapState("scale", ["partsScaleSelected"]),
     ...mapState("scaleSam", ["partsScaleSelectedSam"]),
     ...mapState("scaleMca", ["partsScaleSelectedMca"]),
+    ...mapState("scaleAes", ["partsScaleSelectedAes"]),
+    ...mapState("scaleMbss", ["partsScaleSelectedMbss"]),
+
 
 
     },
@@ -69,19 +72,24 @@ export default {
             const score = parts
             const pp = this.patternTotalScore
             const newScores = []
-            console.log('>>>>>>>>>>>>>');
-            console.log(this.getScalePartsNames);
-            console.log('>>>>>>>>>>>>>');
-
+            // console.log('>>>>>>>>>>>>>');
+            // console.log(this.getScalePartsNames);
+            // console.log('>>>>>##>>>>>>>>');
+            // console.log(pp);
+            // console.log('>>>>>>>>>>>>>');
+            // console.log(score);
+            // console.log('>>>>>>>>>>>>>');
             for (let i = 0; i < this.patternTotalScore.length; i++) {
                 const percentage = ( score[i] / pp[i]) * 100;
                 newScores.push( Math.ceil(percentage))
                 
-            }   
+            }
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: newScores[0] },
                 { label: this.getScalePartsNames[1], value: newScores[1] },
-                { label: this.getScalePartsNames[2], value: newScores[2] },]
+                { label: this.getScalePartsNames[2], value: newScores[2] },
+                { label: this.getScalePartsNames[3], value: newScores[3] },
+                { label: this.getScalePartsNames[4], value: newScores[4] },]
             this.date = date
         },
         loadDataParts(){
@@ -89,7 +97,9 @@ export default {
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: score[0] },
                 { label: this.getScalePartsNames[1], value: score[1] },
-                { label: this.getScalePartsNames[2], value: score[2] },]
+                { label: this.getScalePartsNames[2], value: score[2] },
+                { label: this.getScalePartsNames[3], value: score[3] },
+                { label: this.getScalePartsNames[4], value: score[4] },]
             
         },
         handleComponentSize(){
@@ -108,7 +118,7 @@ export default {
 }
 </script>
 <style lang='scss'>
-    .card-progress-scale {
+    .card-progress-scale-mbss {
         
         padding: 0.5%;
         margin-top: 1.5% ;

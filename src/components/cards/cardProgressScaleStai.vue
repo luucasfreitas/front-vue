@@ -1,5 +1,5 @@
 <template>
-    <v-card class="card-progress-scale" 
+    <v-card class="card-progress-scale-stai" 
         outlined 
         :width="graph_width"
         :height="170">
@@ -56,11 +56,16 @@ export default {
     computed:{
 
         
-    ...mapGetters("scaleView", ["getScaleParts", "getScalePartsNames"]),
+    ...mapGetters("scaleViewStai", ["getScaleParts", "getScalePartsNames"]),
 
     ...mapState("scale", ["partsScaleSelected"]),
     ...mapState("scaleSam", ["partsScaleSelectedSam"]),
     ...mapState("scaleMca", ["partsScaleSelectedMca"]),
+    ...mapState("scaleAes", ["partsScaleSelectedAes"]),
+    ...mapState("scaleMbss", ["partsScaleSelectedMbss"]),
+    ...mapState("scaleSfss", ["partsScaleSelectedSfss"]),
+    ...mapState("scaleStai", ["partsScaleSelectedStai"]),
+
 
 
     },
@@ -81,7 +86,13 @@ export default {
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: newScores[0] },
                 { label: this.getScalePartsNames[1], value: newScores[1] },
-                { label: this.getScalePartsNames[2], value: newScores[2] },]
+                { label: this.getScalePartsNames[2], value: newScores[2] },
+                { label: this.getScalePartsNames[3], value: newScores[3] },
+                { label: this.getScalePartsNames[4], value: newScores[4] },
+                { label: this.getScalePartsNames[5], value: newScores[5] },
+                { label: this.getScalePartsNames[6], value: newScores[6] },
+                { label: this.getScalePartsNames[7], value: newScores[7] },
+                { label: this.getScalePartsNames[8], value: newScores[8] },]
             this.date = date
         },
         loadDataParts(){
@@ -89,7 +100,13 @@ export default {
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: score[0] },
                 { label: this.getScalePartsNames[1], value: score[1] },
-                { label: this.getScalePartsNames[2], value: score[2] },]
+                { label: this.getScalePartsNames[2], value: score[2] },
+                { label: this.getScalePartsNames[3], value: score[3] },
+                { label: this.getScalePartsNames[4], value: score[4] },
+                { label: this.getScalePartsNames[5], value: score[5] },
+                { label: this.getScalePartsNames[6], value: score[6] },
+                { label: this.getScalePartsNames[7], value: score[7] },
+                { label: this.getScalePartsNames[8], value: score[8] },]
             
         },
         handleComponentSize(){
@@ -108,7 +125,7 @@ export default {
 }
 </script>
 <style lang='scss'>
-    .card-progress-scale {
+    .card-progress-scale-stai {
         
         padding: 0.5%;
         margin-top: 1.5% ;

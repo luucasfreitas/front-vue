@@ -1,5 +1,5 @@
 <template>
-    <v-card class="card-progress-scale" 
+    <v-card class="card-progress-scale-aes" 
         outlined 
         :width="graph_width"
         :height="170">
@@ -56,11 +56,12 @@ export default {
     computed:{
 
         
-    ...mapGetters("scaleView", ["getScaleParts", "getScalePartsNames"]),
+    ...mapGetters("scaleViewAes", ["getScaleParts", "getScalePartsNames"]),
 
     ...mapState("scale", ["partsScaleSelected"]),
     ...mapState("scaleSam", ["partsScaleSelectedSam"]),
     ...mapState("scaleMca", ["partsScaleSelectedMca"]),
+    ...mapState("scaleAes", ["partsScaleSelectedAes"]),
 
 
     },
@@ -81,7 +82,8 @@ export default {
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: newScores[0] },
                 { label: this.getScalePartsNames[1], value: newScores[1] },
-                { label: this.getScalePartsNames[2], value: newScores[2] },]
+                { label: this.getScalePartsNames[2], value: newScores[2] },
+                { label: this.getScalePartsNames[3], value: newScores[3] },]
             this.date = date
         },
         loadDataParts(){
@@ -89,7 +91,8 @@ export default {
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: score[0] },
                 { label: this.getScalePartsNames[1], value: score[1] },
-                { label: this.getScalePartsNames[2], value: score[2] },]
+                { label: this.getScalePartsNames[2], value: score[2] },
+                { label: this.getScalePartsNames[3], value: score[3] },]
             
         },
         handleComponentSize(){
@@ -108,7 +111,7 @@ export default {
 }
 </script>
 <style lang='scss'>
-    .card-progress-scale {
+    .card-progress-scale-aes {
         
         padding: 0.5%;
         margin-top: 1.5% ;

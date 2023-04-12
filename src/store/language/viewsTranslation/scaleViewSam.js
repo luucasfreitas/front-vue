@@ -1,16 +1,16 @@
-import dictionary from "../translationFiles/results"
+import dictionary from "../translationFiles/scaleSam"
 
 const { 
   CARD_PATIENT_SELECTED,
   ANSWERS_SCALE,
-  UPDRS_PARTS_NAMES
+  SCALE_PARTS_NAMES
   } = dictionary
 export default {
     namespaced: true,
     state: {
       cardPatientSelected : CARD_PATIENT_SELECTED,
       answersScale : ANSWERS_SCALE,
-      updrsPartsNames : UPDRS_PARTS_NAMES
+      scalePartsNames : SCALE_PARTS_NAMES
     },
     getters: {
       getHeadersTablePatients (state, getters, rootState) {
@@ -45,6 +45,11 @@ export default {
       getScaleParts(state, getters, rootState){
         const lang = rootState.lang.lang ? rootState.lang.lang : 'pt-br'
         return state.answersScale[lang]
+      },
+      getScalePartsNames(state, getters, rootState){
+
+        const lang = rootState.lang.lang ? rootState.lang.lang : 'pt-br'
+        return state.scalePartsNames[lang]
       },
 
     }

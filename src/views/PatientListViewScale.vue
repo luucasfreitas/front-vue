@@ -8,27 +8,13 @@
     <hr />
     <v-card class="mt-2 row m0">
       <v-card-title>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          :label="_labelSearch"
-          single-line
-          small
-          hide-details
-          class="search-text-field"
-        ></v-text-field>
+        <v-text-field v-model="search" append-icon="mdi-magnify" :label="_labelSearch" single-line small hide-details
+          class="search-text-field"></v-text-field>
       </v-card-title>
       <v-divider class="mr-4  "></v-divider>
       <v-card-text style="margin: 0px !important; padding: 0 !important; ">
-        <v-data-table
-          :headers="_tableHeaders"
-          :items="patients"
-          :items-per-page="5"
-          class="elevation-1"
-          :search="search"
-          style="margin: 0px !important;"
-          :footer-props="_tableFooterProps"
-        >
+        <v-data-table :headers="_tableHeaders" :items="patients" :items-per-page="5" class="elevation-1" :search="search"
+          style="margin: 0px !important;" :footer-props="_tableFooterProps">
           <template v-slot:item.actions="{ item }">
             <v-icon small class="mr-2" @click="handleLoadStatistcs(item)">
               mdi-chart-line
@@ -133,6 +119,9 @@ export default {
     ]),
     ...mapActions("results", ["getScoreHistory"]),
     ...mapActions("scale", ["getScoreScale"]),
+    ...mapActions("scaleSam", ["getScoreScaleSam"]),
+    ...mapActions("scaleMca", ["getScoreScaleMca"]),
+
 
     async loadPatientsList() {
       if (this.isUPDRSPatients) {
@@ -145,7 +134,7 @@ export default {
           token: this._token,
           loginId: this._loginId
         });
-      } else{
+      } else {
         await this.getScalePatientsList({
           token: this._token,
           loginId: this._loginId
@@ -177,13 +166,16 @@ export default {
     } else if (this.$router.currentRoute.name == "sensor_patients") {
       this.isUPDRSPatients = false;
       this.isSensorPatients = true;
-    } else{
+    } else {
+
       this.isUPDRSPatients = false;
       this.isSensorPatients = false;
     }
     await this.handlePaitentslist();
   }
 };
+
+
 </script>
 
 <style lang="scss">

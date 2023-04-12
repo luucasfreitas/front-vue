@@ -133,6 +133,13 @@ export default {
     ]),
     ...mapActions("results", ["getScoreHistory"]),
     ...mapActions("scale", ["getScoreScale"]),
+    ...mapActions("scaleSam", ["getScoreScaleSam"]),
+    ...mapActions("scaleMca", ["getScoreScaleMca"]),
+    ...mapActions("scaleAes", ["getScoreScaleAes"]),
+    ...mapActions("scaleMbss", ["getScoreScaleMbss"]),
+    ...mapActions("scaleSfss", ["getScoreScaleSfss"]),
+    ...mapActions("scaleStai", ["getScoreScaleStai"]),
+
 
     async loadPatientsList() {
       if (this.isUPDRSPatients) {
@@ -157,7 +164,6 @@ export default {
       this.patients = this._patients;
     },
     async handleLoadStatistcs(patient) {
-      console.log(patient);
       this.selectPatient(patient);
       if (this.isUPDRSPatients) {
         await this.getScoreHistory();
@@ -165,8 +171,55 @@ export default {
       } else if (this.isSensorPatients) {
         this.$router.push("/patients/sensor");
       } else {
-        await this.getScoreScale();
-        this.$router.push("/patients/scale");
+        let scaleId;
+
+        
+        switch (this.$router.currentRoute.name) {
+          case 'mca':
+            scaleId = 7;
+            await this.getScoreScaleMca(scaleId, this.$router.currentRoute.name);
+            console.log('>>>>>>>>>>>>');
+            this.$router.push("/patients/scale/mca");
+
+            break;
+          case 'sfss':
+            scaleId = 8;
+            await this.getScoreScaleSfss(scaleId, this.$router.currentRoute.name);
+            console.log('>>>>>>>>>>>>');
+            this.$router.push("/patients/scale/sfss");
+            break;
+          case 'aes':
+            scaleId = 9;
+            await this.getScoreScaleAes(scaleId, this.$router.currentRoute.name);
+            console.log('>>>>>>>>>>>>');
+            this.$router.push("/patients/scale/aes");
+            break;
+          case 'mbss':
+            scaleId = 10;
+            await this.getScoreScaleMbss(scaleId, this.$router.currentRoute.name);
+            console.log('>>>>>>>>>>>>');
+            this.$router.push("/patients/scale/mbss");
+            break;
+          case 'stai':
+            scaleId = 11;
+            await this.getScoreScaleStai(scaleId, this.$router.currentRoute.name);
+            console.log('>>>>>>>>>>>>');
+            this.$router.push("/patients/scale/stai");
+            break;
+          case 'sam':
+            scaleId = 12;
+            await this.getScoreScaleSam(scaleId, this.$router.currentRoute.name);
+            console.log('>>>>>>>>>>>>');
+            this.$router.push("/patients/scale/sam");
+
+            break;
+
+          default:
+            break;
+        }
+
+        // await this.getScoreScale(this.$router.currentRoute.name);
+        
       }
     }
   },
@@ -181,6 +234,7 @@ export default {
       this.isUPDRSPatients = false;
       this.isSensorPatients = false;
     }
+    
     await this.handlePaitentslist();
   }
 };

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="card-progress-scale" 
+    <v-card class="card-progress-scale-sam" 
         outlined 
         :width="graph_width"
         :height="170">
@@ -56,7 +56,7 @@ export default {
     computed:{
 
         
-    ...mapGetters("scaleView", ["getScaleParts", "getScalePartsNames"]),
+    ...mapGetters("scaleViewSam", ["getScaleParts", "getScalePartsNames"]),
 
     ...mapState("scale", ["partsScaleSelected"]),
     ...mapState("scaleSam", ["partsScaleSelectedSam"]),
@@ -108,7 +108,7 @@ export default {
 }
 </script>
 <style lang='scss'>
-    .card-progress-scale {
+    .card-progress-scale-sam {
         
         padding: 0.5%;
         margin-top: 1.5% ;

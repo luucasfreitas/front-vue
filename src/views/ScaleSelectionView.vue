@@ -100,7 +100,7 @@ export default {
   methods: {
     handleCardClick: function(card) {
       if (card.title == "AES") {
-        console.log(card.title);
+        // console.log(card.title);
         this.$router.push("scale_patients/aes");
       } else if (card.title == "MBSS") {
         this.$router.push("scale_patients/mbss");

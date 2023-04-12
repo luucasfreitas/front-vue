@@ -33,12 +33,10 @@ const dictionary = {
     "pt-br": [
       'Q1',
       'Q2',
-      'Q3'
     ],
     "en-us": [
       'Q1',
       'Q2',
-      'Q3'
     ]
   }
 }

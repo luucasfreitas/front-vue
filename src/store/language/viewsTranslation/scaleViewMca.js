@@ -1,4 +1,4 @@
-import dictionary from "../translationFiles/scale"
+import dictionary from "../translationFiles/scaleMca"
 
 const { 
   CARD_PATIENT_SELECTED,

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="card-progress-scale" 
+    <v-card class="card-progress-scale-mca" 
         outlined 
         :width="graph_width"
         :height="170">
@@ -56,7 +56,7 @@ export default {
     computed:{
 
         
-    ...mapGetters("scaleView", ["getScaleParts", "getScalePartsNames"]),
+    ...mapGetters("scaleViewMca", ["getScaleParts", "getScalePartsNames"]),
 
     ...mapState("scale", ["partsScaleSelected"]),
     ...mapState("scaleSam", ["partsScaleSelectedSam"]),
@@ -80,16 +80,14 @@ export default {
             }   
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: newScores[0] },
-                { label: this.getScalePartsNames[1], value: newScores[1] },
-                { label: this.getScalePartsNames[2], value: newScores[2] },]
+                { label: this.getScalePartsNames[1], value: newScores[1] },]
             this.date = date
         },
         loadDataParts(){
             const score =  this.partsScaleSelected.data
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: score[0] },
-                { label: this.getScalePartsNames[1], value: score[1] },
-                { label: this.getScalePartsNames[2], value: score[2] },]
+                { label: this.getScalePartsNames[1], value: score[1] },]
             
         },
         handleComponentSize(){
@@ -108,7 +106,7 @@ export default {
 }
 </script>
 <style lang='scss'>
-    .card-progress-scale {
+    .card-progress-scale-mca {
         
         padding: 0.5%;
         margin-top: 1.5% ;

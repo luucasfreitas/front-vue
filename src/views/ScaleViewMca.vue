@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="row">
-      <card-progress-scale> </card-progress-scale>
+      <card-progress-scale-mca> </card-progress-scale-mca>
       <!-- <bar-chart/> -->
     </div>
     <div class="row parts">
@@ -24,7 +24,7 @@
 
 <script>
 import CardInfoUser from "../components/cards/cardInfoUser.vue";
-import CardProgressScale from "../components/cards/cardProgressScale.vue";
+import CardProgressScaleMca from "../components/cards/cardProgressScaleMca.vue";
 
 import TwoLineChart from "../components/charts/twoLineChart.vue";
 import BarChart from "../components/charts/barChart.vue";
@@ -59,11 +59,7 @@ export default {
   },
   computed: {
     ...mapGetters("scaleView", ["getScaleParts"]),
-    ...mapState("scale", ["scoreHistoryGraphData", "partsScaleSelected"]),
     ...mapState("scaleSam", ["scoreHistoryGraphDataSam", "partsScaleSelectedSam"]),
-    ...mapState("scaleMca", ["scoreHistoryGraphDataMca", "partsScaleSelectedMca"]),
-    ...mapState("scaleAes", ["scoreHistoryGraphDataAes", "partsScaleSelectedAes"]),
-
 
     _scoreHistory() {
       return this.scoreHistoryGraphData;
@@ -76,7 +72,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("scale", ["getScoreScale"]),
+    ...mapActions("scaleMca", ["getScoreScaleMca"]),
     loadScoreHistoryGraph() {
       //debugger
       this.twoLineChartProps.series.data = this.scoreHistoryGraphData.data;
@@ -92,7 +88,7 @@ export default {
     TwoLineChart,
     BarChart,
     CardPart,
-    CardProgressScale
+    CardProgressScaleMca
   },
   async created() {
     //this.loadScoreHistoryGraph()
