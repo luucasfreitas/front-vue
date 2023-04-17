@@ -62,21 +62,21 @@ export default {
     ...mapState("scaleSam", ["scoreHistoryGraphDataSam", "partsScaleSelectedSam"]),
 
     _scoreHistory() {
-      return this.scoreHistoryGraphData;
+      return this.scoreHistorySamGraphData;
     },
     _scaleParts() {
       return this.getScaleParts;
     },
     _partsScaleSelected() {
-      return this.partsScaleSelected;
+      return this.partsScaleSelectedSam;
     }
   },
   methods: {
     ...mapActions("scaleSam", ["getScoreScaleSam"]),
     loadScoreHistoryGraph() {
       //debugger
-      this.twoLineChartProps.series.data = this.scoreHistoryGraphData.data;
-      this.twoLineChartProps.categories = this.scoreHistoryGraphData.categories;
+      this.twoLineChartProps.series.data = this.scoreHistorySamGraphData.data;
+      this.twoLineChartProps.categories = this.scoreHistorySamGraphData.categories;
       this.loadPartsGraph();
     },
     loadPartsGraph() {

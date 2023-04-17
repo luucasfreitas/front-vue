@@ -209,7 +209,7 @@ export default {
           case 'sam':
             scaleId = 12;
             await this.getScoreScaleSam(scaleId, this.$router.currentRoute.name);
-            console.log('>>>>>>>>>>>>');
+            // console.log('>>>>>>>>>>>>');
             this.$router.push("/patients/scale/sam");
 
             break;

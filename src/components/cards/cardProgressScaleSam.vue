@@ -69,9 +69,9 @@ export default {
             const score = parts
             const pp = this.patternTotalScore
             const newScores = []
-            console.log('>>>>>>>>>>>>>');
-            console.log(this.getScalePartsNames);
-            console.log('>>>>>>>>>>>>>');
+            console.log('>>>>>####>>>>>');
+            console.log(this.score);
+            console.log('>>>>>>>>##>>>>>');
 
             for (let i = 0; i < this.patternTotalScore.length; i++) {
                 const percentage = ( score[i] / pp[i]) * 100;
