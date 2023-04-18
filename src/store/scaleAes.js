@@ -23,47 +23,19 @@ export default {
   },
 
   mutations: {
-    SET_HISTORY(state, scoreHistory) {
-      state.scoreHistoryGraphData = scoreHistory;
+    SET_DATA_SCALE_AES(state, scoreHistoryAes) {
+      state.scoreHistoryAesGraphData = scoreHistoryAes;
     },
     SET_PARTS_SELECTED(state, data) {
-      state.partsScaleSelected.data = data;
+      state.partsScaleSelectedAes = data;
     },
     SET_PARTS_ARRAY(state, data) {
       state.allParts = data;
     }
   },
-
   actions: {
     async getScoreScaleAes({ commit, rootState }, scaleId, nameScale) {
 
-
-      // switch (nameScale) {
-      //   case 'mca':
-      //     scaleId = 7;
-      //     break;
-      //   case 'sfss':
-      //     scaleId = 8;
-      //     break;
-      //   case 'aes':
-      //     scaleId = 9;
-      //     break;
-      //   case 'mbss':
-      //     scaleId = 10;
-      //     break;
-      //   case 'stai':
-      //     scaleId = 11;
-      //     break;
-      //   case 'sam':
-      //     scaleId = 12;
-      //     break;
-
-      //   default:
-      //     break;
-      // }
-
-
-      
       const { token, loginId } = rootState.session;
       const { lang } = rootState.lang;
       const { id } = rootState.patients.patientSelected;
@@ -80,28 +52,39 @@ export default {
 
       const response = await fetch(url, requestParams);
       const data = await response.json();
-      console.log('aes');
-      console.log(data);
-      return data;
-      // console.log(data.result[0]);
-      // const result = data.result;
-      // const scores = [];
+      const result = data.result;
+      const scores = [];
       // const dates = [];
+      console.log(data.result)
+      result.map(r => {
+        // console.log(r[0].descricao)
+        // console.log(r[0])
+        if(r[0] !== undefined){
 
-      // result.map(r => {
-      //   if (!r.score.scoreTotal || r.score.scoreTotal == null) {
-      //     return;
-      //   }
-      //   scores.push(r.score.scoreTotal);
-      //   const date = formatDate(r.date, lang);
-      //   dates.push(date);
-      // });
-      // commit("SET_HISTORY", { categories: dates, data: scores });
+          const json = r;
+
+          const chaves = Object.keys(json);
+          for (let chave of chaves) {
+            const valor = json[chave];
+            console.log(valor.valor)
+            scores.push(valor.valor);
+
+          }
+        }
+        console.log(scores)
+        // if (!r.score.scoreTotal || r.score.scoreTotal == null) {
+        //   return;
+        // }
+        // const date = formatDate(r.date, lang);
+        // dates.push(date);
+      });
+
+      commit("SET_DATA_SCALE_AES", {data: scores });
 
       // const handleValues = result => {
-      //   const dataParts = [];
+      //   const scaleParts = [];
       //   for (let index = 0; index < result.length; index++) {
-      //     Object.values(result[index].score.scoreParts).map(part => {
+      //     Object.values(result[index].score).map(part => {
       //       if (!part) {
       //         return;
       //       }
@@ -116,7 +99,7 @@ export default {
       // const dataParts = handleValues(result);
       // const allParts = [];
       // Object.values(result).map(part => {
-      //   part = part.score.scoreParts;
+      //   part = part.score;
       //   if (!part.partI || !part.partII || !part.partIII || !part.partIV) {
       //     return;
       //   }
@@ -125,8 +108,8 @@ export default {
 
       // commit("SET_PARTS_ARRAY", allParts);
       // //console.log(dataParts )
-      // commit("SET_PARTS_SELECTED", dataParts);
-      // return result;
+      commit("SET_PARTS_SELECTED", {data: scores});
+      return result;
     }
   }
 };

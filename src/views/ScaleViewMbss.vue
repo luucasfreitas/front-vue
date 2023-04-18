@@ -75,8 +75,8 @@ export default {
     ...mapActions("scaleMbss", ["getScoreScaleMbss"]),
     loadScoreHistoryGraph() {
       //debugger
-      this.twoLineChartProps.series.data = this.scoreHistoryGraphData.data;
-      this.twoLineChartProps.categories = this.scoreHistoryGraphData.categories;
+      this.twoLineChartProps.series.data = this.scoreHistoryGraphDataMbss.data;
+      this.twoLineChartProps.categories = this.scoreHistoryGraphDataMbss.categories;
       this.loadPartsGraph();
     },
     loadPartsGraph() {

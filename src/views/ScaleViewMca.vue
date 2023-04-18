@@ -58,25 +58,25 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("scaleView", ["getScaleParts"]),
-    ...mapState("scaleSam", ["scoreHistoryGraphDataSam", "partsScaleSelectedSam"]),
+    ...mapGetters("scaleViewMca", ["getScaleParts"]),
+    ...mapState("scaleMca", ["scoreHistoryGraphDataMca", "partsScaleSelectedMca"]),
 
     _scoreHistory() {
-      return this.scoreHistoryGraphData;
+      return this.scoreHistoryMcaGraphData;
     },
     _scaleParts() {
       return this.getScaleParts;
     },
     _partsScaleSelected() {
-      return this.partsScaleSelected;
+      return this.partsScaleSelectedMca;
     }
   },
   methods: {
     ...mapActions("scaleMca", ["getScoreScaleMca"]),
     loadScoreHistoryGraph() {
       //debugger
-      this.twoLineChartProps.series.data = this.scoreHistoryGraphData.data;
-      this.twoLineChartProps.categories = this.scoreHistoryGraphData.categories;
+      this.twoLineChartProps.series.data = this.scoreHistoryMcaGraphData.data;
+      this.twoLineChartProps.categories = this.scoreHistoryMcaGraphData.categories;
       this.loadPartsGraph();
     },
     loadPartsGraph() {

@@ -38,6 +38,8 @@ const dictionary = {
       'Q5',
       'Q6',
       'Q7',
+      'Q8',
+      'Q9',
     ],
     "en-us": [
       'Q1',
@@ -47,6 +49,8 @@ const dictionary = {
       'Q5',
       'Q6',
       'Q7',
+      'Q8',
+      'Q9',
     ]
   }
 }

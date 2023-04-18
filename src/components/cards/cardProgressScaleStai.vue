@@ -1,42 +1,32 @@
 <template>
-    <v-card class="card-progress-scale-stai" 
-        outlined 
-        :width="graph_width"
-        :height="170">
+    <v-card class="card-progress-scale-stai" outlined :width="graph_width" :height="620">
         <v-card-title class="m0 p0 pl-2">
             <p style="  font-size: 15px;
-                    font-weight: bold;
-                    font-family: 'Lato';">
+                        font-weight: bold;
+                        font-family: 'Lato';">
 
-            {{ date }}
+                {{ date }}
             </p>
         </v-card-title>
         <v-card-text class="card-progress-scale-text">
-            <div 
-                v-for="part in data_parts" v-bind:key="part.label" class="line-progress-part">
-                
+            <div v-for="part in data_parts" v-bind:key="part.label" class="line-progress-part">
+
                 <span class="legend" style="min-width: 6% !important;">
-                        {{ part.label }}
-                    </span>
-            
-                <v-progress-linear 
-                    :value="part.value" 
-                    :height="18"
-                    class="progress_bar pb-0 mb-0"
-                    rounded/> 
-                    
-                
-                    <span class="legend pl-4 pb-2" style="min-width: 6% !important;">
-                        {{ part.value }} %
-                    </span>
+                    {{ part.label }}
+                </span>
+
+                <v-progress-linear :value="part.value * 10" :height="18" class="progress_bar pb-0 mb-0" rounded />
+
+
+                <span class="legend pl-4 pb-2" style="min-width: 6% !important;">
+                    {{ part.value }}
+                </span>
             </div>
         </v-card-text>
     </v-card>
-   
-
 </template>
 <script>
-import {mapGetters, mapState} from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import eventBus from '../../events/EventBus'
 
 export default {
@@ -46,31 +36,26 @@ export default {
             window_width: '',
             graph_width: '',
             //partsAssessSelected: [2, 3, 4, 6]
-            patternTotalScore : [52,52,128,24],
-            data_parts : [
+            patternTotalScore: [52, 52, 128, 24],
+            data_parts: [
             ],
             date: ''
         }
-        
+
     },
-    computed:{
+    computed: {
 
-        
-    ...mapGetters("scaleViewStai", ["getScaleParts", "getScalePartsNames"]),
 
-    ...mapState("scale", ["partsScaleSelected"]),
-    ...mapState("scaleSam", ["partsScaleSelectedSam"]),
-    ...mapState("scaleMca", ["partsScaleSelectedMca"]),
-    ...mapState("scaleAes", ["partsScaleSelectedAes"]),
-    ...mapState("scaleMbss", ["partsScaleSelectedMbss"]),
-    ...mapState("scaleSfss", ["partsScaleSelectedSfss"]),
-    ...mapState("scaleStai", ["partsScaleSelectedStai"]),
+        ...mapGetters("scaleViewStai", ["getScaleParts", "getScalePartsNames"]),
+
+        ...mapState("scale", ["partsScaleSelected"]),
+        ...mapState("scaleStai", ["partsScaleSelectedStai"]),
 
 
 
     },
     methods: {
-        handleUpdateValues({parts , date}) {
+        handleUpdateValues({ parts, date }) {
             const score = parts
             const pp = this.patternTotalScore
             const newScores = []
@@ -79,10 +64,10 @@ export default {
             console.log('>>>>>>>>>>>>>');
 
             for (let i = 0; i < this.patternTotalScore.length; i++) {
-                const percentage = ( score[i] / pp[i]) * 100;
-                newScores.push( Math.ceil(percentage))
-                
-            }   
+                const percentage = (score[i] / pp[i]) * 100;
+                newScores.push(Math.ceil(percentage))
+
+            }
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: newScores[0] },
                 { label: this.getScalePartsNames[1], value: newScores[1] },
@@ -92,11 +77,22 @@ export default {
                 { label: this.getScalePartsNames[5], value: newScores[5] },
                 { label: this.getScalePartsNames[6], value: newScores[6] },
                 { label: this.getScalePartsNames[7], value: newScores[7] },
-                { label: this.getScalePartsNames[8], value: newScores[8] },]
+                { label: this.getScalePartsNames[8], value: newScores[8] },
+                { label: this.getScalePartsNames[9], value: newScores[9] },
+                { label: this.getScalePartsNames[10], value: newScores[10] },
+                { label: this.getScalePartsNames[11], value: newScores[11] },
+                { label: this.getScalePartsNames[12], value: newScores[12] },
+                { label: this.getScalePartsNames[13], value: newScores[13] },
+                { label: this.getScalePartsNames[14], value: newScores[14] },
+                { label: this.getScalePartsNames[15], value: newScores[15] },
+                { label: this.getScalePartsNames[16], value: newScores[16] },
+                { label: this.getScalePartsNames[17], value: newScores[17] },
+                { label: this.getScalePartsNames[18], value: newScores[18] },
+                { label: this.getScalePartsNames[19], value: newScores[19] },]
             this.date = date
         },
-        loadDataParts(){
-            const score =  this.partsScaleSelected.data
+        loadDataParts() {
+            const score = this.partsScaleSelectedStai.data
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: score[0] },
                 { label: this.getScalePartsNames[1], value: score[1] },
@@ -106,60 +102,74 @@ export default {
                 { label: this.getScalePartsNames[5], value: score[5] },
                 { label: this.getScalePartsNames[6], value: score[6] },
                 { label: this.getScalePartsNames[7], value: score[7] },
-                { label: this.getScalePartsNames[8], value: score[8] },]
-            
+                { label: this.getScalePartsNames[8], value: score[8] },
+                { label: this.getScalePartsNames[9], value: score[9] },
+                { label: this.getScalePartsNames[10], value: score[10] },
+                { label: this.getScalePartsNames[11], value: score[11] },
+                { label: this.getScalePartsNames[12], value: score[12] },
+                { label: this.getScalePartsNames[13], value: score[13] },
+                { label: this.getScalePartsNames[14], value: score[14] },
+                { label: this.getScalePartsNames[15], value: score[15] },
+                { label: this.getScalePartsNames[16], value: score[16] },
+                { label: this.getScalePartsNames[17], value: score[17] },
+                { label: this.getScalePartsNames[18], value: score[18] },
+                { label: this.getScalePartsNames[19], value: score[19] },]
+
         },
-        handleComponentSize(){
+        handleComponentSize() {
             this.window_width = window.innerWidth
             this.graph_width = this.window_width - 300
         }
     },
     destroyed() {
-    window.removeEventListener("resize", this.handleComponentSize);
+        window.removeEventListener("resize", this.handleComponentSize);
     },
-    created(){
+    created() {
         window.addEventListener("resize", this.handleComponentSize);
         this.loadDataParts()
-        eventBus.$on('change_parts_chat_options', this.handleUpdateValues )
+        eventBus.$on('change_parts_chat_options', this.handleUpdateValues)
     }
 }
 </script>
 <style lang='scss'>
-    .card-progress-scale-stai {
-        
-        padding: 0.5%;
-        margin-top: 1.5% ;
-        border: 1px solid #E8E8E8 !important; //TODO - add color variables sass file
-        border-radius: 20px !important;
+.card-progress-scale-stai {
 
-        .card-progress-scale-text {
+    padding: 0.5%;
+    margin-top: 1.5%;
+    border: 1px solid #E8E8E8 !important; //TODO - add color variables sass file
+    border-radius: 20px !important;
+
+    .card-progress-scale-text {
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+        justify-content: space-around;
+
+        .line-progress-part {
             display: flex;
-            flex-direction: column;
-            height: 140px;
             justify-content: space-around;
-            .line-progress-part {
-                display: flex;
-                justify-content: space-around;
-                .legend {
-                    font-size: 16px;
-                    font-weight: bold;
-                    font-family: 'Lato';
-                }
 
-                .progress_bar {
-                    min-width: 600px !important;
-                    max-width: 80% !important;
-
-                }
+            .legend {
+                font-size: 16px;
+                font-weight: bold;
+                font-family: 'Lato';
             }
-            
-            .progress-linear-border-radius {
-                border-radius: 35px !important;
-            }
-            .v-progress-linear--rounded {
 
-                border-radius: 35px !important;
+            .progress_bar {
+                min-width: 600px !important;
+                max-width: 80% !important;
+
             }
         }
+
+        .progress-linear-border-radius {
+            border-radius: 35px !important;
+        }
+
+        .v-progress-linear--rounded {
+
+            border-radius: 35px !important;
+        }
     }
+}
 </style>

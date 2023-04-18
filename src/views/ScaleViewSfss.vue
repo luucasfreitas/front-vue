@@ -62,21 +62,21 @@ export default {
     ...mapState("scaleSfss", ["scoreHistoryGraphDataSfss", "partsScaleSelectedSfss"]),
 
     _scoreHistory() {
-      return this.scoreHistoryGraphData;
+      return this.scoreHistorySfssGraphData;
     },
     _scaleParts() {
       return this.getScaleParts;
     },
     _partsScaleSelected() {
-      return this.partsScaleSelected;
+      return this.partsScaleSelectedSfss;
     }
   },
   methods: {
     ...mapActions("scaleSfss", ["getScoreScaleSfss"]),
     loadScoreHistoryGraph() {
       //debugger
-      this.twoLineChartProps.series.data = this.scoreHistoryGraphData.data;
-      this.twoLineChartProps.categories = this.scoreHistoryGraphData.categories;
+      this.twoLineChartProps.series.data = this.scoreHistorySfssGraphData.data;
+      this.twoLineChartProps.categories = this.scoreHistorySfssGraphData.categories;
       this.loadPartsGraph();
     },
     loadPartsGraph() {

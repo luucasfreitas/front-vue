@@ -27,7 +27,7 @@ export default {
       state.scoreHistorySamGraphData = scoreHistorySam;
     },
     SET_PARTS_SELECTED(state, data) {
-      state.partsScaleSelectedSam.data = data;
+      state.partsScaleSelectedSam = data;
     },
     SET_PARTS_ARRAY(state, data) {
       state.allParts = data;
@@ -36,33 +36,6 @@ export default {
 
   actions: {
     async getScoreScaleSam({ commit, rootState }, scaleId, nameScale) {
-
-
-      // switch (nameScale) {
-      //   case 'mca':
-      //     scaleId = 7;
-      //     break;
-      //   case 'sfss':
-      //     scaleId = 8;
-      //     break;
-      //   case 'aes':
-      //     scaleId = 9;
-      //     break;
-      //   case 'mbss':
-      //     scaleId = 10;
-      //     break;
-      //   case 'stai':
-      //     scaleId = 11;
-      //     break;
-      //   case 'sam':
-      //     scaleId = 12;
-      //     break;
-
-      //   default:
-      //     break;
-      // }
-
-
       
       const { token, loginId } = rootState.session;
       const { lang } = rootState.lang;
@@ -94,8 +67,8 @@ export default {
           const chaves = Object.keys(json);
           for (let chave of chaves) {
             const valor = json[chave];
-            console.log(valor.descricao)
-            scores.push(valor.descricao);
+            console.log(valor.valor)
+            scores.push(valor.valor);
 
           }
         }
@@ -136,7 +109,7 @@ export default {
 
       // commit("SET_PARTS_ARRAY", allParts);
       // //console.log(dataParts )
-      // commit("SET_PARTS_SELECTED", dataParts);
+      commit("SET_PARTS_SELECTED", {data: scores});
       return result;
     }
   }

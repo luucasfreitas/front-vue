@@ -20,14 +20,14 @@
                     </span>
             
                 <v-progress-linear 
-                    :value="part.value" 
+                    :value="part.value *10" 
                     :height="18"
                     class="progress_bar pb-0 mb-0"
                     rounded/> 
                     
                 
                     <span class="legend pl-4 pb-2" style="min-width: 6% !important;">
-                        {{ part.value }} %
+                        {{ part.value }} 
                     </span>
             </div>
         </v-card-text>
@@ -82,17 +82,15 @@ export default {
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: newScores[0] },
                 { label: this.getScalePartsNames[1], value: newScores[1] },
-                { label: this.getScalePartsNames[2], value: newScores[2] },
-                { label: this.getScalePartsNames[3], value: newScores[3] },]
+            ]
             this.date = date
         },
         loadDataParts(){
-            const score =  this.partsScaleSelected.data
+            const score =  this.partsScaleSelectedAes.data
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: score[0] },
                 { label: this.getScalePartsNames[1], value: score[1] },
-                { label: this.getScalePartsNames[2], value: score[2] },
-                { label: this.getScalePartsNames[3], value: score[3] },]
+            ]
             
         },
         handleComponentSize(){

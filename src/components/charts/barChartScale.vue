@@ -42,7 +42,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('scale', ['scoreHistorySamGraphData', 'partsAssessSelected']),
+    ...mapState('scale', ['scoreHistoryGraphData', 'partsAssessSelected']),
 
     chartOptions() {
         return {

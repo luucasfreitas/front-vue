@@ -32,11 +32,9 @@ const dictionary = {
   SCALE_PARTS_NAMES: {
     "pt-br": [
       'Q1',
-      'Q2',
     ],
     "en-us": [
       'Q1',
-      'Q2',
     ]
   }
 }

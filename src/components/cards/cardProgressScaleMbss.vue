@@ -2,7 +2,7 @@
     <v-card class="card-progress-scale-mbss" 
         outlined 
         :width="graph_width"
-        :height="170">
+        :height="235">
         <v-card-title class="m0 p0 pl-2">
             <p style="  font-size: 15px;
                     font-weight: bold;
@@ -20,14 +20,14 @@
                     </span>
             
                 <v-progress-linear 
-                    :value="part.value" 
+                    :value="part.value *10"
                     :height="18"
                     class="progress_bar pb-0 mb-0"
                     rounded/> 
                     
                 
                     <span class="legend pl-4 pb-2" style="min-width: 6% !important;">
-                        {{ part.value }} %
+                        {{ part.value }} 
                     </span>
             </div>
         </v-card-text>
@@ -59,9 +59,6 @@ export default {
     ...mapGetters("scaleViewMbss", ["getScaleParts", "getScalePartsNames"]),
 
     ...mapState("scale", ["partsScaleSelected"]),
-    ...mapState("scaleSam", ["partsScaleSelectedSam"]),
-    ...mapState("scaleMca", ["partsScaleSelectedMca"]),
-    ...mapState("scaleAes", ["partsScaleSelectedAes"]),
     ...mapState("scaleMbss", ["partsScaleSelectedMbss"]),
 
 
@@ -89,17 +86,19 @@ export default {
                 { label: this.getScalePartsNames[1], value: newScores[1] },
                 { label: this.getScalePartsNames[2], value: newScores[2] },
                 { label: this.getScalePartsNames[3], value: newScores[3] },
-                { label: this.getScalePartsNames[4], value: newScores[4] },]
+                { label: this.getScalePartsNames[4], value: newScores[4] },
+                { label: this.getScalePartsNames[5], value: newScores[5] },]
             this.date = date
         },
         loadDataParts(){
-            const score =  this.partsScaleSelected.data
+            const score =  this.partsScaleSelectedMbss.data
             this.data_parts = [
                 { label: this.getScalePartsNames[0], value: score[0] },
                 { label: this.getScalePartsNames[1], value: score[1] },
                 { label: this.getScalePartsNames[2], value: score[2] },
                 { label: this.getScalePartsNames[3], value: score[3] },
-                { label: this.getScalePartsNames[4], value: score[4] },]
+                { label: this.getScalePartsNames[4], value: score[4] },
+                { label: this.getScalePartsNames[5], value: score[5] },]
             
         },
         handleComponentSize(){
@@ -128,7 +127,7 @@ export default {
         .card-progress-scale-text {
             display: flex;
             flex-direction: column;
-            height: 140px;
+            height: 200px;
             justify-content: space-around;
             .line-progress-part {
                 display: flex;
