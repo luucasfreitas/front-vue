@@ -3,14 +3,14 @@ import dictionary from "../translationFiles/scaleMbss"
 const { 
   CARD_PATIENT_SELECTED,
   ANSWERS_SCALE,
-  SCALE_PARTS_NAMES
+  SCALE_PARTS_NAMES_MBSS
   } = dictionary
 export default {
     namespaced: true,
     state: {
       cardPatientSelected : CARD_PATIENT_SELECTED,
       answersScale : ANSWERS_SCALE,
-      scalePartsNames : SCALE_PARTS_NAMES
+      scalePartsNamesMbss : SCALE_PARTS_NAMES_MBSS
     },
     getters: {
       getHeadersTablePatients (state, getters, rootState) {
@@ -46,10 +46,10 @@ export default {
         const lang = rootState.lang.lang ? rootState.lang.lang : 'pt-br'
         return state.answersScale[lang]
       },
-      getScalePartsNames(state, getters, rootState){
+      getScalePartsNamesMbss(state, getters, rootState){
 
         const lang = rootState.lang.lang ? rootState.lang.lang : 'pt-br'
-        return state.scalePartsNames[lang]
+        return state.scalePartsNamesMbss[lang]
       },
 
     }

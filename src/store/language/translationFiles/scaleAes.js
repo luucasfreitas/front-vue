@@ -29,7 +29,7 @@ const dictionary = {
       'Minimum',
     ]
   },
-  SCALE_PARTS_NAMES: {
+  SCALE_PARTS_NAMES_AES: {
     "pt-br": [
       'Q1',
       'Q2',

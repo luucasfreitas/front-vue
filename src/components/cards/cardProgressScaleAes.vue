@@ -56,7 +56,7 @@ export default {
     computed:{
 
         
-    ...mapGetters("scaleViewAes", ["getScaleParts", "getScalePartsNames"]),
+    ...mapGetters("scaleViewAes", ["getScaleParts", "getScalePartsNamesAes"]),
 
     ...mapState("scale", ["partsScaleSelected"]),
     ...mapState("scaleSam", ["partsScaleSelectedSam"]),
@@ -71,7 +71,7 @@ export default {
             const pp = this.patternTotalScore
             const newScores = []
             console.log('>>>>>>>>>>>>>');
-            console.log(this.getScalePartsNames);
+            console.log(this.getScalePartsNamesAes);
             console.log('>>>>>>>>>>>>>');
 
             for (let i = 0; i < this.patternTotalScore.length; i++) {
@@ -80,16 +80,16 @@ export default {
                 
             }   
             this.data_parts = [
-                { label: this.getScalePartsNames[0], value: newScores[0] },
-                { label: this.getScalePartsNames[1], value: newScores[1] },
+                { label: this.getScalePartsNamesAes[0], value: newScores[0] },
+                { label: this.getScalePartsNamesAes[1], value: newScores[1] },
             ]
             this.date = date
         },
         loadDataParts(){
             const score =  this.partsScaleSelectedAes.data
             this.data_parts = [
-                { label: this.getScalePartsNames[0], value: score[0] },
-                { label: this.getScalePartsNames[1], value: score[1] },
+                { label: this.getScalePartsNamesAes[0], value: score[0] },
+                { label: this.getScalePartsNamesAes[1], value: score[1] },
             ]
             
         },

@@ -56,7 +56,7 @@ export default {
     computed:{
 
         
-    ...mapGetters("scaleViewSfss", ["getScaleParts", "getScalePartsNames"]),
+    ...mapGetters("scaleViewSfss", ["getScaleParts", "getScalePartsNamesSfss"]),
 
     ...mapState("scale", ["partsScaleSelected"]),
     ...mapState("scaleSfss", ["partsScaleSelectedSfss"]),
@@ -69,9 +69,6 @@ export default {
             const score = parts
             const pp = this.patternTotalScore
             const newScores = []
-            console.log('>>>>>>>>>>>>>');
-            console.log(this.getScalePartsNames);
-            console.log('>>>>>>>>>>>>>');
 
             for (let i = 0; i < this.patternTotalScore.length; i++) {
                 const percentage = ( score[i] / pp[i]) * 100;
@@ -79,29 +76,29 @@ export default {
                 
             }   
             this.data_parts = [
-                { label: this.getScalePartsNames[0], value: newScores[0] },
-                { label: this.getScalePartsNames[1], value: newScores[1] },
-                { label: this.getScalePartsNames[2], value: newScores[2] },
-                { label: this.getScalePartsNames[3], value: newScores[3] },
-                { label: this.getScalePartsNames[4], value: newScores[4] },
-                { label: this.getScalePartsNames[5], value: newScores[5] },
-                { label: this.getScalePartsNames[6], value: newScores[6] },
-                { label: this.getScalePartsNames[7], value: newScores[7] },
-                { label: this.getScalePartsNames[8], value: newScores[8] },]
+                { label: this.getScalePartsNamesSfss[0], value: newScores[0] },
+                { label: this.getScalePartsNamesSfss[1], value: newScores[1] },
+                { label: this.getScalePartsNamesSfss[2], value: newScores[2] },
+                { label: this.getScalePartsNamesSfss[3], value: newScores[3] },
+                { label: this.getScalePartsNamesSfss[4], value: newScores[4] },
+                { label: this.getScalePartsNamesSfss[5], value: newScores[5] },
+                { label: this.getScalePartsNamesSfss[6], value: newScores[6] },
+                { label: this.getScalePartsNamesSfss[7], value: newScores[7] },
+                { label: this.getScalePartsNamesSfss[8], value: newScores[8] },]
             this.date = date
         },
         loadDataParts(){
             const score =  this.partsScaleSelectedSfss.data
             this.data_parts = [
-                { label: this.getScalePartsNames[0], value: score[0] },
-                { label: this.getScalePartsNames[1], value: score[1] },
-                { label: this.getScalePartsNames[2], value: score[2] },
-                { label: this.getScalePartsNames[3], value: score[3] },
-                { label: this.getScalePartsNames[4], value: score[4] },
-                { label: this.getScalePartsNames[5], value: score[5] },
-                { label: this.getScalePartsNames[6], value: score[6] },
-                { label: this.getScalePartsNames[7], value: score[7] },
-                { label: this.getScalePartsNames[8], value: score[8] },]
+                { label: this.getScalePartsNamesSfss[0], value: score[0] },
+                { label: this.getScalePartsNamesSfss[1], value: score[1] },
+                { label: this.getScalePartsNamesSfss[2], value: score[2] },
+                { label: this.getScalePartsNamesSfss[3], value: score[3] },
+                { label: this.getScalePartsNamesSfss[4], value: score[4] },
+                { label: this.getScalePartsNamesSfss[5], value: score[5] },
+                { label: this.getScalePartsNamesSfss[6], value: score[6] },
+                { label: this.getScalePartsNamesSfss[7], value: score[7] },
+                { label: this.getScalePartsNamesSfss[8], value: score[8] },]
             
         },
         handleComponentSize(){

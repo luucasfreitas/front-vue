@@ -56,7 +56,7 @@ export default {
     computed:{
 
         
-    ...mapGetters("scaleViewSam", ["getScaleParts", "getScalePartsNames"]),
+    ...mapGetters("scaleViewSam", ["getScaleParts", "getScalePartsNamesSam"]),
 
     ...mapState("scale", ["partsScaleSelected"]),
     ...mapState("scaleSam", ["partsScaleSelectedSam"]),
@@ -78,9 +78,9 @@ export default {
                 
             }   
             this.data_parts = [
-                { label: this.getScalePartsNames[0], value: newScores[0] },
-                { label: this.getScalePartsNames[1], value: newScores[1] },
-                { label: this.getScalePartsNames[2], value: newScores[2] },]
+                { label: this.getScalePartsNamesSam[0], value: newScores[0] },
+                { label: this.getScalePartsNamesSam[1], value: newScores[1] },
+                { label: this.getScalePartsNamesSam[2], value: newScores[2] },]
             this.date = date
         },
         loadDataParts(){
@@ -89,9 +89,9 @@ export default {
             console.log(score);
 
             this.data_parts = [
-                { label: this.getScalePartsNames[0], value: score[0], max: '10' },
-                { label: this.getScalePartsNames[1], value: score[1], max: '10' },
-                { label: this.getScalePartsNames[2], value: score[2], max: '10' },]
+                { label: this.getScalePartsNamesSam[0], value: score[0], max: '10' },
+                { label: this.getScalePartsNamesSam[1], value: score[1], max: '10' },
+                { label: this.getScalePartsNamesSam[2], value: score[2], max: '10' },]
             
         },
         handleComponentSize(){

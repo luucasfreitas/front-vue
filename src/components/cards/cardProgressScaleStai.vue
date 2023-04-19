@@ -1,11 +1,12 @@
 <template>
     <v-card class="card-progress-scale-stai" outlined :width="graph_width" :height="620">
         <v-card-title class="m0 p0 pl-2">
-            <p style="  font-size: 15px;
+            <p style="  font-size: 25px;
                         font-weight: bold;
-                        font-family: 'Lato';">
-
-                {{ date }}
+                        font-family: 'Lato';
+                        margin-left: auto;
+                        margin-right: auto;">
+                Inventário de Ansiedade Traço-Estado
             </p>
         </v-card-title>
         <v-card-text class="card-progress-scale-text">
@@ -46,7 +47,7 @@ export default {
     computed: {
 
 
-        ...mapGetters("scaleViewStai", ["getScaleParts", "getScalePartsNames"]),
+        ...mapGetters("scaleViewStai", ["getScaleParts", "getScalePartsNamesStai"]),
 
         ...mapState("scale", ["partsScaleSelected"]),
         ...mapState("scaleStai", ["partsScaleSelectedStai"]),
@@ -59,9 +60,7 @@ export default {
             const score = parts
             const pp = this.patternTotalScore
             const newScores = []
-            console.log('>>>>>>>>>>>>>');
-            console.log(this.getScalePartsNames);
-            console.log('>>>>>>>>>>>>>');
+
 
             for (let i = 0; i < this.patternTotalScore.length; i++) {
                 const percentage = (score[i] / pp[i]) * 100;
@@ -69,51 +68,53 @@ export default {
 
             }
             this.data_parts = [
-                { label: this.getScalePartsNames[0], value: newScores[0] },
-                { label: this.getScalePartsNames[1], value: newScores[1] },
-                { label: this.getScalePartsNames[2], value: newScores[2] },
-                { label: this.getScalePartsNames[3], value: newScores[3] },
-                { label: this.getScalePartsNames[4], value: newScores[4] },
-                { label: this.getScalePartsNames[5], value: newScores[5] },
-                { label: this.getScalePartsNames[6], value: newScores[6] },
-                { label: this.getScalePartsNames[7], value: newScores[7] },
-                { label: this.getScalePartsNames[8], value: newScores[8] },
-                { label: this.getScalePartsNames[9], value: newScores[9] },
-                { label: this.getScalePartsNames[10], value: newScores[10] },
-                { label: this.getScalePartsNames[11], value: newScores[11] },
-                { label: this.getScalePartsNames[12], value: newScores[12] },
-                { label: this.getScalePartsNames[13], value: newScores[13] },
-                { label: this.getScalePartsNames[14], value: newScores[14] },
-                { label: this.getScalePartsNames[15], value: newScores[15] },
-                { label: this.getScalePartsNames[16], value: newScores[16] },
-                { label: this.getScalePartsNames[17], value: newScores[17] },
-                { label: this.getScalePartsNames[18], value: newScores[18] },
-                { label: this.getScalePartsNames[19], value: newScores[19] },]
+                { label: this.getScalePartsNamesStai[0], value: newScores[0] },
+                { label: this.getScalePartsNamesStai[1], value: newScores[1] },
+                { label: this.getScalePartsNamesStai[2], value: newScores[2] },
+                { label: this.getScalePartsNamesStai[3], value: newScores[3] },
+                { label: this.getScalePartsNamesStai[4], value: newScores[4] },
+                { label: this.getScalePartsNamesStai[5], value: newScores[5] },
+                { label: this.getScalePartsNamesStai[6], value: newScores[6] },
+                { label: this.getScalePartsNamesStai[7], value: newScores[7] },
+                { label: this.getScalePartsNamesStai[8], value: newScores[8] },
+                { label: this.getScalePartsNamesStai[9], value: newScores[9] },
+                { label: this.getScalePartsNamesStai[10], value: newScores[10] },
+                { label: this.getScalePartsNamesStai[11], value: newScores[11] },
+                { label: this.getScalePartsNamesStai[12], value: newScores[12] },
+                { label: this.getScalePartsNamesStai[13], value: newScores[13] },
+                { label: this.getScalePartsNamesStai[14], value: newScores[14] },
+                { label: this.getScalePartsNamesStai[15], value: newScores[15] },
+                { label: this.getScalePartsNamesStai[16], value: newScores[16] },
+                { label: this.getScalePartsNamesStai[17], value: newScores[17] },
+                { label: this.getScalePartsNamesStai[18], value: newScores[18] },
+                { label: this.getScalePartsNamesStai[19], value: newScores[19] },]
             this.date = date
         },
         loadDataParts() {
+            console.log('$$$$$$$$$$$$');
             const score = this.partsScaleSelectedStai.data
+            console.log(this);
             this.data_parts = [
-                { label: this.getScalePartsNames[0], value: score[0] },
-                { label: this.getScalePartsNames[1], value: score[1] },
-                { label: this.getScalePartsNames[2], value: score[2] },
-                { label: this.getScalePartsNames[3], value: score[3] },
-                { label: this.getScalePartsNames[4], value: score[4] },
-                { label: this.getScalePartsNames[5], value: score[5] },
-                { label: this.getScalePartsNames[6], value: score[6] },
-                { label: this.getScalePartsNames[7], value: score[7] },
-                { label: this.getScalePartsNames[8], value: score[8] },
-                { label: this.getScalePartsNames[9], value: score[9] },
-                { label: this.getScalePartsNames[10], value: score[10] },
-                { label: this.getScalePartsNames[11], value: score[11] },
-                { label: this.getScalePartsNames[12], value: score[12] },
-                { label: this.getScalePartsNames[13], value: score[13] },
-                { label: this.getScalePartsNames[14], value: score[14] },
-                { label: this.getScalePartsNames[15], value: score[15] },
-                { label: this.getScalePartsNames[16], value: score[16] },
-                { label: this.getScalePartsNames[17], value: score[17] },
-                { label: this.getScalePartsNames[18], value: score[18] },
-                { label: this.getScalePartsNames[19], value: score[19] },]
+                { label: this.getScalePartsNamesStai[0], value: score[0] },
+                { label: this.getScalePartsNamesStai[1], value: score[1] },
+                { label: this.getScalePartsNamesStai[2], value: score[2] },
+                { label: this.getScalePartsNamesStai[3], value: score[3] },
+                { label: this.getScalePartsNamesStai[4], value: score[4] },
+                { label: this.getScalePartsNamesStai[5], value: score[5] },
+                { label: this.getScalePartsNamesStai[6], value: score[6] },
+                { label: this.getScalePartsNamesStai[7], value: score[7] },
+                { label: this.getScalePartsNamesStai[8], value: score[8] },
+                { label: this.getScalePartsNamesStai[9], value: score[9] },
+                { label: this.getScalePartsNamesStai[10], value: score[10] },
+                { label: this.getScalePartsNamesStai[11], value: score[11] },
+                { label: this.getScalePartsNamesStai[12], value: score[12] },
+                { label: this.getScalePartsNamesStai[13], value: score[13] },
+                { label: this.getScalePartsNamesStai[14], value: score[14] },
+                { label: this.getScalePartsNamesStai[15], value: score[15] },
+                { label: this.getScalePartsNamesStai[16], value: score[16] },
+                { label: this.getScalePartsNamesStai[17], value: score[17] },
+                { label: this.getScalePartsNamesStai[18], value: score[18] },
+                { label: this.getScalePartsNamesStai[19], value: score[19] },]
 
         },
         handleComponentSize() {
