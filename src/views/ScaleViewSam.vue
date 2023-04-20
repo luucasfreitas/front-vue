@@ -7,7 +7,9 @@
       </div>
       <!-- fim card info user -->
       <div class="col-7">
-        <two-line-chart />
+        <!-- <two-line-chart /> -->
+        <filter-scale />
+
       </div>
     </div>
     <div class="row">
@@ -25,6 +27,7 @@
 <script>
 import CardInfoUser from "../components/cards/cardInfoUser.vue";
 import CardProgressScaleSam from "../components/cards/cardProgressScaleSam.vue";
+import FilterScale from "../components/cards/cardFilterScale.vue";
 
 import TwoLineChart from "../components/charts/twoLineChart.vue";
 import BarChart from "../components/charts/barChart.vue";
@@ -51,7 +54,7 @@ export default {
             data: []
           }
         ],
-      categories: ["Questão 1", "Questão 2", "Questão 3"]
+        categories: ["Questão 1", "Questão 2", "Questão 3"]
       },
       graphData: [],
       graphCategories: []
@@ -86,6 +89,8 @@ export default {
   components: {
     CardInfoUser,
     TwoLineChart,
+    FilterScale,
+
     BarChart,
     CardPart,
     CardProgressScaleSam

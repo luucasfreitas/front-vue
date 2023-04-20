@@ -4,11 +4,13 @@
         :width="graph_width"
         :height="170">
         <v-card-title class="m0 p0 pl-2">
-            <p style="  font-size: 15px;
-                    font-weight: bold;
-                    font-family: 'Lato';">
+            <p style="  font-size: 25px;
+                        font-weight: bold;
+                        font-family: 'Lato';
+                        margin-left: auto;
+                        margin-right: auto;">
 
-            {{ date }}
+            Escala de Ativação e Sensação
             </p>
         </v-card-title>
         <v-card-text class="card-progress-scale-text">
@@ -57,10 +59,7 @@ export default {
 
         
     ...mapGetters("scaleViewAes", ["getScaleParts", "getScalePartsNamesAes"]),
-
     ...mapState("scale", ["partsScaleSelected"]),
-    ...mapState("scaleSam", ["partsScaleSelectedSam"]),
-    ...mapState("scaleMca", ["partsScaleSelectedMca"]),
     ...mapState("scaleAes", ["partsScaleSelectedAes"]),
 
 
@@ -70,9 +69,6 @@ export default {
             const score = parts
             const pp = this.patternTotalScore
             const newScores = []
-            console.log('>>>>>>>>>>>>>');
-            console.log(this.getScalePartsNamesAes);
-            console.log('>>>>>>>>>>>>>');
 
             for (let i = 0; i < this.patternTotalScore.length; i++) {
                 const percentage = ( score[i] / pp[i]) * 100;

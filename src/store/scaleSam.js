@@ -36,12 +36,26 @@ export default {
 
   actions: {
     async getScoreScaleSam({ commit, rootState }, scaleId, nameScale) {
-      
+
+      var urlAtual = window.location.href;
+      var urlClass = new URL(urlAtual);
+      // variaveis de verificação do estímulo
+      let st;
+      var vts = urlClass.searchParams.get("stimulus");
+      if (vts == '1') {
+        st = 1;
+      } else {
+        st = 0;
+      }
+
+
+
+
       const { token, loginId } = rootState.session;
       const { lang } = rootState.lang;
       const { id } = rootState.patients.patientSelected;
       // const {scaleId} = rootState.patients.partsScaleSelected;
-      const url = `${apiConfig.baseUrl}:${apiConfig.port}/scales/${loginId}/${scaleId}/${id}/undefined`;
+      const url = `${apiConfig.baseUrl}:${apiConfig.port}/scales/${loginId}/${scaleId}/${id}/${st}`;
       console.log(url);
       const requestParams = {
         method: "GET",
@@ -60,7 +74,7 @@ export default {
       result.map(r => {
         // console.log(r[0].descricao)
         // console.log(r[0])
-        if(r[0] !== undefined){
+        if (r[0] !== undefined) {
 
           const json = r;
 
@@ -80,7 +94,7 @@ export default {
         // dates.push(date);
       });
 
-      commit("SET_DATA_SCALE_SAM", {data: scores });
+      commit("SET_DATA_SCALE_SAM", { data: scores });
 
       // const handleValues = result => {
       //   const scaleParts = [];
@@ -109,7 +123,7 @@ export default {
 
       // commit("SET_PARTS_ARRAY", allParts);
       // //console.log(dataParts )
-      commit("SET_PARTS_SELECTED", {data: scores});
+      commit("SET_PARTS_SELECTED", { data: scores });
       return result;
     }
   }

@@ -8,6 +8,7 @@
       <!-- fim card info user -->
       <div class="col-7">
         <!-- <two-line-chart /> -->
+
         <filter-scale />
       </div>
     </div>
@@ -54,7 +55,7 @@ export default {
             data: []
           }
         ],
-      categories: ["Questão 1", "Questão 2", "Questão 3"]
+        categories: ["Questão 1", "Questão 2", "Questão 3"]
       },
       graphData: [],
       graphCategories: []

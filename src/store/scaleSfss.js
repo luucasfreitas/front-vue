@@ -36,38 +36,22 @@ export default {
   actions: {
     async getScoreScaleSfss({ commit, rootState }, scaleId, nameScale) {
 
-
-      // switch (nameScale) {
-      //   case 'mca':
-      //     scaleId = 7;
-      //     break;
-      //   case 'sfss':
-      //     scaleId = 8;
-      //     break;
-      //   case 'aes':
-      //     scaleId = 9;
-      //     break;
-      //   case 'mbss':
-      //     scaleId = 10;
-      //     break;
-      //   case 'stai':
-      //     scaleId = 11;
-      //     break;
-      //   case 'sam':
-      //     scaleId = 12;
-      //     break;
-
-      //   default:
-      //     break;
-      // }
-
-
+      var urlAtual = window.location.href;
+      var urlClass = new URL(urlAtual);
+      // variaveis de verificação do estímulo
+      let st;
+      var vts = urlClass.searchParams.get("stimulus");
+      if (vts == '1'){
+        st = 1;
+      } else {
+        st = 0;
+      }
       
       const { token, loginId } = rootState.session;
       const { lang } = rootState.lang;
       const { id } = rootState.patients.patientSelected;
       // const {scaleId} = rootState.patients.partsScaleSelected;
-      const url = `${apiConfig.baseUrl}:${apiConfig.port}/scales/${loginId}/${scaleId}/${id}/undefined`;
+      const url = `${apiConfig.baseUrl}:${apiConfig.port}/scales/${loginId}/${scaleId}/${id}/${st}`;
       console.log(url);
       const requestParams = {
         method: "GET",

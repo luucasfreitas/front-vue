@@ -7,7 +7,9 @@
       </div>
       <!-- fim card info user -->
       <div class="col-7">
-        <two-line-chart />
+        <!-- <two-line-chart /> -->
+        <filter-scale />
+
       </div>
     </div>
     <div class="row">
@@ -27,6 +29,8 @@ import CardInfoUser from "../components/cards/cardInfoUser.vue";
 import CardProgressScaleSfss from "../components/cards/cardProgressScaleSfss.vue";
 
 import TwoLineChart from "../components/charts/twoLineChart.vue";
+import FilterScale from "../components/cards/cardFilterScale.vue";
+
 import BarChart from "../components/charts/barChart.vue";
 import CardPart from "../components/cards/cardPart.vue";
 
@@ -86,6 +90,7 @@ export default {
   components: {
     CardInfoUser,
     TwoLineChart,
+    FilterScale,
     BarChart,
     CardPart,
     CardProgressScaleSfss

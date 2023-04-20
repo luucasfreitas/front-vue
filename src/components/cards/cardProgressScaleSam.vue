@@ -4,11 +4,13 @@
         :width="graph_width"
         :height="170">
         <v-card-title class="m0 p0 pl-2">
-            <p style="  font-size: 15px;
-                    font-weight: bold;
-                    font-family: 'Lato';">
+            <p style="  font-size: 25px;
+                        font-weight: bold;
+                        font-family: 'Lato';
+                        margin-left: auto;
+                        margin-right: auto;">
 
-            {{ date }}
+                Manequim de Auto-Avaliação
             </p>
         </v-card-title>
         <v-card-text class="card-progress-scale-text">

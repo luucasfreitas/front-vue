@@ -48,11 +48,8 @@ export default {
 
 
         ...mapGetters("scaleViewStai", ["getScaleParts", "getScalePartsNamesStai"]),
-
         ...mapState("scale", ["partsScaleSelected"]),
         ...mapState("scaleStai", ["partsScaleSelectedStai"]),
-
-
 
     },
     methods: {
@@ -91,9 +88,9 @@ export default {
             this.date = date
         },
         loadDataParts() {
-            console.log('$$$$$$$$$$$$');
+            // console.log('$$$$$$$$$$$$');
             const score = this.partsScaleSelectedStai.data
-            console.log(this);
+            // console.log(this);
             this.data_parts = [
                 { label: this.getScalePartsNamesStai[0], value: score[0] },
                 { label: this.getScalePartsNamesStai[1], value: score[1] },
