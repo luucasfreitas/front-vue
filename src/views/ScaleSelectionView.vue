@@ -16,7 +16,7 @@
         xl="4"
       >
         <v-card
-          min-height="200"
+          min-height="120"
           min-width="210"
           hover
           class="pa-10 mx-16 my-12 rounded-lg"
@@ -124,9 +124,9 @@ export default {
       var html = document.documentElement;
 
       this.pageHeight = Math.max(
-        body.offsetHeight * 0.8,
-        html.clientHeight * 0.8,
-        html.offsetHeight * 0.8
+        body.offsetHeight * 0.5,
+        html.clientHeight * 0.5,
+        html.offsetHeight * 0.5
       );
     }
   }
