@@ -6,8 +6,8 @@
         label="Escolha o estímulo" required>
       </v-select>
       <div class="d-flex flex-column">
-        <v-btn color="success" class="mt-4" block @click="validate">
-          Filtrar
+        <v-btn color="rgb(49, 117, 211)" class="mt-4" block @click="validate">
+         <span style="color: white;">Filtrar</span>
         </v-btn>
       </div>
     </v-form>
