@@ -16,11 +16,6 @@
       <card-progress-scale-mca> </card-progress-scale-mca>
       <!-- <bar-chart/> -->
     </div>
-    <div class="row parts">
-      <div v-for="part in _scaleParts" v-bind:key="part">
-        <card-part :title="part"> </card-part>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -102,18 +97,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.parts {
-  display: flex;
-  flex-direction: row;
-
-  justify-content: space-between;
-  padding-top: 2%;
-
-  div {
-    max-width: 24%;
-    border-radius: 25px !important;
-  }
-}
-</style>

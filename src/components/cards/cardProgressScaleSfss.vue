@@ -33,6 +33,21 @@
                     </span>
             </div>
         </v-card-text>
+        <v-card class="card-total" max-width="400" height="185" width="185" color="#3175D3">
+            <v-card-text class="card-total-text" width="100%">
+
+                <p class="text-h5" style="width: fit-content; color: white;font-size: 36px !important; padding: 10px; ">
+                    Total
+                </p>
+                <div class="row parts">
+                    <div>
+                        <p class="text-h5" style="width: fit-content; color: white; padding: 10px; ">
+                            {{ soma }}
+                        </p>
+                    </div>
+                </div>
+            </v-card-text>
+        </v-card>
     </v-card>
    
 
@@ -91,6 +106,8 @@ export default {
         },
         loadDataParts(){
             const score =  this.partsScaleSelectedSfss.data
+            const soma = score.reduce((acumulado, atual) => acumulado + atual);
+            this.soma = soma;
             this.data_parts = [
                 { label: this.getScalePartsNamesSfss[0], value: score[0] },
                 { label: this.getScalePartsNamesSfss[1], value: score[1] },
@@ -156,4 +173,34 @@ export default {
             }
         }
     }
+
+    .parts {
+    color: #E8E8E8;
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    padding-top: 2%;
+
+    div {
+        max-width: 24%;
+        border-radius: 25px !important;
+    }
+}
+
+.card-total {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px !important;
+}
+
+.card-total-text {
+    justify-content: center;
+
+    margin-left: auto;
+    margin-right: auto;
+}
 </style>

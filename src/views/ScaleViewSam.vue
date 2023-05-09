@@ -16,11 +16,6 @@
       <card-progress-scale-sam> </card-progress-scale-sam>
       <!-- <bar-chart/> -->
     </div>
-    <div class="row parts">
-      <div v-for="part in _scaleParts" v-bind:key="part">
-        <card-part :title="part"> </card-part>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -72,7 +67,7 @@ export default {
     },
     _partsScaleSelected() {
       return this.partsScaleSelectedSam;
-    }
+    },
   },
   methods: {
     ...mapActions("scaleSam", ["getScoreScaleSam"]),
@@ -90,7 +85,6 @@ export default {
     CardInfoUser,
     TwoLineChart,
     FilterScale,
-
     BarChart,
     CardPart,
     CardProgressScaleSam
@@ -101,18 +95,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.parts {
-  display: flex;
-  flex-direction: row;
-
-  justify-content: space-between;
-  padding-top: 2%;
-
-  div {
-    max-width: 24%;
-    border-radius: 25px !important;
-  }
-}
-</style>
